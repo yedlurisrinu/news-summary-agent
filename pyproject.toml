@@ -22,6 +22,8 @@ dependencies = [
     "ruff==0.16.8",
     "uvicorn[standard]>=0.18.3",
     "itsdangerous==2.2.0",
+    "fastmcp==4.1.4",
+    "authlib==1.9.1",
 ]
 
 [dependency-groups]

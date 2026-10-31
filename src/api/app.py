@@ -74,7 +74,7 @@ chat_ui_path = Path(__name__).parent.parent
 @app.get("/login")
 def login() -> FileResponse:
     "Serves the login page"
-    return FileResponse(str(chat_ui_path)+"static/login.html")
+    return FileResponse(str(chat_ui_path)+"/static/login.html")
 
 
 @app.get("/")
