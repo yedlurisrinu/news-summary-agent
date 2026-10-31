@@ -2,7 +2,7 @@
 import os
 from psycopg import Connection
 from psycopg.rows import DictRow, dict_row
-
+from config.application_config import get_config
 def connect_postgres() -> Connection[DictRow]:
     """Open an autocommit Postgres connection for the ``PostgresSaver`` checkpointer.
 
@@ -11,8 +11,8 @@ def connect_postgres() -> Connection[DictRow]:
     returned object is used as a context manager in the FastAPI lifespan.
     """
     return Connection.connect(
-            host=os.environ.get("PG_HOST","localhost"),
-            port=int(os.environ.get("PG_PORT", "5432")),
+            host=get_config("PG_HOST"),
+            port=get_config("PG_PORT"),
             dbname=os.environ["POSTGRES_DB"],
             user=os.environ["POSTGRES_USER"],
             password=os.environ["POSTGRES_PASSWORD"],

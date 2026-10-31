@@ -71,6 +71,12 @@ chat_ui_path = Path(__name__).parent.parent
 """ End point that will render chat ui html for chat interaction, this is context less """
 
 
+@app.get("/login")
+def login() -> FileResponse:
+    "Serves the login page"
+    return FileResponse(str(chat_ui_path)+"static/login.html")
+
+
 @app.get("/")
 def serve_ui() -> FileResponse:
     """Serve the static chat UI (contextless HTML)."""

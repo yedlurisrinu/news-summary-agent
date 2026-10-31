@@ -42,6 +42,6 @@ RUN mkdir -p /app/logs/ && chown -R appuser:appuser /app/logs
 USER appuser
 
 # App listens on 8007
-EXPOSE 8007
+EXPOSE 8003
 
-CMD ["python", "-m", "uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8007", "--log-level", "info"]
+CMD ["python", "-m", "uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8003", "--log-level", "info"]

@@ -1,7 +1,7 @@
 # In container
-# ELASTIC_URL: "http://elasticsearch:9200" 
+ELASTIC_URL: "http://elasticsearch:9200" 
 # On local Host
-ELASTIC_URL: "http://localhost:9200"
+# ELASTIC_URL: "http://localhost:9200"
 request_timeout: 60
 retry_on_timeout: True
 max_retries: 3
@@ -10,7 +10,7 @@ http_compress: True
 connections_per_node: 10
 
 # for local, for docker postgres
-PG_HOST: "localhost"
+PG_HOST: "postgres"
 PG_PORT: 5432
 
 ES_INDEX: news_articles
@@ -44,4 +44,3 @@ SEARCH_QUERY_TEMPLATE:
             query: ""             # filled in code: expanded category terms
             fields: [title]
             boost: 1.5
-
