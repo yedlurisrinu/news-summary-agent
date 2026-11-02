@@ -638,7 +638,7 @@ http://localhost:8000, it communicates to API at this address
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
   }
-
+// TODO need to check what is the difference between apiFetch vs fetch
   // ── Main send handler ──────────────────────────────────
   async function handleSend() {
     if (!sessionActive) return;
@@ -665,6 +665,7 @@ http://localhost:8000, it communicates to API at this address
     showTyping();
 
     try {
+      
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -673,6 +674,10 @@ http://localhost:8000, it communicates to API at this address
 
       hideTyping();
 
+      if(response.status == 401){
+        window.location.assign('/login?error=session_expired')
+      }
+      
       if (!response.ok) {
         const errText = await response.text();
         appendBotMessage(`Error ${response.status}: ${errText || response.statusText}`, true);

@@ -6,6 +6,7 @@
 """
 
 from __future__ import annotations
+import os
 
 from data.news_input import NewsInput
 
@@ -29,12 +30,16 @@ from data.query_failed_response import QueryFailedResponse
 from config.logging_setup import setup_logging
 from config.vault_secrets import load_secrets
 from fastapi import Depends, FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
 from data.query_request import QueryRequest
 from langgraph.graph.state import CompiledStateGraph
 import logging
 from config.application_config import load_config
 from adapters.elasticsearch import get_es_client
+from adapters.vault_session_store import VaultRefreshTokenStore  
+from auth.config import BffConfig
+from config.application_config import get_config
+from auth.discovery import discover_issuer  
+from auth.wiring import install_auth
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -54,12 +59,15 @@ def get_graph(request: Request) -> CompiledStateGraph[Any, None, Any, Any]:
     """FastAPI dependency: return the compiled graph from application state."""
     return cast("CompiledStateGraph[Any, None, Any, Any]", request.app.state.graph)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# BFF login (Thread 04-C Gate 1 step 5): default-deny guard + Keycloak login + sessions.
+# CORS removed: the chat page and the API share one origin (http://news-summary-app:8007).
+
+install_auth(app, BffConfig.load(), 
+             VaultRefreshTokenStore(os.environ["VAULT_ADDR"], 
+                                    os.environ["VAULT_TOKEN"], 
+                                    get_config("APP_VAULT_SESSIONS_PATH")), 
+                                    discover_issuer
+                                    )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -77,7 +85,7 @@ def login() -> FileResponse:
     return FileResponse(str(chat_ui_path)+"/static/login.html")
 
 
-@app.get("/")
+@app.get("/chat")
 def serve_ui() -> FileResponse:
     """Serve the static chat UI (contextless HTML)."""
     return FileResponse(str(chat_ui_path) + "/static/chat-ui.html")

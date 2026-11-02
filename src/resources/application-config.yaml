@@ -1,7 +1,5 @@
-# In container
+# works for both local, docker same now part of /etc/hosts file
 ELASTIC_URL: "http://elasticsearch:9200" 
-# On local Host
-# ELASTIC_URL: "http://localhost:9200"
 request_timeout: 60
 retry_on_timeout: True
 max_retries: 3
@@ -9,7 +7,7 @@ http_compress: True
 # Connection pooling for cloud
 connections_per_node: 10
 
-# for local, for docker postgres
+# works for both local, docker same now part of /etc/hosts file
 PG_HOST: "postgres"
 PG_PORT: 5432
 
@@ -44,3 +42,13 @@ SEARCH_QUERY_TEMPLATE:
             query: ""             # filled in code: expanded category terms
             fields: [title]
             boost: 1.5
+
+MCP_URL: "http://es-mcp-lb:9599/mcp"
+ALLOWED_ISSUER_URL: "http://keycloak:8180/realms/es-mcp"
+BFF_BASE_URL: "http://news-summary-app:8007"
+MCP_WELL_KNOWN_URI: "/.well-known/oauth-protected-resource"
+CIMD_CLIENT_ID: "https://news-cimd-host/clients/news-summary-app-cimd.json"
+SESSION_MAX_AGE_SEC: 36000
+AS_WELL_KNOWN_URL: "/.well-known/openid-configuration"
+APP_VAULT_CONFIG_PATH: NEWS-SUMMARY-APP/CONFIG
+APP_VAULT_SESSIONS_PATH: NEWS-SUMMARY-APP/SESSIONS
