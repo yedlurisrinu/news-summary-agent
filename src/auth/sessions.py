@@ -35,18 +35,21 @@ Refresher = Callable[[str], Awaitable[dict[str, Any]]]
 class LoginRequired(Exception):
     """The session is gone or Keycloak rejected its refresh token: the user must log in again."""
 
+
 class AuthUnavailable(Exception):
-    """ Keycloak or the session store gave no usable answer; the session is kept 
-    """
-def _is_rejection(exc: Exception) ->bool:
+    """Keycloak or the session store gave no usable answer; the session is kept"""
+
+
+def _is_rejection(exc: Exception) -> bool:
     """True only when Keycloak answered and said the refresh token is no longer valid.
-Authlib raises ``OAuthError`` with ``.error == "invalid_grant"`` for that 400 response.
-Duck-typed on ``.error`` so this module stays free of Authlib (the Refresher is a port).
-Anything else - transport errors, 5xx (``HTTPStatusError``), other OAuth errors such as
-``invalid_client`` (a configuration problem a new login would not fix) - is not a
-statement about this session, so it must not delete it.
-"""
-    return getattr(exc,"error", None) == "invalid_grant"
+    Authlib raises ``OAuthError`` with ``.error == "invalid_grant"`` for that 400 response.
+    Duck-typed on ``.error`` so this module stays free of Authlib (the Refresher is a port).
+    Anything else - transport errors, 5xx (``HTTPStatusError``), other OAuth errors such as
+    ``invalid_client`` (a configuration problem a new login would not fix) - is not a
+    statement about this session, so it must not delete it.
+    """
+    return getattr(exc, "error", None) == "invalid_grant"
+
 
 @dataclass
 class _LiveSession:
@@ -55,8 +58,10 @@ class _LiveSession:
     sub: str
     lock: asyncio.Lock = field(default_factory=asyncio.Lock)
 
+
 def _expires_at(token: Mapping[str, Any]) -> float:
     return time.time() + float(token.get("expires_in", 0))
+
 
 class SessionStore:
     def __init__(
@@ -84,9 +89,13 @@ class SessionStore:
         if not refresh_token:
             raise LoginRequired("token response has no refresh_token")
         sid = secrets.token_urlsafe(32)
-        await self._store.save(sid, StoredSession(refresh_token=str(refresh_token), sub=sub))
+        await self._store.save(
+            sid, StoredSession(refresh_token=str(refresh_token), sub=sub)
+        )
         self._live[sid] = _LiveSession(
-            access_token=str(token["access_token"]), expires_at=_expires_at(token), sub=sub
+            access_token=str(token["access_token"]),
+            expires_at=_expires_at(token),
+            sub=sub,
         )
         logger.info("session %s created", self._tag(sid))
         return sid
@@ -109,10 +118,16 @@ class SessionStore:
                 token = await self._refresher(stored.refresh_token)
             except Exception as exc:  # expired SSO session, logged out , revoked
                 if _is_rejection(exc):  # expired SSO session, logged out, revoked
-                    logger.info("session %s not rebuilt: refresh rejected", self._tag(sid))
+                    logger.info(
+                        "session %s not rebuilt: refresh rejected", self._tag(sid)
+                    )
                     await self.drop(sid)
                     return False
-                logger.warning("session %s not rebuilt, Keycloak unavailable: %s", self._tag(sid), type(exc).__name__)
+                logger.warning(
+                    "session %s not rebuilt, Keycloak unavailable: %s",
+                    self._tag(sid),
+                    type(exc).__name__,
+                )
                 raise AuthUnavailable("Keycloak unavailable") from exc
 
             self._live[sid] = _LiveSession(
@@ -144,10 +159,16 @@ class SessionStore:
                 token = await self._refresher(stored.refresh_token)
             except Exception as exc:
                 if _is_rejection(exc):
-                    logger.info("session %s refresh failed: refresh rejected", self._tag(sid))
+                    logger.info(
+                        "session %s refresh failed: refresh rejected", self._tag(sid)
+                    )
                     await self.drop(sid)
                     raise LoginRequired("refresh rejected") from exc
-                logger.warning("session %s refresh unavailable, session kept: %s", self._tag(sid), type(exc).__name__)
+                logger.warning(
+                    "session %s refresh unavailable, session kept: %s",
+                    self._tag(sid),
+                    type(exc).__name__,
+                )
                 raise AuthUnavailable("Keycloak unavailable") from exc
 
             live.access_token = str(token["access_token"])
@@ -157,13 +178,15 @@ class SessionStore:
             return live.access_token
 
     async def _get(self, sid: str) -> StoredSession | None:
-            """Read the refresh token; a store outage is ``AuthUnavailable``, not a logout."""
-            try:
-                return await self._store.get(sid)
-            except Exception as exc:
-                logger.warning("session %s store unavailable: %s", self._tag(sid), type(exc).__name__)
-                raise AuthUnavailable("session store unavailable") from exc
-            
+        """Read the refresh token; a store outage is ``AuthUnavailable``, not a logout."""
+        try:
+            return await self._store.get(sid)
+        except Exception as exc:
+            logger.warning(
+                "session %s store unavailable: %s", self._tag(sid), type(exc).__name__
+            )
+            raise AuthUnavailable("session store unavailable") from exc
+
     def subject(self, sid: str) -> str | None:
         live = self._live.get(sid)
         return live.sub if live else None
@@ -175,11 +198,17 @@ class SessionStore:
         try:
             await self._store.delete(sid)
         except Exception as exc:  # noqa: BLE001 - logged out either way; the entry is orphaned
-            logger.warning("session %s not deleted from the store: %s", self._tag(sid), type(exc).__name__)
+            logger.warning(
+                "session %s not deleted from the store: %s",
+                self._tag(sid),
+                type(exc).__name__,
+            )
 
     async def _save_rotated(
         self, sid: str, stored: StoredSession, token: Mapping[str, Any]
     ) -> None:
         new_refresh = token.get("refresh_token")
         if new_refresh and new_refresh != stored.refresh_token:
-            await self._store.save(sid, StoredSession(refresh_token=str(new_refresh), sub=stored.sub))
+            await self._store.save(
+                sid, StoredSession(refresh_token=str(new_refresh), sub=stored.sub)
+            )

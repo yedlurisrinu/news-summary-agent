@@ -22,7 +22,9 @@ class TestBuildSearchQuery:
         from nodes.search import Search
 
         q = Search._build_search_query("ai news", ["technology", "ai"])
-        assert q["query"]["bool"]["should"][0]["multi_match"]["query"] == "technology ai"
+        assert (
+            q["query"]["bool"]["should"][0]["multi_match"]["query"] == "technology ai"
+        )
 
     def test_should_dropped_when_no_categories(self):
         from nodes.search import Search
@@ -70,7 +72,9 @@ class TestSearchCall:
         es = make_es(search_response={"hits": {"hits": [es_hit]}})
         node = Search(make_llm([""]), es)
 
-        result = node({"query": "ai news", "categories": ["technology"], "fetch_latest": False})
+        result = node(
+            {"query": "ai news", "categories": ["technology"], "fetch_latest": False}
+        )
 
         assert result["article_refs"] == [{"article_id": "a1", "score": 1.23}]
         assert "SEARCH" in result["duration_seconds"]

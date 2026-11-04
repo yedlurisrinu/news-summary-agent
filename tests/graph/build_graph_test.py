@@ -28,7 +28,10 @@ class TestRouters:
     def test_route_after_search_found(self):
         from graph.build_graph import route_after_search
 
-        assert route_after_search({"article_refs": [{"article_id": "a1", "score": 1.0}]}) == "found"
+        assert (
+            route_after_search({"article_refs": [{"article_id": "a1", "score": 1.0}]})
+            == "found"
+        )
 
     def test_route_after_search_empty(self):
         from graph.build_graph import route_after_search

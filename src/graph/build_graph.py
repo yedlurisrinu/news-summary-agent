@@ -1,17 +1,21 @@
 """Graph assembly — wires classify → search → summarize with two guard-rail routers."""
+
+from elasticsearch import AsyncElasticsearch, Elasticsearch
 from langgraph.graph import StateGraph, START, END
 from langchain_core.language_models import BaseChatModel
+from psycopg import AsyncConnection
 from channels.news_state import NewsState
 from channels.summary_result import SummaryResult
 from nodes.classification import ClassifyIntent
-from nodes.search import Search 
+from nodes.search import Search
 from nodes.summary import Summary
 from data.news_input import NewsInput
 from channels.summary_ok import SummaryOk
 from data.seed_data import SeedData
-from langgraph.checkpoint.postgres import PostgresSaver
-from elasticsearch import Elasticsearch
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from langgraph.graph.state import CompiledStateGraph
+from fastmcp.client.transports import StreamableHttpTransport
+from fastmcp import Client
 
 import logging
 
@@ -19,37 +23,56 @@ logger = logging.getLogger(__file__)
 from typing import Any, Literal
 
 
-def reply_off_topic(state: NewsState) -> SummaryResult:
+async def reply_off_topic(state: NewsState) -> SummaryResult:
     """
     User is not allowed to send query that is off the allowed topics, this is the response agents will give
     Guard Rail #1
     """
-    return {"summary": SeedData._OFF_TOPIC_REPLY, "article_hits":[], "duration_seconds":{}}
+    return {
+        "summary": SeedData._OFF_TOPIC_REPLY,
+        "article_hits": [],
+        "duration_seconds": {},
+    }
 
-def reply_no_results(state: NewsState) -> SummaryResult:
+
+async def reply_no_results(state: NewsState) -> SummaryResult:
     """
     User requested query criteria did not yield any news articles to summarize
     Guard Rail #2
     """
-    return {"summary": SeedData._NO_NEWS_FOUND_REPLY, "article_hits": [], "duration_seconds": {}}
+    return {
+        "summary": SeedData._NO_NEWS_FOUND_REPLY,
+        "article_hits": [],
+        "duration_seconds": {},
+    }
 
-def route_after_classify(state: NewsState,) -> Literal["search", "reply_off_topic"]:
+
+async def route_after_classify(
+    state: NewsState,
+) -> Literal["search", "reply_off_topic"]:
     """Router to route to guard rail#1 node or search node - making sure non news related queries are not honored"""
     return "search" if state["is_news_query"] else "reply_off_topic"
 
-def route_after_search(state: NewsState) -> Literal["found", "empty"]:
+
+async def route_after_search(state: NewsState) -> Literal["found", "empty"]:
     """Router to route to guard rail#2 node or summary node - making sure empty news from ES does not trigger LLM call"""
     return "found" if state["article_refs"] else "empty"
 
-def build(saver: PostgresSaver, llm : BaseChatModel, es: Elasticsearch) -> CompiledStateGraph[NewsState, None, NewsInput, SummaryOk]:
+
+async def build(
+    saver: AsyncPostgresSaver,
+    llm: BaseChatModel,
+    es: AsyncElasticsearch,
+    mcp_client: Client[StreamableHttpTransport],
+) -> CompiledStateGraph[NewsState, None, NewsInput, SummaryOk]:
     """
     Building state graph workflow with nodes classify, search, summary, off topic (Guard #1), no result (Guard#2)
     """
     g = StateGraph(NewsState, input_schema=NewsInput, output_schema=SummaryOk)
     nodes: list[tuple[str, Any]] = [
-        ("classify", ClassifyIntent(llm, es)),
-        ("search", Search(llm, es)),
-        ("summarize", Summary(llm, es)),
+        ("classify", ClassifyIntent(llm, es, mcp_client)),
+        ("search", Search(es, mcp_client)),
+        ("summarize", Summary(llm, es, mcp_client)),
         ("reply_off_topic", reply_off_topic),
         ("reply_no_results", reply_no_results),
     ]

@@ -34,15 +34,20 @@ STATE = {
     "duration_seconds": {"CLASSIFY": 0.1, "SEARCH": 0.2},
 }
 
+
 @pytest.fixture()
 def app_module():
     """Import api.app fresh with the external-service startup calls patched out."""
     # The BFF login is tested in tests/auth; here it is switched off so these tests keep
     # exercising the graph endpoints directly (no Vault secret, no Keycloak).
-    with patch("config.vault_secrets.load_secrets"),patch("adapters.elasticsearch.get_es_client"
-    ), patch("auth.wiring.install_auth"), patch("auth.config.BffConfig.load"
-    ),patch("adapters.vault_session_store.VaultRefreshTokenStore"
-    ),patch.dict(os.environ, {"VAULT_ADDR": "x", "VAULT_TOKEN": "x"}):
+    with (
+        patch("config.vault_secrets.load_secrets"),
+        patch("adapters.elasticsearch.get_es_client"),
+        patch("auth.wiring.install_auth"),
+        patch("auth.config.BffConfig.load"),
+        patch("adapters.vault_session_store.VaultRefreshTokenStore"),
+        patch.dict(os.environ, {"VAULT_ADDR": "x", "VAULT_TOKEN": "x"}),
+    ):
         sys.modules.pop("api.app", None)
         import api.app as m
 
@@ -50,16 +55,19 @@ def app_module():
     m.app.dependency_overrides.clear()
     sys.modules.pop("api.app", None)
 
+
 def _client(app_module):
     from fastapi.testclient import TestClient
 
     return TestClient(app_module.app)
+
 
 class TestHealth:
     def test_health_ok(self, app_module):
         resp = _client(app_module).get("/health")
         assert resp.status_code == 200
         assert resp.json() == {"status": "ok"}
+
 
 class TestServeUi:
     def test_returns_file_response(self, app_module):
@@ -68,6 +76,7 @@ class TestServeUi:
         resp = app_module.serve_ui()
         assert isinstance(resp, FileResponse)
         assert resp.path.endswith("chat-ui.html")
+
 
 class TestQueryEndpoint:
     def test_query_success(self, app_module):

@@ -65,7 +65,9 @@ async def auth_callback(request: Request) -> RedirectResponse:
         return _to_login("state_mismatch")
     except OAuthError as exc:
         logger.warning("callback refused: %s", exc.error)
-        return _to_login("access_denied" if exc.error == "access_denied" else "login_failed")
+        return _to_login(
+            "access_denied" if exc.error == "access_denied" else "login_failed"
+        )
     except Exception as exc:
         logger.warning("callback failed: %s", type(exc).__name__)
         return _to_login("login_failed")

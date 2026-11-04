@@ -1,14 +1,18 @@
 """Classification node — detect news intent and categories from the user query."""
+
 import copy
 from typing import Any, cast
 
+from elasticsearch import AsyncElasticsearch
+from fastmcp import Client
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from config.application_config import get_config
+from fastmcp.client.client import CallToolResult
+from mcp_types import TextContent
 from channels.news_state import NewsState
 from channels.category_search_results import CategorySearchResult
 from langchain_core.language_models import BaseChatModel
-from elasticsearch import Elasticsearch
+from fastmcp.client.transports import StreamableHttpTransport
 import time
 import logging
 
@@ -39,6 +43,7 @@ Respond ONLY with valid JSON matching this schema:
     ]
 )
 
+
 class ClassifyIntent:
     """Graph node: classify a user query's news intent and categories.
 
@@ -52,64 +57,74 @@ class ClassifyIntent:
     Tracing: TODO OpenTelemetry (Jaeger) integration.
     """
 
-    def __init__(self, llm: BaseChatModel, es: Elasticsearch):
+    def __init__(
+        self,
+        llm: BaseChatModel,
+        es: AsyncElasticsearch,
+        mcp_client: Client[StreamableHttpTransport],
+    ):
         """Store the shared chat model and Elasticsearch client."""
-        self.llm = llm
-        self.es = es
+        self._llm = llm
+        self._es = es
+        self._mcp_client = mcp_client
 
-    def __call__(self, state: NewsState) -> CategorySearchResult:
+    async def __call__(self, state: NewsState) -> CategorySearchResult:
         """Classify intent; returns early (no ES call) for non-news queries."""
         # make intend call to model and get the response
-        logger.debug(f'classify intent incoming state : {state}')
-        
-        duration_seconds : dict[str, float] = {}
+        logger.debug(f"classify intent incoming state : {state}")
+
+        duration_seconds: dict[str, float] = {}
         llm_start = time.time()
-        chain = _CATEGORY_PROMPT | self.llm | JsonOutputParser()
-        result = chain.invoke({"query": state['query']})
-        llm_end = time.time()
+        chain = _CATEGORY_PROMPT | self._llm | JsonOutputParser()
+        result = await chain.ainvoke({"query": state["query"]})
+        duration_seconds.setdefault("LLM_LATENCY", time.time() - llm_start)
         # check if query for latest news
-        if result.get('is_news_query'):
+        if result.get("is_news_query") and result.get("categories"):
             # make call to es for categories
             es_call_start = time.time()
-            found = self._resolve_categories(result.get('categories'))
-            duration_seconds.setdefault("LLM_LATENCY", llm_end - llm_start)
+            found = await self._resolve_categories(result.get("categories"))
             duration_seconds.setdefault("ES_CALL", time.time() - es_call_start)
-            result['duration_seconds'] = duration_seconds
-            logger.info(f'ClassifyIntent: Categories={result.get('categories')}, Total Found={found}, fetch_latest={result.get('fetch_latest')}, is_news_query={result.get('is_news_query')}')
-        else:
-            result['duration_seconds'] = {"CLASSIFY_LLM_LATENCY": llm_end - llm_start}
+            result["duration_seconds"] = duration_seconds
+            logger.info(
+                f"ClassifyIntent: Categories={result.get('categories')}, Total Found={found}, fetch_latest={result.get('fetch_latest')}, is_news_query={result.get('is_news_query')}"
+            )
 
         return cast(CategorySearchResult, result)
 
-
-    def _resolve_categories(self, categories: list[str]) -> int:
+    async def _resolve_categories(self, categories: list[str]) -> int:
         """
-            Run a terms aggregation on source.keyword to confirm at least one article
-            exists for each requested category.  Falls back to returning the LLM
-            categories as-is if ES has no 'category' field — the search agent will
-            still use them as semantic query hints.
+        Run a terms aggregation on source.keyword to confirm at least one article
+        exists for each requested category.  Falls back to returning the LLM
+        categories as-is if ES has no 'category' field — the search agent will
+        still use them as semantic query hints.
         """
         try:
-            query = category_query(categories)
-            logger.info(f'Query getting executed: {query}')
-            resp = self.es.search(index=get_config("ES_INDEX"),**query)
-            total_hits = int(resp["hits"]["total"]["value"])
+            async with self._mcp_client:
+                tool_result: CallToolResult = await self._mcp_client.call_tool(
+                    "category_search", {"categories": categories}, raise_on_error=False
+                )
+                sc = tool_result.structured_content
+                if tool_result.is_error or sc is None:
+                    block = tool_result.content[0] if tool_result.content else None
+                    logger.error(block.text if isinstance(block, TextContent) else "mcp tool returned an error")
+                    return 0
+                
+                total_hits: int = sc["result"]
+                logger.info(f"Classify result = {total_hits}")
+
             if total_hits == 0:
                 logger.warning(
-                    "No ES documents matched categories %s — proceeding anyway.", categories
+                    "No ES documents matched categories %s — proceeding anyway.",
+                    categories,
                 )
             else:
                 logger.info(
-                    "Category check: %d documents matched for %s", total_hits, categories
+                    "Category check: %d documents matched for %s",
+                    total_hits,
+                    categories,
                 )
             return total_hits
         except Exception:  # noqa: BLE001
-                logger.exception("ES category verification failed skipping check.")
+            logger.exception("ES category verification failed skipping check.")
 
         return 0
-
-def category_query(categories: list[str]) -> Any:
-    """Build a bool-should title-match ES query from the template, one clause per category."""
-    q = copy.deepcopy(get_config("CATEGORY_QUERY"))        # never mutate the loaded template
-    q["query"]["bool"]["should"] = [{"match": {"title": c}} for c in categories]
-    return q

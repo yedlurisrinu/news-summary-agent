@@ -1,89 +1,81 @@
-
 """
 TODO in phase-1 I will be using multi match; embeddings, inference and sematic search will be completed later
 Responsibility:
   Search the news_articles index using Elasticsearch semantic_text queries
-  (inference handled with client-side embedding). 
-  
+  (inference handled with client-side embedding).
+
   When fetch_latest=True, results are filtered to the most recent 7 days
   and sorted by published_at descending before semantic re-ranking.
 
 Technology: Elasticsearch Python client (semantic query), TODO tracing.
 """
 
-import copy
-from typing import Any
-from datetime import datetime, timezone, timedelta
-
-from elastic_transport import ObjectApiResponse
-from channels.article_reference import ArticleReference
+from elasticsearch import AsyncElasticsearch
+from fastmcp import Client
+from fastmcp.client.client import CallToolResult
+from mcp_types import TextContent
 from channels.search_results import SearchResult
 from channels.news_state import NewsState
-from langchain_core.language_models import BaseChatModel
-from elasticsearch import Elasticsearch
-from config.application_config import get_config
+from fastmcp.client.transports import StreamableHttpTransport
 import time
 import logging
 
+from data.news_query import NewsQuery
+from exception.search_unavailable import SearchUnavailable
+
 logger = logging.getLogger(__file__)
+
 
 class Search:
     """Graph node: retrieve candidate article references from Elasticsearch."""
 
-    def __init__(self, llm: BaseChatModel, es: Elasticsearch):
-            """Store the shared chat model and Elasticsearch client."""
-            self.llm = llm
-            self.es = es
+    def __init__(
+        self, es: AsyncElasticsearch, mcp_client: Client[StreamableHttpTransport]
+    ):
+        """Store the shared chat model and Elasticsearch client."""
+        self._mcp_client = mcp_client
+        self._es = es
 
-    def __call__(self, state: NewsState) -> SearchResult:
+    async def __call__(self, state: NewsState) -> SearchResult:
         """Run the multi_match search (optionally filtered to the last 7 days) and return article refs + timing."""
         # Search es with query for the results
         # capture response time
         start = time.time()
-        logger.debug(f'search intent incoming state : {state}')
-        query = Search._build_search_query(state['query'], state['categories'])
-        if state['fetch_latest']:
-            query = Search._append_latest_query(query)
-        logger.info(f'Query : {query}')
+        logger.debug(f"search intent incoming state : {state}")
+
         try:
-            response = self.es.search(index=get_config("ES_INDEX"), **query)
+            async with self._mcp_client:
+                tool_result: CallToolResult = await self._mcp_client.call_tool(
+                    "article_search",
+                    {
+                        "user_query": NewsQuery.model_validate(
+                            {
+                                "query": state["query"],
+                                "categories": state["categories"],
+                                "fetch_latest": state["fetch_latest"],
+                            }
+                        )
+                    },
+                )
+                logger.info(f"Search result = {tool_result}")
+            
+            logger.info(
+                    f"Response from Elasticsearch MCP Server : {tool_result.structured_content}"
+                )
+            sc = tool_result.structured_content
+            if tool_result.is_error or sc is None:
+                block = tool_result.content[0] if tool_result.content else None
+                logger.error(block.text if isinstance(block, TextContent) else "mcp tool returned an error")
+                raise SearchUnavailable(" Search is unavailable at this time, please try after few sec")
+            
+            return {
+                "article_refs": sc["article_refs"],
+                "duration_seconds": {"SEARCH": time.time() - start},
+            }
         except Exception:
-            logger.exception('Exception while searching for articles for query: %s', query)
+            logger.exception(
+                "Exception while searching for articles for query: %s", state["query"]
+            )
             raise
 
-        logger.info(f'Response from Elasticsearch : {response}')
-        return {'article_refs':Search._get_article_refs(response), 'duration_seconds':{"SEARCH": time.time() - start}}
-        
-    @staticmethod
-    def _get_article_refs(response: ObjectApiResponse[Any]) -> list[ArticleReference]:
-        """Extract (article_id, score) references from an ES search response."""
-        article_ref:list[ArticleReference] = []
-        records = response.get('hits', {}).get("hits",[])
-        for record in records:
-            article_ref.append({"article_id":record.get("_source", {}).get("article_id"), "score": record.get("_score")})
-
-        return article_ref
        
-    @staticmethod
-    def _append_latest_query(base: dict[str, Any]) -> dict[str, Any]:
-        """Add a 7-day ``published_at`` range filter and a recency-first sort to the query."""
-        since = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%SZ")
-        base["query"]["bool"]["filter"] = [{"range": {"published_at": {"gte": since}}}]
-        base["sort"] = [
-            {"published_at": {"order": "desc"}},
-            "_score",
-        ]
-        return base
-    
-    @staticmethod
-    def _build_search_query(user_query: str, categories : list[str]) -> Any:
-        """Build the multi_match query from the template; drop the should clause when no categories."""
-        query = copy.deepcopy(get_config("SEARCH_QUERY_TEMPLATE"))                  # never mutate the loaded template
-        base = query["query"]["bool"]
-        base["must"][0]["multi_match"]["query"] = user_query
-        terms = " ".join(c for c in categories)
-        if terms:
-            base["should"][0]["multi_match"]["query"] = terms
-        else:
-            base.pop("should")                                       # no categories → drop the clause
-        return query

@@ -61,7 +61,9 @@ class TestMergeArticleHits:
         from channels.news_state import merge_article_hits
 
         current = [{"title": "A", "source": "S", "published_at": "d", "link": "l"}]
-        merge_article_hits(current, [{"title": "B", "source": "S", "published_at": "d", "link": "l"}])
+        merge_article_hits(
+            current, [{"title": "B", "source": "S", "published_at": "d", "link": "l"}]
+        )
         assert len(current) == 1
 
 

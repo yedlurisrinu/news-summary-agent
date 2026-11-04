@@ -1,5 +1,6 @@
 from typing import TypedDict, Required
 
+
 class CategorySearchResult(TypedDict):
     """Output of the ClassifyIntent node.
 
@@ -10,6 +11,7 @@ class CategorySearchResult(TypedDict):
         general knowledge, opinions, creative writing, coding, math, or personal advice.
     duration_seconds: time spent at key external calls within this node.
     """
+
     categories: list[str]
     fetch_latest: Required[bool]
     is_news_query: Required[bool]

@@ -8,7 +8,7 @@ import logging.config
 logger = logging.getLogger(__file__)
 
 
-def setup_logging(config_file : str ="logging_config.json") -> None:
+def setup_logging(config_file: str = "logging_config.json") -> None:
     """Loads the logging configuration."""
     logger.info("Logging configuration starting.")
     path = str(Path(__file__).resolve().parent.parent)
@@ -20,4 +20,3 @@ def setup_logging(config_file : str ="logging_config.json") -> None:
         logging.basicConfig(level=logging.INFO)
         logger.error(f"Failed to load application logging {fe}", exc_info=True)
     logger.info("Logging configured and application starting.")
-

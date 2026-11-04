@@ -30,7 +30,9 @@ class TestClassifyIntentCall:
     def test_non_news_query_short_circuits(self, make_llm, make_es):
         from nodes.classification import ClassifyIntent
 
-        llm = make_llm(['{"is_news_query": false, "categories": [], "fetch_latest": false}'])
+        llm = make_llm(
+            ['{"is_news_query": false, "categories": [], "fetch_latest": false}']
+        )
         es = make_es()
         node = ClassifyIntent(llm, es)
 
@@ -43,7 +45,11 @@ class TestClassifyIntentCall:
     def test_news_query_resolves_categories_and_times(self, make_llm, make_es):
         from nodes.classification import ClassifyIntent
 
-        llm = make_llm(['{"is_news_query": true, "categories": ["technology"], "fetch_latest": true}'])
+        llm = make_llm(
+            [
+                '{"is_news_query": true, "categories": ["technology"], "fetch_latest": true}'
+            ]
+        )
         es = make_es(search_response={"hits": {"total": {"value": 3}, "hits": []}})
         node = ClassifyIntent(llm, es)
 
@@ -58,7 +64,9 @@ class TestClassifyIntentCall:
     def test_es_failure_is_swallowed(self, make_llm, make_es):
         from nodes.classification import ClassifyIntent
 
-        llm = make_llm(['{"is_news_query": true, "categories": ["sports"], "fetch_latest": false}'])
+        llm = make_llm(
+            ['{"is_news_query": true, "categories": ["sports"], "fetch_latest": false}']
+        )
         es = make_es()
         es.search.side_effect = RuntimeError("ES down")
         node = ClassifyIntent(llm, es)

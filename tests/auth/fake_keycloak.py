@@ -31,7 +31,9 @@ class FakeKeycloak:
     rotate_refresh: bool = False
     expires_in: int = 300
     requests: list[dict[str, Any]] = field(default_factory=list)
-    _key: RSAKey = field(default_factory=lambda: RSAKey.generate_key(2048, parameters={"kid": "k1"}))
+    _key: RSAKey = field(
+        default_factory=lambda: RSAKey.generate_key(2048, parameters={"kid": "k1"})
+    )
     _counter: int = 0
 
     @property
@@ -40,12 +42,18 @@ class FakeKeycloak:
 
     def _handle(self, request: httpx2.Request) -> httpx2.Response:
         url = str(request.url)
-        body = {k: v[0] for k, v in parse_qs(request.content.decode()).items()} if request.content else {}
+        body = (
+            {k: v[0] for k, v in parse_qs(request.content.decode()).items()}
+            if request.content
+            else {}
+        )
         self.requests.append({"method": request.method, "url": url, "body": body})
         if url == f"{self.issuer}/.well-known/openid-configuration":
             return httpx2.Response(200, json=self.metadata())
         if url == f"{self.issuer}/protocol/openid-connect/certs":
-            return httpx2.Response(200, json={"keys": [self._key.as_dict(private=False)]})
+            return httpx2.Response(
+                200, json={"keys": [self._key.as_dict(private=False)]}
+            )
         if url == f"{self.issuer}/protocol/openid-connect/token":
             if body.get("grant_type") == "refresh_token" and self.refresh_outage:
                 return self._outage(request)
@@ -72,20 +80,34 @@ class FakeKeycloak:
     def _token(self, body: dict[str, str]) -> httpx2.Response:
         grant = body.get("grant_type")
         if grant == "refresh_token" and self.refresh_fails:
-            return httpx2.Response(400, json={"error": "invalid_grant", "error_description": "Session not active"})
+            return httpx2.Response(
+                400,
+                json={
+                    "error": "invalid_grant",
+                    "error_description": "Session not active",
+                },
+            )
         self._counter += 1
         now = int(time.time())
         payload: dict[str, Any] = {
             "token_type": "Bearer",
             "access_token": f"access-{self._counter}",
             "expires_in": self.expires_in,
-            "refresh_token": f"refresh-{self._counter}" if (grant != "refresh_token" or self.rotate_refresh) else body["refresh_token"],
+            "refresh_token": f"refresh-{self._counter}"
+            if (grant != "refresh_token" or self.rotate_refresh)
+            else body["refresh_token"],
             "scope": "openid",
         }
         if grant == "authorization_code":
             claims = {
-                "iss": self.issuer, "aud": self.client_id, "sub": "user-123",
-                "iat": now, "exp": now + 300, "nonce": self.nonce,
+                "iss": self.issuer,
+                "aud": self.client_id,
+                "sub": "user-123",
+                "iat": now,
+                "exp": now + 300,
+                "nonce": self.nonce,
             }
-            payload["id_token"] = jwt.encode({"alg": "RS256", "kid": "k1"}, claims, self._key)
+            payload["id_token"] = jwt.encode(
+                {"alg": "RS256", "kid": "k1"}, claims, self._key
+            )
         return httpx2.Response(200, json=payload)

@@ -53,7 +53,9 @@ class TestSummaryCall:
         es = make_es(mget_response={"docs": [es_doc]})
         node = Summary(make_llm(["Here is the grounded summary."]), es)
 
-        result = node({"query": "ai news", "article_refs": [{"article_id": "a1", "score": 1.0}]})
+        result = node(
+            {"query": "ai news", "article_refs": [{"article_id": "a1", "score": 1.0}]}
+        )
 
         assert result["summary"] == "Here is the grounded summary."
         assert result["article_hits"][0]["title"] == "AI Revolutionises Healthcare"

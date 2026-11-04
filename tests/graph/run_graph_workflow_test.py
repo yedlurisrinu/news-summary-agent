@@ -69,7 +69,9 @@ class TestRunGraph:
 
 
 class TestRunGraphIsolation:
-    def test_repeated_same_query_does_not_accumulate(self, make_llm, make_es, es_hit, es_doc):
+    def test_repeated_same_query_does_not_accumulate(
+        self, make_llm, make_es, es_hit, es_doc
+    ):
         """Regression: a fresh uuid4 thread_id per request keeps runs independent.
 
         Under the old sha256(query) thread_id, the second identical query resumed
@@ -82,7 +84,13 @@ class TestRunGraphIsolation:
         from graph.build_graph import build
         from graph.run_graph_workflow import run_graph
 
-        llm = make_llm(['{"is_news_query": true, "categories": ["ai"], "fetch_latest": false}', "summary"] * 3)
+        llm = make_llm(
+            [
+                '{"is_news_query": true, "categories": ["ai"], "fetch_latest": false}',
+                "summary",
+            ]
+            * 3
+        )
         es = make_es(
             search_response={"hits": {"total": {"value": 3}, "hits": [es_hit]}},
             mget_response={"docs": [es_doc]},
@@ -94,4 +102,6 @@ class TestRunGraphIsolation:
 
         assert first.status == "ok" and second.status == "ok"
         assert len(first.articles) == 1
-        assert len(second.articles) == 1  # would be 2 with the old deterministic thread_id
+        assert (
+            len(second.articles) == 1
+        )  # would be 2 with the old deterministic thread_id

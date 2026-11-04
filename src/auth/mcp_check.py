@@ -57,7 +57,11 @@ async def mcp_check(request: Request) -> JSONResponse:
     except LoginRequired:
         return JSONResponse({"error": "login_required"}, status_code=401)
     except AuthUnavailable:
-        return JSONResponse({"error":"auth_unavailable"}, status_code=503, headers={"Retry-After":"30"})
+        return JSONResponse(
+            {"error": "auth_unavailable"},
+            status_code=503,
+            headers={"Retry-After": "30"},
+        )
 
     try:
         client = Client(mcp_url, auth=BearerAuth(access_token))
@@ -74,5 +78,10 @@ async def mcp_check(request: Request) -> JSONResponse:
         return JSONResponse({"error": "mcp_unavailable"}, status_code=502)
 
     return JSONResponse(
-        {"user": sessions.subject(sid), "mcp_url": mcp_url, "tools": names, "call": {CHECK_TOOL: result}}
+        {
+            "user": sessions.subject(sid),
+            "mcp_url": mcp_url,
+            "tools": names,
+            "call": {CHECK_TOOL: result},
+        }
     )

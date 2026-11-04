@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     logger.info(" Application starting in standalone mode")
-    
+
     uvicorn.run(
         "api.app:app",
         host="0.0.0.0",

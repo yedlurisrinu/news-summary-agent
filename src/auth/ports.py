@@ -25,6 +25,7 @@ from typing import Protocol
 @dataclass(frozen=True)
 class StoredSession:
     """What survives an app restart for one session id."""
+
     refresh_token: str
     sub: str
 

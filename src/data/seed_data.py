@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True, slots=True)
 class SeedData:
     """Canned guard-rail replies (off-topic query / no results found)."""
+
     _OFF_TOPIC_REPLY = (
         "I'm a news search assistant and can only help with news-related queries. "
         "Please ask me about topics such as technology, politics, sports, business, "
@@ -13,3 +15,9 @@ class SeedData:
         "I searched for news articles matching your query but couldn't find any relevant results. "
         "Try broadening your search terms or asking about a different topic."
     )
+
+    UNKNOWN_FAILURE = {
+        "summary": "Unable to fetch articles at this time",
+        "article_hits": None,
+        "duration_seconds": 0,
+    }

@@ -1,18 +1,19 @@
 """Summary node — mget full article bodies and produce a grounded, cited LLM summary."""
-from typing import Any
 
-from elastic_transport import ObjectApiResponse
+from fastmcp import Client
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+from fastmcp.client.client import CallToolResult
+from mcp_types import TextContent
 
 from channels.article_hit import ArticleHit
 from channels.summary_result import SummaryResult
 from channels.news_state import NewsState
 from langchain_core.language_models import BaseChatModel
-from elasticsearch import Elasticsearch
+from elasticsearch import AsyncElasticsearch
 import time
 import logging
-from config.application_config import get_config
+from fastmcp.client.transports import StreamableHttpTransport
 
 logger = logging.getLogger(__file__)
 
@@ -37,63 +38,99 @@ Strict grounding rules — you MUST follow these without exception:
 - If the provided articles do not contain enough information to answer the query,
   say so explicitly: state what was found and what remains unanswered.""",
         ),
-        ("human","""USER QUERY: {query} RETRIEVED ARTICLES: {context}
+        (
+            "human",
+            """USER QUERY: {query} RETRIEVED ARTICLES: {context}
 Write the summary:""",
         ),
     ]
 )
 
+
 class Summary:
     """Graph node: fetch article content by id and generate a cited, grounded summary."""
 
-    def __init__(self, llm: BaseChatModel, es: Elasticsearch):
-            """Store the shared chat model and Elasticsearch client."""
-            self.llm = llm
-            self.es = es
+    def __init__(
+        self,
+        llm: BaseChatModel,
+        es: AsyncElasticsearch,
+        mcp_client: Client[StreamableHttpTransport],
+    ):
+        """Store the shared chat model and Elasticsearch client."""
+        self._llm = llm
+        self._es = es
+        self._mcp_client = mcp_client
 
-    def __call__(self, state: NewsState) -> SummaryResult:
+    async def __call__(self, state: NewsState) -> SummaryResult:
         """mget article bodies, build context, invoke the summarization chain; returns summary + hits + timing."""
-        logger.debug(f'summary intent incoming state : {state}')
+        logger.debug(f"summary intent incoming state : {state}")
         duration_seconds: dict[str, float] = {}
         # Get actual content
         MGET_START = time.time()
-        response = self.es.mget(index=get_config("ES_INDEX"), ids=[article['article_id'] for article in state['article_refs']])   
-        duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
-        #build context 
-        SUMMARY_CALL = time.time()
-        context: list[str] = []
-        article_hits : list[ArticleHit] = []
-        context, article_hits = Summary._build_context(response)
-        # call model with news articles
-        chain = _SUMMARY_PROMPT | self.llm | StrOutputParser()
-        # LLM call for summarization
-        summary : str = chain.invoke({"query": state['query'], "context": context})
-        # capture response time
-        duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
-        return {"summary": summary, "article_hits":article_hits, "duration_seconds": duration_seconds}
+        try:
+            async with self._mcp_client:
+                tool_result: CallToolResult = await self._mcp_client.call_tool(
+                    "mget",
+                    {
+                        "ids": [
+                            article["article_id"] for article in state["article_refs"]
+                        ]
+                    },
+                    raise_on_error=False,
+                )
+                sc = tool_result.structured_content
+                if tool_result.is_error or sc is None:
+                    block = tool_result.content[0] if tool_result.content is not None else None
+                    msg = block.text if isinstance(block, TextContent) else "mcp search tool failed"
+                    logger.error(msg)
+                    (duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START),)
+                    return {
+                        "summary": "Unable to fetch articles at this time",
+                        "article_hits": [],
+                        "duration_seconds": duration_seconds,
+                    }
+                
+            duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
+            # build context
+            SUMMARY_CALL = time.time()
+            context: list[str] = []
+            article_hits: list[ArticleHit] = sc["article_hits"]
+            context = await Summary._build_context(article_hits)
+            # call model with news articles
+            chain = _SUMMARY_PROMPT | self._llm | StrOutputParser()
+            # LLM call for summarization
+            summary: str = await chain.ainvoke(
+                {"query": state["query"], "context": context}
+            )
+            # capture response time
+            duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
+            return {
+                "summary": summary,
+                "article_hits": article_hits,
+                "duration_seconds": duration_seconds,
+            }
+        except Exception as e:
+            logger.exception(e)
+            (duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START),)
+            return {
+                "summary": "Unable to fetch articles at this time",
+                "article_hits": [],
+                "duration_seconds": duration_seconds,
+            }
 
     @staticmethod
-    def _build_context(response: ObjectApiResponse[Any]) -> tuple[list[str] , list[ArticleHit]]:
+    async def _build_context(
+        hits: list[ArticleHit],
+    ) -> list[str]:
         """Turn an ES mget response into LLM context blocks and ArticleHit metadata (content truncated to 1000 chars)."""
-        docs = response.get('docs', [])
-        if not docs:
-            return ["No article found for summary"], []
-        # TODO temp for testing
-        blocks : list[str] = []
-        article_hits : list[ArticleHit] = []
-        for i, doc in enumerate(docs):
-             source = doc.get('_source',{})
-             if not source:
-                  continue
-             pub_at = source.get('published_at')[:10] if source.get('published_at') is not None else "date unknown"
-             article_hits.append({"title": source.get('title'), "source": source.get('source'), "published_at": pub_at, "link": source.get('link')})
-             
-             blocks.append(f'Article {i}: \n'
-                           f'title: {source.get('title')}\n'
-                           f'source:{source.get('source')}\n'
-                           f'published at: {pub_at}\n'
-                           f'content: {source.get('content', "")[:1000]}')
+        blocks: list[str] = []
+        for i, hit in enumerate(hits):
+            blocks.append(
+                f"Article {i}: \n"
+                f"title: {hit.get('title')}\n"
+                f"source:{hit.get('source')}\n"
+                f"published at: {hit.get('published_at')}\n"
+                f"content: {hit.get('content', '')}"
+            )
 
-        return blocks, article_hits
-        
-              
+        return blocks

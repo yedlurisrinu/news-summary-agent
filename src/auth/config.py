@@ -26,6 +26,7 @@ from config.application_config import get_config
 
 SESSION_SECRET_ENV = "NEWS_APP_SESSION_SECRET"
 
+
 @dataclass(frozen=True)
 class BffConfig:
     base_url: str

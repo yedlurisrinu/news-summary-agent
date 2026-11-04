@@ -1,0 +1,19 @@
+"CallToolResult(
+content=[TextContent(type='text', text='{\\n  \"article_refs\": [\\n    {\\n      \"article_id\": \"113e815a6f8a8b5957a564ddbd6a30a6\",\\n     
+ \"score\": 4.61827\\n    },\\n    {\\n      \"article_id\": \"a923ed4e2eb5f2afbc7e4779f5218d75\",\\n     
+  \"score\": 6.5470023\\n    },\\n    {\\n      \"article_id\": \"d9bb9d0f1019bcb8eb5819d434d5579f\",\\n     
+   \"score\": 5.4727163\\n    },\\n    {\\n      \"article_id\": \"5f1a1bba1ef3d036a52fa7155537712c\",\\n      
+   \"score\": 14.164783\\n    },\\n    {\\n      \"article_id\": \"3b09a2bed3769d072444775e7277435c\",\\n      
+   \"score\": 10.210418\\n    }\\n  ]\\n}', annotations=None, meta=None)], 
+   structured_content={'article_refs': [{'article_id': '113e815a6f8a8b5957a564ddbd6a30a6', 'score': 4.61827}, 
+   {'article_id': 'a923ed4e2eb5f2afbc7e4779f5218d75', 'score': 6.5470023}, 
+   {'article_id': 'd9bb9d0f1019bcb8eb5819d434d5579f', 'score': 5.4727163}, 
+   {'article_id': '5f1a1bba1ef3d036a52fa7155537712c', 'score': 14.164783}, 
+   {'article_id': '3b09a2bed3769d072444775e7277435c', 'score': 10.210418}]}, 
+   meta={'io.modelcontextprotocol/serverInfo': {'name': 'es-mcp-server', 'version': '1.0'}},
+   data=SearchResult(article_refs=[ArticleReference(article_id='113e815a6f8a8b5957a564ddbd6a30a6', score=4.61827),
+     ArticleReference(article_id='a923ed4e2eb5f2afbc7e4779f5218d75', score=6.5470023),
+      ArticleReference(article_id='d9bb9d0f1019bcb8eb5819d434d5579f', score=5.4727163), 
+      ArticleReference(article_id='5f1a1bba1ef3d036a52fa7155537712c', score=14.164783), 
+      ArticleReference(article_id='3b09a2bed3769d072444775e7277435c', score=10.210418)]), 
+      is_error=False)"

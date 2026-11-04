@@ -9,14 +9,15 @@ Credentials are read from environment variables populated by HashiCorp Vault at 
 
 import os
 from functools import lru_cache
-from elasticsearch import Elasticsearch
+from elasticsearch import AsyncElasticsearch
 from config.application_config import get_config
 # ---------------------------------------------------------------------------
 # Elasticsearch client
 # ---------------------------------------------------------------------------
 
+
 @lru_cache(maxsize=1)
-def get_es_client() -> Elasticsearch:
+def get_es_client() -> AsyncElasticsearch:
     """
     Build and return a cached Elasticsearch client.
     Expects the following env vars (loaded from Vault):
@@ -31,7 +32,7 @@ def get_es_client() -> Elasticsearch:
             "ELASTIC_URL and ELASTIC_READ_API_KEY must be set. "
             "Check that Vault secrets loaded correctly."
         )
-    es = Elasticsearch(
+    es = AsyncElasticsearch(
         elastic_url,
         api_key=api_key,
         request_timeout=int(get_config("request_timeout")),

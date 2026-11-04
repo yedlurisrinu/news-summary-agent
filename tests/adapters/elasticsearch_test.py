@@ -45,7 +45,9 @@ class TestGetEsClient:
         monkeypatch.setenv("ELASTIC_READ_API_KEY", "key")
         instance = MagicMock()
         instance.ping.return_value = True
-        with patch("adapters.elasticsearch.Elasticsearch", return_value=instance) as ctor:
+        with patch(
+            "adapters.elasticsearch.Elasticsearch", return_value=instance
+        ) as ctor:
             from adapters.elasticsearch import get_es_client
 
             first = get_es_client()

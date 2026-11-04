@@ -23,9 +23,8 @@ from typing import Any
 
 from authlib.integrations.httpx_client import AsyncOAuth2Client
 from authlib.integrations.starlette_client import OAuth
-from config.application_config import get_config
 from auth.config import BffConfig
-from auth.ports import DiscoverIssuer
+from auth.auth_server_metadata import AuthServerMetadata
 
 logger = logging.getLogger(__name__)
 
@@ -38,18 +37,18 @@ class KeycloakOAuth:
     def __init__(
         self,
         config: BffConfig,
-        discover: DiscoverIssuer,
+        as_meta: AuthServerMetadata,
         http_transport: Any | None = None,
     ) -> None:
         self._config = config
-        self._discover = discover
+        self._issuer: str | None = None
+        self._as_meta = as_meta
         # Test seam: an httpx2 transport (e.g. MockTransport) used for every Authlib call.
         self._client_kwargs: dict[str, Any] = (
             {"transport": http_transport} if http_transport is not None else {}
         )
         self._oauth = OAuth()
         self._client: Any | None = None
-        self._issuer: str | None = None
         self._lock = asyncio.Lock()
 
     @property
@@ -66,22 +65,20 @@ class KeycloakOAuth:
             return self._client
         async with self._lock:
             if self._client is None:
-                issuer = await self._discover()
-                if issuer != self._config.allowed_issuer:  # defence in depth; discover() checks too
-                    raise ValueError(f"discovered issuer {issuer!r} is not the allowed issuer")
+                meta = await self._as_meta.get()
+                self._issuer = meta["issuer"]
                 self._client = self._oauth.register(
                     name=CLIENT_NAME,
                     client_id=self._config.client_id,
-                    server_metadata_url=f"{issuer}{get_config("AS_WELL_KNOWN_URL")}",
                     client_kwargs={
                         "scope": "openid",
                         "code_challenge_method": "S256",
                         "token_endpoint_auth_method": "none",  # public client (CIMD)
                         **self._client_kwargs,
                     },
+                    **meta,
                 )
-                self._issuer = issuer
-                logger.info("OAuth client registered for issuer %s", issuer)
+                logger.info("OAuth client registered for issuer %s", self._issuer)
         return self._client
 
     async def refresh(self, refresh_token: str) -> dict[str, Any]:
@@ -89,9 +86,7 @@ class KeycloakOAuth:
 
         Raises on any failure (expired SSO session -> invalid_grant, network, ...).
         """
-        client = await self.client()
-        metadata = await client.load_server_metadata()
-        token_endpoint = metadata["token_endpoint"]
+        token_endpoint = await self._as_meta.token_endpoint()
         async with AsyncOAuth2Client(
             client_id=self._config.client_id,
             token_endpoint_auth_method="none",

@@ -13,20 +13,22 @@ from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 
 from auth import mcp_check, routes
+from auth.auth_server_metadata import AuthServerMetadata
 from auth.config import BffConfig
 from auth.guard import AuthGuard
 from auth.oauth import KeycloakOAuth
 from auth.ports import DiscoverIssuer, RefreshTokenStore
 from auth.sessions import SessionStore
 
+
 def install_auth(
     app: FastAPI,
     config: BffConfig,
     store: RefreshTokenStore,
-    discover: DiscoverIssuer,
+    as_meta: AuthServerMetadata,
     http_transport: Any | None = None,
 ) -> None:
-    keycloak = KeycloakOAuth(config, discover, http_transport=http_transport)
+    keycloak = KeycloakOAuth(config, as_meta=as_meta, http_transport=http_transport)
     sessions = SessionStore(store, keycloak.refresh, config.refresh_skew_seconds)
 
     app.state.bff_config = config

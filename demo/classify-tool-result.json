@@ -1,0 +1,1 @@
+"CallToolResult(content=[TextContent(type='text', text='172', annotations=None, meta=None)], structured_content={'result': 172}, meta={'io.modelcontextprotocol/serverInfo': {'name': 'es-mcp-server', 'version': '1.0'}}, data=category_searchOutput(result=172), is_error=False)"

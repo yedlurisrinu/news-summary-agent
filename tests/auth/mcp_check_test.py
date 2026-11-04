@@ -52,8 +52,11 @@ def mcp_server() -> Iterator[tuple[str, list[str]]]:
         server = MCPServer(
             "es-mcp-server-test",
             token_verifier=Verifier(),
-            auth=AuthSettings(issuer_url="http://keycloak:8180/realms/es-mcp",
-                              resource_server_url=url, validate_token_resource=True),
+            auth=AuthSettings(
+                issuer_url="http://keycloak:8180/realms/es-mcp",
+                resource_server_url=url,
+                validate_token_resource=True,
+            ),
         )
 
     @server.tool()
@@ -62,7 +65,9 @@ def mcp_server() -> Iterator[tuple[str, list[str]]]:
         return "success"
 
     app = server.streamable_http_app(stateless_http=True)
-    uv = uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=port, log_level="warning"))
+    uv = uvicorn.Server(
+        uvicorn.Config(app, host="127.0.0.1", port=port, log_level="warning")
+    )
     thread = threading.Thread(target=uv.run, daemon=True)
     thread.start()
     for _ in range(100):
@@ -92,7 +97,9 @@ def test_mcp_check_with_user_token(mcp_server: tuple[str, list[str]]) -> None:
     assert body["tools"] == ["search"]
     assert body["user"] == "user-123"
     assert "success" in str(body["call"]["search"])
-    assert seen and set(seen) == {"access-1"}  # the user's own token reached the MCP server
+    assert seen and set(seen) == {
+        "access-1"
+    }  # the user's own token reached the MCP server
 
 
 def test_mcp_check_requires_login(mcp_server: tuple[str, list[str]]) -> None:
@@ -102,7 +109,9 @@ def test_mcp_check_requires_login(mcp_server: tuple[str, list[str]]) -> None:
     assert seen == []  # nothing reached the MCP server
 
 
-def test_mcp_rejects_token_gives_502_and_keeps_session(mcp_server: tuple[str, list[str]]) -> None:
+def test_mcp_rejects_token_gives_502_and_keeps_session(
+    mcp_server: tuple[str, list[str]],
+) -> None:
     url, _ = mcp_server
     kc, store = FakeKeycloak(), MemoryStore()
     client = _client_for(url, kc, store)

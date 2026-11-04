@@ -37,6 +37,7 @@ UNAVAILABLE_PAGE = (
     "please try again in a moment.</p>"
 )
 
+
 def unavailable(scope: Scope) -> Response:
     """
     503 for an auth back end that gave no answer; the session and cookie are kept.
@@ -45,20 +46,26 @@ def unavailable(scope: Scope) -> Response:
     if is_page_request(scope=scope):
         return HTMLResponse(UNAVAILABLE_PAGE, status_code=503, headers=headers)
     return JSONResponse({"error": "auth_unavailable"}, status_code=503, headers=headers)
-    
+
+
 def is_page_request(scope: Scope) -> bool:
     """True for a browser navigation that expects an HTML page."""
     if scope.get("method") != "GET":
         return False
     headers = Headers(scope=scope)
-    return headers.get("sec-fetch-mode") == "navigate" or "text/html" in headers.get("accept", "")
+    return headers.get("sec-fetch-mode") == "navigate" or "text/html" in headers.get(
+        "accept", ""
+    )
+
 
 def no_store(send: Send) -> Send:
     async def send_no_store(message: Message) -> None:
         if message["type"] == "http.response.start":
             MutableHeaders(scope=message)["cache-control"] = "no-store"
         await send(message)
+
     return send_no_store
+
 
 class AuthGuard:
     def __init__(
@@ -75,7 +82,7 @@ class AuthGuard:
         if scope["type"] != "http" or scope["path"] in self.public_paths:
             await self.app(scope, receive, send)
             return
-        
+
         send = no_store(send)
         session = scope.get("session")
         if session is None:
@@ -86,18 +93,24 @@ class AuthGuard:
             try:
                 await self.sessions.access_token(sid)
             except LoginRequired:
-                session.pop("sid", None) # stale cookie: forget it so the next login starts clean
-            except AuthUnavailable: # Keycloak/Vault down: say so, keep the session (F-E2E6-3)
+                session.pop(
+                    "sid", None
+                )  # stale cookie: forget it so the next login starts clean
+            except (
+                AuthUnavailable
+            ):  # Keycloak/Vault down: say so, keep the session (F-E2E6-3)
                 await unavailable(scope=scope)(scope=scope, receive=receive, send=send)
                 return
             else:
                 await self.app(scope, receive, send)
                 return
- 
+
         if sid:  # stale cookie: forget it so the next login starts clean
             session.pop("sid", None)
         if is_page_request(scope):
-            response: RedirectResponse | JSONResponse = RedirectResponse("/login", status_code=302)
+            response: RedirectResponse | JSONResponse = RedirectResponse(
+                "/login", status_code=302
+            )
         else:
             response = JSONResponse({"error": "login_required"}, status_code=401)
         await response(scope, receive, send)
