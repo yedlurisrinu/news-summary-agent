@@ -10,6 +10,4 @@ __pycache__/
 htmlcov/
 src/learning/thread*
 src/news_summary_agent.egg-info
-src/es-search-mcp/
-src/data/news_query.py
 .vscode/
