@@ -35,7 +35,6 @@ from data.query_request import QueryRequest
 from langgraph.graph.state import CompiledStateGraph
 import logging
 from config.application_config import load_config
-from adapters.elasticsearch import get_es_client
 from adapters.vault_session_store import VaultRefreshTokenStore
 from auth.config import BffConfig
 from config.application_config import get_config
@@ -47,7 +46,6 @@ logger = logging.getLogger(__name__)
 
 load_secrets()
 load_config()
-get_es_client()
 
 from adapters.lifespan import lifespan
 

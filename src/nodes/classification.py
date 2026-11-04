@@ -1,9 +1,7 @@
 """Classification node — detect news intent and categories from the user query."""
 
-import copy
-from typing import Any, cast
+from typing import cast
 
-from elasticsearch import AsyncElasticsearch
 from fastmcp import Client
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -60,12 +58,10 @@ class ClassifyIntent:
     def __init__(
         self,
         llm: BaseChatModel,
-        es: AsyncElasticsearch,
         mcp_client: Client[StreamableHttpTransport],
     ):
         """Store the shared chat model and Elasticsearch client."""
         self._llm = llm
-        self._es = es
         self._mcp_client = mcp_client
 
     async def __call__(self, state: NewsState) -> CategorySearchResult:

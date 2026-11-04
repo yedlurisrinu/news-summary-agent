@@ -1,9 +1,7 @@
 """Graph assembly — wires classify → search → summarize with two guard-rail routers."""
 
-from elasticsearch import AsyncElasticsearch, Elasticsearch
 from langgraph.graph import StateGraph, START, END
 from langchain_core.language_models import BaseChatModel
-from psycopg import AsyncConnection
 from channels.news_state import NewsState
 from channels.summary_result import SummaryResult
 from nodes.classification import ClassifyIntent
@@ -62,7 +60,6 @@ async def route_after_search(state: NewsState) -> Literal["found", "empty"]:
 async def build(
     saver: AsyncPostgresSaver,
     llm: BaseChatModel,
-    es: AsyncElasticsearch,
     mcp_client: Client[StreamableHttpTransport],
 ) -> CompiledStateGraph[NewsState, None, NewsInput, SummaryOk]:
     """
@@ -70,9 +67,9 @@ async def build(
     """
     g = StateGraph(NewsState, input_schema=NewsInput, output_schema=SummaryOk)
     nodes: list[tuple[str, Any]] = [
-        ("classify", ClassifyIntent(llm, es, mcp_client)),
-        ("search", Search(es, mcp_client)),
-        ("summarize", Summary(llm, es, mcp_client)),
+        ("classify", ClassifyIntent(llm, mcp_client)),
+        ("search", Search(mcp_client)),
+        ("summarize", Summary(llm, mcp_client)),
         ("reply_off_topic", reply_off_topic),
         ("reply_no_results", reply_no_results),
     ]

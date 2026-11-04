@@ -8,7 +8,6 @@ from adapters.llm import get_chat_model
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from config.application_config import get_config
 from auth.service_account_token import ServiceAccountTokenProvider
-from adapters.elasticsearch import get_es_client
 from fastmcp import Client
 from auth.service_token_auth import ServiceTokenAuth
 from fastmcp.client.transports import StreamableHttpTransport
@@ -30,8 +29,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     mcp_client = Client(
         StreamableHttpTransport(get_config("MCP_URL"), auth=ServiceTokenAuth(provider))
     )
-    async with await connect_postgres() as pool, get_es_client() as es:
+    async with await connect_postgres() as pool:
         saver = AsyncPostgresSaver(pool)
         await saver.setup()
-        app.state.graph = await build(saver, await get_chat_model(), es, mcp_client)
+        app.state.graph = await build(saver, await get_chat_model(), mcp_client)
         yield

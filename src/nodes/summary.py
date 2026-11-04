@@ -10,7 +10,6 @@ from channels.article_hit import ArticleHit
 from channels.summary_result import SummaryResult
 from channels.news_state import NewsState
 from langchain_core.language_models import BaseChatModel
-from elasticsearch import AsyncElasticsearch
 import time
 import logging
 from fastmcp.client.transports import StreamableHttpTransport
@@ -53,12 +52,10 @@ class Summary:
     def __init__(
         self,
         llm: BaseChatModel,
-        es: AsyncElasticsearch,
         mcp_client: Client[StreamableHttpTransport],
     ):
         """Store the shared chat model and Elasticsearch client."""
         self._llm = llm
-        self._es = es
         self._mcp_client = mcp_client
 
     async def __call__(self, state: NewsState) -> SummaryResult:

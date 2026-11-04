@@ -10,7 +10,6 @@ Responsibility:
 Technology: Elasticsearch Python client (semantic query), TODO tracing.
 """
 
-from elasticsearch import AsyncElasticsearch
 from fastmcp import Client
 from fastmcp.client.client import CallToolResult
 from mcp_types import TextContent
@@ -30,11 +29,10 @@ class Search:
     """Graph node: retrieve candidate article references from Elasticsearch."""
 
     def __init__(
-        self, es: AsyncElasticsearch, mcp_client: Client[StreamableHttpTransport]
+        self,mcp_client: Client[StreamableHttpTransport]
     ):
         """Store the shared chat model and Elasticsearch client."""
         self._mcp_client = mcp_client
-        self._es = es
 
     async def __call__(self, state: NewsState) -> SearchResult:
         """Run the multi_match search (optionally filtered to the last 7 days) and return article refs + timing."""
