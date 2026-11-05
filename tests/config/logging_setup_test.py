@@ -21,9 +21,10 @@ def test_loads_dict_config_from_resources() -> None:
 
 
 def test_missing_file_falls_back_to_basic_config() -> None:
-    with patch("config.logging_setup.logging.basicConfig") as basic, patch(
-        "config.logging_setup.logger"
-    ) as logger:
+    with (
+        patch("config.logging_setup.logging.basicConfig") as basic,
+        patch("config.logging_setup.logger") as logger,
+    ):
         setup_logging("does-not-exist.json")
     basic.assert_called_once_with(level=logging.INFO)
     logger.exception.assert_called_once()

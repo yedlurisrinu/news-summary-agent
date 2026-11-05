@@ -51,7 +51,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     )
     mcp_client = LazyMcpSession(
         Client(
-            StreamableHttpTransport(get_config("MCP_URL"), auth=ServiceTokenAuth(provider)),
+            StreamableHttpTransport(
+                get_config("MCP_URL"), auth=ServiceTokenAuth(provider)
+            ),
             # pinned: skips the per-connection server/discover version probe
             mode=get_config("MCP_PROTOCOL_VERSION"),
         )

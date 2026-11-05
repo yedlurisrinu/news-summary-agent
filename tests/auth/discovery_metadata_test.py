@@ -27,20 +27,28 @@ pytestmark = pytest.mark.anyio
 PRM_URL = "http://es-mcp-lb:9599/.well-known/oauth-protected-resource/mcp"
 
 
-def _patch_prm(monkeypatch: pytest.MonkeyPatch, body: dict[str, Any], seen: list[str]) -> None:
+def _patch_prm(
+    monkeypatch: pytest.MonkeyPatch, body: dict[str, Any], seen: list[str]
+) -> None:
     def handler(request: httpx2.Request) -> httpx2.Response:
         seen.append(str(request.url))
         return httpx2.Response(200, json=body)
 
     monkeypatch.setattr(
-        discovery, "AsyncClient", lambda: httpx2.AsyncClient(transport=httpx2.MockTransport(handler))
+        discovery,
+        "AsyncClient",
+        lambda: httpx2.AsyncClient(transport=httpx2.MockTransport(handler)),
     )
 
 
 class TestDiscoverIssuer:
-    async def test_returns_issuer_from_protected_resource_metadata(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    async def test_returns_issuer_from_protected_resource_metadata(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         seen: list[str] = []
-        _patch_prm(monkeypatch, {"resource": MCP_URL, "authorization_servers": [ISSUER]}, seen)
+        _patch_prm(
+            monkeypatch, {"resource": MCP_URL, "authorization_servers": [ISSUER]}, seen
+        )
         assert await discovery.discover_issuer() == ISSUER
         assert seen == [PRM_URL]
 
@@ -53,7 +61,9 @@ class TestDiscoverIssuer:
         ],
         ids=["resource_mismatch", "issuer_not_allowed", "no_issuer"],
     )
-    async def test_mismatch_raises(self, monkeypatch: pytest.MonkeyPatch, body: dict[str, Any]) -> None:
+    async def test_mismatch_raises(
+        self, monkeypatch: pytest.MonkeyPatch, body: dict[str, Any]
+    ) -> None:
         _patch_prm(monkeypatch, body, [])
         with pytest.raises(ValueError):
             await discovery.discover_issuer()
@@ -71,7 +81,9 @@ class CountingDiscover:
 
 
 def _metadata_requests(kc: FakeKeycloak) -> int:
-    return sum(r["url"].endswith("/.well-known/openid-configuration") for r in kc.requests)
+    return sum(
+        r["url"].endswith("/.well-known/openid-configuration") for r in kc.requests
+    )
 
 
 class TestAuthServerMetadata:
@@ -94,9 +106,14 @@ class TestAuthServerMetadata:
         kc = FakeKeycloak()
 
         def handler(request: httpx2.Request) -> httpx2.Response:
-            return httpx2.Response(200, json={**kc.metadata(), "issuer": "http://keycloak:8180/realms/other"})
+            return httpx2.Response(
+                200,
+                json={**kc.metadata(), "issuer": "http://keycloak:8180/realms/other"},
+            )
 
-        meta = AuthServerMetadata(CountingDiscover(), http_transport=httpx2.MockTransport(handler))
+        meta = AuthServerMetadata(
+            CountingDiscover(), http_transport=httpx2.MockTransport(handler)
+        )
         with pytest.raises(ValueError, match="not same as issuer"):
             await meta.get()
         assert meta._meta is None
@@ -105,7 +122,9 @@ class TestAuthServerMetadata:
         def handler(request: httpx2.Request) -> httpx2.Response:
             return httpx2.Response(200, json={"issuer": ISSUER})  # no endpoints
 
-        meta = AuthServerMetadata(CountingDiscover(), http_transport=httpx2.MockTransport(handler))
+        meta = AuthServerMetadata(
+            CountingDiscover(), http_transport=httpx2.MockTransport(handler)
+        )
         with pytest.raises(ValueError, match="missing"):
             await meta.get()
 
@@ -118,7 +137,9 @@ class TestAuthServerMetadata:
             return httpx2.Response(200, json=kc.metadata())
 
         discover = CountingDiscover()
-        meta = AuthServerMetadata(discover, http_transport=httpx2.MockTransport(handler))
+        meta = AuthServerMetadata(
+            discover, http_transport=httpx2.MockTransport(handler)
+        )
         with pytest.raises(httpx2.HTTPStatusError):
             await meta.get()
         assert (await meta.get())["issuer"] == ISSUER

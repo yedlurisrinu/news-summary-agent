@@ -15,7 +15,9 @@ from exception.search_unavailable import SEARCH_UNAVAILABLE_MESSAGE, SearchUnava
 
 logger = logging.getLogger(__name__)
 
-QUERY_FAILED_MESSAGE = "Unable to process the query at this time, please try again later"
+QUERY_FAILED_MESSAGE = (
+    "Unable to process the query at this time, please try again later"
+)
 
 
 def cfg(tid: str, rl: int) -> RunnableConfig:

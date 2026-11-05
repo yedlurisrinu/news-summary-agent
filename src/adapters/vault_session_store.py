@@ -55,7 +55,9 @@ class VaultRefreshTokenStore:
 
     def _sweep_sync(self, max_age_sec: int) -> int:
         try:
-            listed = self._client.secrets.kv.v2.list_secrets(path=self._path, mount_point="secret")
+            listed = self._client.secrets.kv.v2.list_secrets(
+                path=self._path, mount_point="secret"
+            )
         except InvalidPath:
             return 0  # no sessions stored
         now = datetime.now(UTC)
@@ -67,7 +69,9 @@ class VaultRefreshTokenStore:
                 path=f"{self._path}/{sid}", mount_point="secret"
             )["data"]
             # Vault returns e.g. 2026-11-04T19:28:26.123456789Z (nanoseconds): keep seconds precision
-            updated = datetime.strptime(meta["updated_time"][:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=UTC)
+            updated = datetime.strptime(
+                meta["updated_time"][:19], "%Y-%m-%dT%H:%M:%S"
+            ).replace(tzinfo=UTC)
             if (now - updated).total_seconds() > max_age_sec:
                 self._client.secrets.kv.v2.delete_metadata_and_all_versions(
                     path=f"{self._path}/{sid}", mount_point="secret"

@@ -23,19 +23,33 @@ def _callback_with(client: TestClient, kc: FakeKeycloak, exc: Exception) -> str:
     _login(client, kc)  # discovery + client registration, so keycloak.issuer is known
     registered = client.app.state.keycloak._client  # type: ignore[attr-defined]
     with patch.object(registered, "authorize_access_token", AsyncMock(side_effect=exc)):
-        r = client.get("/auth/callback", params={"code": "c", "state": "s", "iss": ISSUER}, follow_redirects=False)
+        r = client.get(
+            "/auth/callback",
+            params={"code": "c", "state": "s", "iss": ISSUER},
+            follow_redirects=False,
+        )
     assert r.status_code == 302
     return str(r.headers["location"])
 
 
 class TestCallbackErrors:
     def test_keycloak_access_denied(self, client: TestClient, kc: FakeKeycloak) -> None:
-        assert _callback_with(client, kc, OAuthError(error="access_denied")) == "/login?error=access_denied"
+        assert (
+            _callback_with(client, kc, OAuthError(error="access_denied"))
+            == "/login?error=access_denied"
+        )
 
-    def test_other_oauth_error_is_login_failed(self, client: TestClient, kc: FakeKeycloak) -> None:
-        assert _callback_with(client, kc, OAuthError(error="invalid_grant")) == "/login?error=login_failed"
+    def test_other_oauth_error_is_login_failed(
+        self, client: TestClient, kc: FakeKeycloak
+    ) -> None:
+        assert (
+            _callback_with(client, kc, OAuthError(error="invalid_grant"))
+            == "/login?error=login_failed"
+        )
 
-    def test_unexpected_error_is_login_failed(self, client: TestClient, kc: FakeKeycloak) -> None:
+    def test_unexpected_error_is_login_failed(
+        self, client: TestClient, kc: FakeKeycloak
+    ) -> None:
         location = _callback_with(client, kc, RuntimeError("keycloak:8180 exploded"))
         assert location == "/login?error=login_failed"
 
@@ -51,9 +65,14 @@ class TestBffConfigLoad:
         cfg = BffConfig.load()
         assert cfg.base_url == "http://news-summary-app:8007"
         assert cfg.redirect_uri == "http://news-summary-app:8007/auth/callback"
-        assert cfg.mcp_url == "http://es-mcp-lb:9599/mcp" and cfg.session_max_age_sec == 36000
+        assert (
+            cfg.mcp_url == "http://es-mcp-lb:9599/mcp"
+            and cfg.session_max_age_sec == 36000
+        )
 
-    def test_missing_max_age_uses_default(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_missing_max_age_uses_default(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         import config.application_config as app_config
 
         monkeypatch.setenv(SESSION_SECRET_ENV, "s" * 48)
@@ -63,24 +82,58 @@ class TestBffConfigLoad:
 
 class TestCallbackSessionStore:
     def _callback(self, client: TestClient) -> tuple[int, str, bool]:
-        r = client.get("/auth/callback", params={"code": "c", "state": "s", "iss": ISSUER}, follow_redirects=False)
-        return r.status_code, str(r.headers.get("location")), "nsa_session" in r.headers.get("set-cookie", "")
+        r = client.get(
+            "/auth/callback",
+            params={"code": "c", "state": "s", "iss": ISSUER},
+            follow_redirects=False,
+        )
+        return (
+            r.status_code,
+            str(r.headers.get("location")),
+            "nsa_session" in r.headers.get("set-cookie", ""),
+        )
 
-    def test_session_store_down_redirects_to_auth_unavailable(self, client: TestClient, kc: FakeKeycloak, store) -> None:
+    def test_session_store_down_redirects_to_auth_unavailable(
+        self, client: TestClient, kc: FakeKeycloak, store
+    ) -> None:
         _login(client, kc)  # registers the client and learns the issuer
         client.cookies.clear()
-        token = {"access_token": "at", "expires_in": 300, "refresh_token": "rt", "userinfo": {"sub": "u1"}}
+        token = {
+            "access_token": "at",
+            "expires_in": 300,
+            "refresh_token": "rt",
+            "userinfo": {"sub": "u1"},
+        }
         registered = client.app.state.keycloak._client  # type: ignore[attr-defined]
-        with patch.object(registered, "authorize_access_token", AsyncMock(return_value=token)), \
-             patch.object(store, "save", AsyncMock(side_effect=ConnectionError("vault-server:8200 refused"))):
+        with (
+            patch.object(
+                registered, "authorize_access_token", AsyncMock(return_value=token)
+            ),
+            patch.object(
+                store,
+                "save",
+                AsyncMock(side_effect=ConnectionError("vault-server:8200 refused")),
+            ),
+        ):
             status, location, _ = self._callback(client)
         assert (status, location) == (302, "/login?error=auth_unavailable")
-        assert client.get("/chat", headers={"accept": "text/html"}, follow_redirects=False).headers["location"] == "/login"
+        assert (
+            client.get(
+                "/chat", headers={"accept": "text/html"}, follow_redirects=False
+            ).headers["location"]
+            == "/login"
+        )
 
-    def test_token_without_refresh_token_redirects_to_login_failed(self, client: TestClient, kc: FakeKeycloak) -> None:
+    def test_token_without_refresh_token_redirects_to_login_failed(
+        self, client: TestClient, kc: FakeKeycloak
+    ) -> None:
         _login(client, kc)
         client.cookies.clear()
         registered = client.app.state.keycloak._client  # type: ignore[attr-defined]
-        with patch.object(registered, "authorize_access_token", AsyncMock(return_value={"access_token": "at", "expires_in": 300})):
+        with patch.object(
+            registered,
+            "authorize_access_token",
+            AsyncMock(return_value={"access_token": "at", "expires_in": 300}),
+        ):
             status, location, _ = self._callback(client)
         assert (status, location) == (302, "/login?error=login_failed")

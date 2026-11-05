@@ -52,19 +52,29 @@ class TestBuildContext:
 
 
 class TestSummaryCall:
-    async def test_returns_summary_hits_and_timing(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+    async def test_returns_summary_hits_and_timing(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
         out = await Summary(make_llm(["The summary."]), fake_mcp.client())(_state("a1"))
         assert out["summary"] == "The summary."
         assert [h["article_id"] for h in out["article_hits"]] == ["a1"]
         assert set(out["duration_seconds"]) == {"MGET_CAL", "SUMMARY_LLM_CALL"}
         assert fake_mcp.calls == [("mget", {"ids": ["a1"]})]
 
-    async def test_missing_ids_reply_search_unavailable(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
-        out = await Summary(make_llm(["unused"]), fake_mcp.client())(_state("does-not-exist"))
-        assert out["summary"] == SEARCH_UNAVAILABLE_MESSAGE and out["article_hits"] == []
+    async def test_missing_ids_reply_search_unavailable(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
+        out = await Summary(make_llm(["unused"]), fake_mcp.client())(
+            _state("does-not-exist")
+        )
+        assert (
+            out["summary"] == SEARCH_UNAVAILABLE_MESSAGE and out["article_hits"] == []
+        )
         assert "MGET_CAL" in out["duration_seconds"]
 
-    async def test_unexpected_server_crash_reply_has_no_internals(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+    async def test_unexpected_server_crash_reply_has_no_internals(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
         fake_mcp.crash = {"mget"}
         out = await Summary(make_llm(["unused"]), fake_mcp.client())(_state("a1"))
         assert out["summary"] == SEARCH_UNAVAILABLE_MESSAGE
@@ -75,12 +85,21 @@ class TestSummaryCall:
         [
             StubMcpClient(exc=ConnectionError("es-mcp-lb:9599 refused")),
             StubMcpClient(
-                CallToolResult(content=[TextContent(type="text", text="x")], structured_content=None, meta=None, is_error=True)
+                CallToolResult(
+                    content=[TextContent(type="text", text="x")],
+                    structured_content=None,
+                    meta=None,
+                    is_error=True,
+                )
             ),
-            StubMcpClient(CallToolResult(content=[], structured_content=None, meta=None)),
+            StubMcpClient(
+                CallToolResult(content=[], structured_content=None, meta=None)
+            ),
             StubMcpClient(
                 CallToolResult(
-                    content=[ImageContent(type="image", data="AAAA", mimeType="image/png")],
+                    content=[
+                        ImageContent(type="image", data="AAAA", mimeType="image/png")
+                    ],
                     structured_content=None,
                     meta=None,
                 )
@@ -88,7 +107,9 @@ class TestSummaryCall:
         ],
         ids=["transport_error", "is_error", "no_structured_content", "non_text_block"],
     )
-    async def test_mget_failures_reply_search_unavailable(self, make_llm, stub: StubMcpClient) -> None:
+    async def test_mget_failures_reply_search_unavailable(
+        self, make_llm, stub: StubMcpClient
+    ) -> None:
         out = await Summary(make_llm(["unused"]), stub)(_state("a1"))  # type: ignore[arg-type]
         assert out == {
             "summary": SEARCH_UNAVAILABLE_MESSAGE,
@@ -96,7 +117,9 @@ class TestSummaryCall:
             "duration_seconds": {"MGET_CAL": out["duration_seconds"]["MGET_CAL"]},
         }
 
-    async def test_llm_failure_replies_summary_failed(self, fake_mcp: FakeNewsMcp) -> None:
+    async def test_llm_failure_replies_summary_failed(
+        self, fake_mcp: FakeNewsMcp
+    ) -> None:
         def _boom(_: object) -> str:
             raise TimeoutError("openai timed out")
 

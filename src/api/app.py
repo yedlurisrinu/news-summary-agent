@@ -82,6 +82,7 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 # Endpoints
 # ---------------------------------------------------------------------------
 
+
 @app.get("/login")
 def login() -> FileResponse:
     "Serves the login page"
@@ -107,7 +108,10 @@ def health() -> dict[str, str]:
         Field(discriminator="status"),
     ],
     responses={
-        500: {"model": QueryFailedResponse, "description": "Unexpected failure (fixed text)"},
+        500: {
+            "model": QueryFailedResponse,
+            "description": "Unexpected failure (fixed text)",
+        },
         503: {
             "model": QueryFailedResponse,
             "description": "Search (es-mcp-server) unavailable; retry after Retry-After seconds",

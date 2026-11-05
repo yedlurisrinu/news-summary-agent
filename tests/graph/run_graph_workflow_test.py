@@ -31,7 +31,12 @@ FINAL_STATE = {
     "categories": ["technology"],
     "summary": "S",
     "article_hits": [
-        {"title": "T", "link": "https://x", "source": "TechNews", "published_at": "2026-11-01"}
+        {
+            "title": "T",
+            "link": "https://x",
+            "source": "TechNews",
+            "published_at": "2026-11-01",
+        }
     ],
     "duration_seconds": {"LLM_LATENCY": 0.5, "SEARCH": 0.25},
 }
@@ -45,7 +50,10 @@ def _graph(result: object = None, exc: Exception | None = None) -> MagicMock:
 
 class TestRunGraph:
     def test_cfg_sets_thread_id_and_recursion_limit(self) -> None:
-        assert cfg("t1", 10) == {"configurable": {"thread_id": "t1"}, "recursion_limit": 10}
+        assert cfg("t1", 10) == {
+            "configurable": {"thread_id": "t1"},
+            "recursion_limit": 10,
+        }
 
     async def test_success_maps_state_to_response(self) -> None:
         out = await run_graph(NewsInput(query="tech news"), _graph(FINAL_STATE))
@@ -67,11 +75,17 @@ class TestRunGraph:
 
 
 class TestRunGraphIsolation:
-    async def test_repeated_same_query_does_not_accumulate(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
-        news = json.dumps({"is_news_query": True, "categories": ["technology"], "fetch_latest": False})
+    async def test_repeated_same_query_does_not_accumulate(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
+        news = json.dumps(
+            {"is_news_query": True, "categories": ["technology"], "fetch_latest": False}
+        )
         llm = make_llm([news, "summary one", news, "summary two"])
         graph = await build(InMemorySaver(), llm, fake_mcp.client())
         first = await run_graph(NewsInput(query="tech news"), graph)
         second = await run_graph(NewsInput(query="tech news"), graph)
-        assert isinstance(first, QuerySuccessResponse) and isinstance(second, QuerySuccessResponse)
+        assert isinstance(first, QuerySuccessResponse) and isinstance(
+            second, QuerySuccessResponse
+        )
         assert len(first.articles) == len(second.articles) == 1

@@ -79,12 +79,16 @@ class TestServiceAccountTokenProvider:
         assert request.headers["authorization"].startswith("Basic ")
 
     async def test_refetched_once_inside_leeway(self) -> None:
-        endpoint = TokenEndpoint(expires_in=30)  # less than the 60s leeway: always "expiring"
+        endpoint = TokenEndpoint(
+            expires_in=30
+        )  # less than the 60s leeway: always "expiring"
         provider = _provider(endpoint)
         assert await provider.token() == "tok-1"
         assert await provider.token() == "tok-2"
 
-    async def test_refetched_after_expiry(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    async def test_refetched_after_expiry(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         import auth.service_account_token as sat
 
         endpoint = TokenEndpoint(expires_in=300)
@@ -122,7 +126,9 @@ class FakeProvider:
         return f"svc-{len(self.calls)}"
 
 
-def _mcp_client(provider: FakeProvider, statuses: list[int], seen: list[str]) -> httpx2.AsyncClient:
+def _mcp_client(
+    provider: FakeProvider, statuses: list[int], seen: list[str]
+) -> httpx2.AsyncClient:
     def handler(request: httpx2.Request) -> httpx2.Response:
         seen.append(request.headers["authorization"])
         return httpx2.Response(statuses.pop(0))
@@ -144,7 +150,10 @@ class TestServiceTokenAuth:
         provider, seen = FakeProvider(), []
         async with _mcp_client(provider, [401, 200], seen) as http:
             assert (await http.post("http://es-mcp-lb:9599/mcp")).status_code == 200
-        assert seen == ["Bearer svc-1", "Bearer svc-2"] and provider.calls == [False, True]
+        assert seen == ["Bearer svc-1", "Bearer svc-2"] and provider.calls == [
+            False,
+            True,
+        ]
 
     async def test_second_401_is_returned_without_more_retries(self) -> None:
         provider, seen = FakeProvider(), []
@@ -158,4 +167,3 @@ class TestServiceTokenAuth:
         async with _mcp_client(provider, [status], seen) as http:
             assert (await http.post("http://es-mcp-lb:9599/mcp")).status_code == status
         assert len(seen) == 1
-

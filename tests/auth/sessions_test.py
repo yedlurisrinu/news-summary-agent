@@ -38,10 +38,19 @@ class Refresher:
         await asyncio.sleep(0)
         if self.fail is not None:
             raise self.fail
-        return {"access_token": f"at-{self.calls}", "expires_in": 300, "refresh_token": "rt-rotated"}
+        return {
+            "access_token": f"at-{self.calls}",
+            "expires_in": 300,
+            "refresh_token": "rt-rotated",
+        }
 
 
-TOKEN = {"access_token": "at-0", "expires_in": 300, "refresh_token": "rt-0", "userinfo": {"sub": "u1"}}
+TOKEN = {
+    "access_token": "at-0",
+    "expires_in": 300,
+    "refresh_token": "rt-0",
+    "userinfo": {"sub": "u1"},
+}
 
 
 async def test_create_without_refresh_token_is_login_required() -> None:
@@ -88,7 +97,9 @@ async def test_concurrent_rebuilds_refresh_once_and_save_rotation() -> None:
 
 async def test_refresh_token_missing_from_store_is_login_required() -> None:
     store = MemoryStore()
-    sessions = SessionStore(store, Refresher(), refresh_skew_seconds=10_000)  # always "near expiry"
+    sessions = SessionStore(
+        store, Refresher(), refresh_skew_seconds=10_000
+    )  # always "near expiry"
     sid = await sessions.create(TOKEN)
     store.data.clear()  # the stored entry is gone
     with pytest.raises(LoginRequired):

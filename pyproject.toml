@@ -65,6 +65,8 @@ include_namespace_packages = true
 show_missing = true
 skip_empty = true
 fail_under = 90
+# compare to 2 decimals: with the default 0, a total of 89.5-89.99 rounds up to 90 and passes
+precision = 2
 exclude_also = [
     'if __name__ == .__main__.:',
     '^\s*\.\.\.\s*$',

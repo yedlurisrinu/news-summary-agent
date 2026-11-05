@@ -23,9 +23,7 @@ logger = logging.getLogger(__name__)
 class Search:
     """Graph node: retrieve candidate article references through the ``article_search`` MCP tool."""
 
-    def __init__(
-        self,mcp_client: McpToolClient
-    ):
+    def __init__(self, mcp_client: McpToolClient):
         """Store the shared MCP client."""
         self._mcp_client = mcp_client
 
@@ -53,9 +51,7 @@ class Search:
                     raise_on_error=False,
                 )
         except Exception as exc:
-            logger.exception(
-                "article_search call failed for query: %s", state["query"]
-            )
+            logger.exception("article_search call failed for query: %s", state["query"])
             raise SearchUnavailable() from exc
 
         sc = tool_result.structured_content

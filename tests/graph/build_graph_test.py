@@ -23,16 +23,24 @@ from tests.fake_mcp import FakeNewsMcp
 
 pytestmark = pytest.mark.anyio
 
-NEWS = json.dumps({"is_news_query": True, "categories": ["technology"], "fetch_latest": False})
+NEWS = json.dumps(
+    {"is_news_query": True, "categories": ["technology"], "fetch_latest": False}
+)
 NOT_NEWS = json.dumps({"is_news_query": False, "categories": [], "fetch_latest": False})
 
 
 class TestRouters:
     async def test_route_after_classify_news(self) -> None:
-        assert await route_after_classify({"query": "q", "is_news_query": True}) == "search"  # type: ignore[typeddict-item]
+        assert (
+            await route_after_classify({"query": "q", "is_news_query": True})
+            == "search"
+        )  # type: ignore[typeddict-item]
 
     async def test_route_after_classify_off_topic(self) -> None:
-        assert await route_after_classify({"query": "q", "is_news_query": False}) == "reply_off_topic"  # type: ignore[typeddict-item]
+        assert (
+            await route_after_classify({"query": "q", "is_news_query": False})
+            == "reply_off_topic"
+        )  # type: ignore[typeddict-item]
 
     async def test_route_after_search_found(self) -> None:
         state = {"query": "q", "article_refs": [{"article_id": "a1", "score": 1.0}]}
@@ -44,22 +52,34 @@ class TestRouters:
 
 async def _run(llm, fake_mcp: FakeNewsMcp, query: str) -> dict:
     graph = await build(InMemorySaver(), llm, fake_mcp.client())
-    return await graph.ainvoke({"query": query}, {"configurable": {"thread_id": uuid4().hex}})
+    return await graph.ainvoke(
+        {"query": query}, {"configurable": {"thread_id": uuid4().hex}}
+    )
 
 
 class TestEndToEndRouting:
-    async def test_normal_path_produces_summary(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+    async def test_normal_path_produces_summary(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
         out = await _run(make_llm([NEWS, "Grounded summary."]), fake_mcp, "tech news")
         assert out["summary"] == "Grounded summary."
         assert [h["article_id"] for h in out["article_hits"]] == ["a1"]
-        assert [name for name, _ in fake_mcp.calls] == ["category_search", "article_search", "mget"]
+        assert [name for name, _ in fake_mcp.calls] == [
+            "category_search",
+            "article_search",
+            "mget",
+        ]
 
-    async def test_off_topic_hits_guard_rail_1(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+    async def test_off_topic_hits_guard_rail_1(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
         out = await _run(make_llm([NOT_NEWS]), fake_mcp, "write a poem")
         assert out["summary"] == SeedData._OFF_TOPIC_REPLY
         assert out["article_hits"] == [] and fake_mcp.calls == []
 
-    async def test_no_results_hits_guard_rail_2(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+    async def test_no_results_hits_guard_rail_2(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
         fake_mcp.refs = []
         out = await _run(make_llm([NEWS]), fake_mcp, "tech news")
         assert out["summary"] == SeedData._NO_NEWS_FOUND_REPLY

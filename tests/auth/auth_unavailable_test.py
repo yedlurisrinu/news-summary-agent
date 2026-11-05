@@ -60,9 +60,7 @@ class TestAuthUnavailable:  # an outage is not a logout
         kc.refresh_outage = None
         assert client.post("/query", json={}).json() == {"answer": "ok"}
 
-    def test_vault_outage_is_503_and_keeps_session(
-        self, kc: FakeKeycloak
-    ) -> None:
+    def test_vault_outage_is_503_and_keeps_session(self, kc: FakeKeycloak) -> None:
         flaky = FlakyStore()
         client = TestClient(_build(kc, flaky), base_url=BASE)
         kc.expires_in = 10
@@ -74,9 +72,7 @@ class TestAuthUnavailable:  # an outage is not a logout
         flaky.load_down, kc.expires_in = False, 300
         assert client.post("/query", json={}).json() == {"answer": "ok"}
 
-    def test_rejection_with_vault_down_still_logs_out(
-        self, kc: FakeKeycloak
-    ) -> None:
+    def test_rejection_with_vault_down_still_logs_out(self, kc: FakeKeycloak) -> None:
         flaky = FlakyStore()
         client = TestClient(_build(kc, flaky), base_url=BASE)
         kc.expires_in = 10

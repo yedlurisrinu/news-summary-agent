@@ -85,7 +85,9 @@ class Summary:
                 )
         except Exception:
             logger.exception("mget call failed")
-            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START)
+            return Summary._reply(
+                SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START
+            )
 
         sc = tool_result.structured_content
         if tool_result.is_error or sc is None:
@@ -94,7 +96,9 @@ class Summary:
                 "mget returned an error: %r",
                 block.text if isinstance(block, TextContent) else "no text content",
             )
-            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START)
+            return Summary._reply(
+                SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START
+            )
 
         duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
         SUMMARY_CALL = time.time()
@@ -107,7 +111,12 @@ class Summary:
             )
         except Exception:
             logger.exception("summary LLM call failed")
-            return Summary._reply(SUMMARY_FAILED_MESSAGE, duration_seconds, "SUMMARY_LLM_CALL", SUMMARY_CALL)
+            return Summary._reply(
+                SUMMARY_FAILED_MESSAGE,
+                duration_seconds,
+                "SUMMARY_LLM_CALL",
+                SUMMARY_CALL,
+            )
         duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
         return {
             "summary": summary,
@@ -121,7 +130,11 @@ class Summary:
     ) -> SummaryResult:
         """A fixed-text reply with no articles, recording how long the failed step took."""
         duration_seconds.setdefault(step, time.time() - started)
-        return {"summary": text, "article_hits": [], "duration_seconds": duration_seconds}
+        return {
+            "summary": text,
+            "article_hits": [],
+            "duration_seconds": duration_seconds,
+        }
 
     @staticmethod
     async def _build_context(

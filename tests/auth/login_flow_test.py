@@ -108,9 +108,7 @@ class TestGuard:
         assert client.get("/health").status_code == 200
         assert client.get("/login").status_code == 200
 
-    def test_page_without_session_redirects_to_login(
-        self, client: TestClient
-    ) -> None:
+    def test_page_without_session_redirects_to_login(self, client: TestClient) -> None:
         r = client.get("/chat", headers={"accept": "text/html"}, follow_redirects=False)
         assert r.status_code == 302 and r.headers["location"] == "/login"
 

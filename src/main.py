@@ -2,6 +2,7 @@
 
 The Docker image starts uvicorn directly on ``api.app:app`` (see the Dockerfile CMD).
 """
+
 import logging
 
 import uvicorn

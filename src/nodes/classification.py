@@ -101,9 +101,13 @@ class ClassifyIntent:
                 sc = tool_result.structured_content
                 if tool_result.is_error or sc is None:
                     block = tool_result.content[0] if tool_result.content else None
-                    logger.error(block.text if isinstance(block, TextContent) else "mcp tool returned an error")
+                    logger.error(
+                        block.text
+                        if isinstance(block, TextContent)
+                        else "mcp tool returned an error"
+                    )
                     return 0
-                
+
                 total_hits: int = sc["result"]
                 logger.info(f"Classify result = {total_hits}")
 

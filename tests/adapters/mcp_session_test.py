@@ -52,7 +52,9 @@ class FakeClient:
     def is_connected(self) -> bool:
         return self.connected
 
-    async def call_tool(self, name: str, arguments: dict[str, Any], raise_on_error: bool = True) -> CallToolResult:
+    async def call_tool(
+        self, name: str, arguments: dict[str, Any], raise_on_error: bool = True
+    ) -> CallToolResult:
         assert self.connected, "call_tool on a closed connection"
         self.calls += 1
         return RESULT

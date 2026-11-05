@@ -93,9 +93,7 @@ class AuthGuard:
                 session.pop(
                     "sid", None
                 )  # stale cookie: forget it so the next login starts clean
-            except (
-                AuthUnavailable
-            ):  # Keycloak/Vault down: say so, keep the session
+            except AuthUnavailable:  # Keycloak/Vault down: say so, keep the session
                 await unavailable(scope=scope)(scope=scope, receive=receive, send=send)
                 return
             else:

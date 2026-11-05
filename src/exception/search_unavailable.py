@@ -1,4 +1,6 @@
-SEARCH_UNAVAILABLE_MESSAGE = "Search is unavailable at this time, please try again in a few seconds"
+SEARCH_UNAVAILABLE_MESSAGE = (
+    "Search is unavailable at this time, please try again in a few seconds"
+)
 
 
 class SearchUnavailable(Exception):
