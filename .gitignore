@@ -8,3 +8,6 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+src/learning/thread*
+src/news_summary_agent.egg-info
+.vscode/

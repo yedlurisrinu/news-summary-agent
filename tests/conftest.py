@@ -2,146 +2,49 @@
 conftest.py — pytest fixtures shared across all test modules.
 
 Provides:
-  - Stub for py_commons_per so tests run without the private wheel installed.
-  - Common ArticleHit / CategorySearchResult / NewsSearchResult builders.
-  - A reusable mock Elasticsearch client.
+  - A session-wide real application config load (nodes and auth read keys from it).
+  - ``anyio_backend``: async tests run under anyio's pytest plugin
+    (``@pytest.mark.anyio``) on asyncio.
+  - A factory for a fake chat model (FakeListChatModel) and a fake es-mcp-server
+    (see ``tests/fake_mcp.py``), so nodes and the graph run with no external services.
 """
-from __future__ import annotations
 
-import sys
-import types
-from unittest.mock import MagicMock, patch
+from __future__ import annotations
 
 import pytest
 
-
-# ---------------------------------------------------------------------------
-# Stub the private wheel (py_commons_per) before any app module is imported
-# ---------------------------------------------------------------------------
-
-def _make_py_commons_stub() -> None:
-    """Insert a minimal stub so imports of py_commons_per don't fail."""
-    pkg = types.ModuleType("py_commons_per")
-    pkg.logging_setup = types.ModuleType("py_commons_per.logging_setup")
-    pkg.logging_setup.setup_logging = MagicMock()
-    pkg.vault_secret_loader = types.ModuleType("py_commons_per.vault_secret_loader")
-    pkg.vault_secret_loader.load_secrets = MagicMock()
-
-    sys.modules["py_commons_per"] = pkg
-    sys.modules["py_commons_per.logging_setup"] = pkg.logging_setup
-    sys.modules["py_commons_per.vault_secret_loader"] = pkg.vault_secret_loader
+from tests.fake_mcp import FakeNewsMcp
 
 
-_make_py_commons_stub()
+@pytest.fixture(scope="session", autouse=True)
+def _load_app_config():
+    """Load the real resources/application-config.yaml once for the whole test session."""
+    from config.application_config import load_config
 
-
-# Note: langsmith IS installed in the venv (langsmith==0.1.120) so no stub is
-# needed.  The @traceable decorator will be a no-op in tests because
-# LANGCHAIN_TRACING_V2 is not set in the test environment.
-
-
-# ---------------------------------------------------------------------------
-# Shared fixtures
-# ---------------------------------------------------------------------------
-
-@pytest.fixture()
-def sample_article_hit():
-    """Return a single populated ArticleHit."""
-    from agents.base import ArticleHit
-    return ArticleHit(
-        article_id="abc-123",
-        title="AI Revolutionises Healthcare",
-        content="Artificial intelligence is transforming how doctors diagnose diseases.",
-        source="TechNews",
-        published_at="2026-03-28T10:00:00Z",
-        link="https://technews.example.com/ai-health",
-        score=1.42,
-    )
+    load_config()
 
 
 @pytest.fixture()
-def sample_articles(sample_article_hit):
-    """Return a small list of ArticleHit objects."""
-    from agents.base import ArticleHit
-    second = ArticleHit(
-        article_id="def-456",
-        title="Global Markets Rally on Trade News",
-        content="Stock markets surged worldwide following positive trade developments.",
-        source="FinanceDaily",
-        published_at="2026-03-27T08:30:00Z",
-        link="https://financedaily.example.com/markets",
-        score=1.10,
-    )
-    return [sample_article_hit, second]
+def anyio_backend() -> str:
+    return "asyncio"
 
 
 @pytest.fixture()
-def category_result():
-    """Return a CategorySearchResult for technology topics."""
-    from agents.base import CategorySearchResult
-    return CategorySearchResult(
-        categories=["technology", "ai"], fetch_latest=False, is_news_query=True
-    )
+def make_llm():
+    """Return a factory building a FakeListChatModel from canned responses.
 
-
-@pytest.fixture()
-def category_result_latest():
-    """Return a CategorySearchResult with fetch_latest=True."""
-    from agents.base import CategorySearchResult
-    return CategorySearchResult(
-        categories=["technology"], fetch_latest=True, is_news_query=True
-    )
-
-
-@pytest.fixture()
-def off_topic_category_result():
-    """Return a CategorySearchResult flagged as non-news."""
-    from agents.base import CategorySearchResult
-    return CategorySearchResult(
-        categories=[], fetch_latest=False, is_news_query=False
-    )
-
-
-@pytest.fixture()
-def news_search_result(sample_articles):
-    """Return a NewsSearchResult wrapping sample_articles."""
-    from agents.base import NewsSearchResult
-    return NewsSearchResult(articles=sample_articles, query_used="latest AI news")
-
-
-@pytest.fixture()
-def empty_search_result():
-    """Return a NewsSearchResult with no articles."""
-    from agents.base import NewsSearchResult
-    return NewsSearchResult(articles=[], query_used="obscure topic")
-
-
-@pytest.fixture()
-def mock_es_client():
-    """Return a MagicMock that mimics the Elasticsearch client."""
-    client = MagicMock()
-    client.ping.return_value = True
-    return client
-
-
-@pytest.fixture()
-def es_search_response(sample_articles):
+    The fake model is a real Runnable, so ``prompt | llm | parser`` works; it
+    cycles through ``responses`` in order (JSON for classify, prose for summary).
     """
-    Return a dict that looks like an ES search response containing
-    two article hits.
-    """
-    hits = []
-    for art in sample_articles:
-        hits.append({
-            "_id": art.article_id,
-            "_score": art.score,
-            "_source": {
-                "article_id": art.article_id,
-                "title": art.title,
-                "content": art.content,
-                "source": art.source,
-                "published_at": art.published_at,
-                "link": art.link,
-            },
-        })
-    return {"hits": {"total": {"value": len(hits)}, "hits": hits}}
+    from langchain_core.language_models.fake_chat_models import FakeListChatModel
+
+    def _make(responses: list[str]):
+        return FakeListChatModel(responses=responses)
+
+    return _make
+
+
+@pytest.fixture()
+def fake_mcp() -> FakeNewsMcp:
+    """An in-memory es-mcp-server stand-in; use ``fake_mcp.client()`` for the nodes."""
+    return FakeNewsMcp()

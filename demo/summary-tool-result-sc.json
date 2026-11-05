@@ -1,0 +1,48 @@
+{
+  "result": {
+    "article_hits": [
+      {
+        "article_id": "5f1a1bba1ef3d036a52fa7155537712c",
+        "content": "In Brief Posted: 8:04 AM PST · November 3, 2026 Image Credits: Ethan Miller / Getty Images Zack Whittaker New York City’s Mamdani criticizes Madison Square Garden owner over surveillance tech Mayor of New York City Zohran Mamdani has criticized the owner of Madison Square Garden, one of the city’s largest entertainment venues, arguing that the company’s surveillance technology should not be allowed. Mamdani told Wired in an interview on Tuesday that surveillance technologies are “indicative of much that is wrong in our country today.” He added that City Council member Shahana Hanif introduced two pieces of local legislation aimed at banning the collection of biometric data , such as using facial recognition, in public places across the city. Mamdani said that the draft legislation is “an important response to this kind of an issue.” The comments come after a stream of reporting from Wired detailing how Madison Square Garden’s owner James Dolan relies on surveillance cameras and face-sc",
+        "link": "https://techcrunch.com/2026/11/03/new-york-citys-mamdani-criticizes-madison-square-garden-owner-over-surveillance-tech/",
+        "published_at": "2026-11-03T16:04:55+00:00",
+        "source": "TechCrunch",
+        "title": "New York City’s Mamdani criticizes Madison Square Garden owner over surveillance tech"
+      },
+      {
+        "article_id": "3b09a2bed3769d072444775e7277435c",
+        "content": "Molly Higgins Gear Oct 13, 2026 1:00 AM Top Newegg Promo Codes and Coupons for November 2026 Enjoy up to 10% off your entire order with today’s Newegg promo code and discount codes. Save with the latest deals for gaming PCs, laptops, and computer parts. Save Story Save this story Save Story Save this story Listen up, nerds. Newegg currently has promo codes and deals on gently used, refurbished, new, and hard-to-find electronics, gaming products, and more. Newegg has remained one of the biggest online-only retailers in the US for the last 20 years. It is a leading global online retailer for PC hardware, home appliances, and all things tech, and it also provides support for businesses’ e-commerce needs. In the last decade, Newegg has expanded its online retail presence, selling everything from PC parts to refurbished vacuum cleaners. Whether you’re looking to build your own PC or just upgrade your laptop , Newegg has something for every type of tech lover. Plus, WIRED has found several N",
+        "link": "https://www.wired.com/story/newegg-promo-code/",
+        "published_at": "2026-11-03T06:00:00+00:00",
+        "source": "Wired",
+        "title": "Newegg Promo Codes and Coupons for November 2026"
+      },
+      {
+        "article_id": "a923ed4e2eb5f2afbc7e4779f5218d75",
+        "content": "In Brief Posted: 11:34 AM PST · November 3, 2026 Image Credits: monsitj / Getty Images Marina Temkin AI inference startup Fal doubles its valuation to $16B as demand surges Fal , a San Francisco-based startup that hosts and runs AI video, image, and audio models, has raised $1.3 billion in its latest funding round led by Bessemer Venture Partners, with participation from Nvidia, Sound Ventures, and T. Rowe Price. The deal values Fal at $16 billion, double its $8 billion valuation in April, Bloomberg reported . The startup announced its Series E & F rounds at the same time, noting that a combined $1.65 billion was raised across both. (Sequoia led the earlier round.) The latest round (Series F) comes amid soaring demand for inference services, the process of running an AI model that’s already been trained to generate outputs, particularly from customers relying on open-source models. Fal surpassed $800 million in annualized revenue earlier this year, Bloomberg’s report noted. Companies p",
+        "link": "https://techcrunch.com/2026/11/03/ai-inference-startup-fal-doubles-its-valuation-to-16b-as-demand-surges/",
+        "published_at": "2026-11-03T19:34:43+00:00",
+        "source": "TechCrunch",
+        "title": "AI inference startup Fal doubles its valuation to $16B as demand surges"
+      },
+      {
+        "article_id": "d9bb9d0f1019bcb8eb5819d434d5579f",
+        "content": "There’s a lot of mystery around the finances of major AI labs, and as Anthropic inches towards its IPO, we’re starting to get some answers. In particular, the company is finally disclosing more about the economics of compute, and how much it of Anthropic’s skyrocketing revenue is being lost to compute costs. In a new filing on Monday , Anthropic released data that showed those margins on compute actually getting worse. The filing was an update to the S-1 released last week — but where that filing’s financial disclosures only covered through June 30th of this year, the new data extended to disclose results through an extra quarter, to September 30th. Broadly, Anthropic had a good quarter: revenue reached $17 billion, up from $11.5 billion in the previous quarter, suggesting durable growth. But the operating loss grew at the same time, thanks in large part to growing compute costs. Looking at the compute margins makes the picture even worse. In the new quarter, compute took up 58% of the",
+        "link": "https://techcrunch.com/2026/11/03/anthropic-is-still-grappling-with-the-economics-of-compute/",
+        "published_at": "2026-11-03T17:07:01+00:00",
+        "source": "TechCrunch",
+        "title": "Anthropic is still grappling with the economics of compute"
+      },
+      {
+        "article_id": "113e815a6f8a8b5957a564ddbd6a30a6",
+        "content": "Crypto giant Binance says North Korean hackers used fake social media profiles and the lure of a potential job offer as part of a months-long scheme aimed at tricking an employee into downloading malicious software onto their laptop. Researchers have repeatedly warned about long-running social engineering attacks that can go on for months. This latest attack allowed the hackers to patiently worm their way into Binance’s systems to steal a record $6.3 billion in crypto last week, the company has now confirmed. The hack, disclosed in an updated statement posted on X on Tuesday, prompted the world’s largest crypto exchange to suspend customer withdrawals across its network. The FBI and blockchain investigators have blamed North Korea for the heist. The country has been long accused of carrying out massive cryptocurrency thefts in recent years to fund its internationally sanctioned nuclear weapons program. In its latest statement, Binance said that North Korean hackers, posing as recruiter",
+        "link": "https://techcrunch.com/2026/11/03/researchers-warned-of-north-korean-hacking-tactics-years-before-record-6-3b-binance-heist/",
+        "published_at": "2026-11-03T19:45:48+00:00",
+        "source": "TechCrunch",
+        "title": "Researchers warned of North Korean hacking tactics years before record $6.3B Binance heist"
+      }
+    ],
+    "content_length": 1000,
+    "truncated": true
+  }
+}

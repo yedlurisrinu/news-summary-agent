@@ -453,7 +453,7 @@ http://localhost:8000, it communicates to API at this address
 
 <script>
   // ── State ──────────────────────────────────────────────
-  const API_URL = 'http://127.0.0.1:8003/query';
+  const API_URL = '/query';
   let sessionActive = true;
   let messageCount  = 0;
 
@@ -638,7 +638,7 @@ http://localhost:8000, it communicates to API at this address
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
   }
-
+// TODO need to check what is the difference between apiFetch vs fetch
   // ── Main send handler ──────────────────────────────────
   async function handleSend() {
     if (!sessionActive) return;
@@ -665,6 +665,7 @@ http://localhost:8000, it communicates to API at this address
     showTyping();
 
     try {
+      
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -673,9 +674,19 @@ http://localhost:8000, it communicates to API at this address
 
       hideTyping();
 
+      if (response.status === 401) {
+        window.location.assign('/login?error=session_expired');
+        return;
+      }
+
       if (!response.ok) {
-        const errText = await response.text();
-        appendBotMessage(`Error ${response.status}: ${errText || response.statusText}`, true);
+        // Failures carry a JSON body with fixed, user-safe text in `error`
+        let message = response.statusText;
+        try {
+          const body = await response.json();
+          message = body.error || message;
+        } catch (_) { /* non-JSON error body: keep the status text */ }
+        appendBotMessage(message, true);
       } else {
         const data = await response.json();
         appendBotMessage(data);

@@ -8,26 +8,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies first (layer caching)
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+# uv binary, pinned
+COPY --from=ghcr.io/astral-sh/uv:0.11.7 /uv /usr/local/bin/uv
 
-# Always fresh — local packages
-COPY requirements_locales.txt .
-RUN pip install --no-cache-dir -r requirements_locales.txt
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PROJECT_ENVIRONMENT=/app/.venv
+
+# Install dependencies first (layer caching): only the manifest and lock
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
 
 # ── Stage 2: Runtime ──────────────────────────────────────
 FROM python:3.12-slim AS runtime
 
-# Copy installed packages from builder
-COPY --from=builder /usr/local/lib/python3.12/site-packages \
-                    /usr/local/lib/python3.12/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+WORKDIR /app
+COPY --from=builder /app/.venv /app/.venv
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy source code and static files
 COPY src/ ./src/
-COPY . .
 COPY static/ ./static/
 
 # Set PYTHONPATH so imports resolve cleanly
@@ -40,7 +41,7 @@ RUN mkdir -p /app/logs/ && chown -R appuser:appuser /app/logs
 
 USER appuser
 
-# App listens on 8003
-EXPOSE 8003
+# App listens on 8007
+EXPOSE 8007
 
-CMD ["python", "-m", "uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8003", "--log-level", "info"]
+CMD ["python", "-m", "uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8007", "--log-level", "info"]

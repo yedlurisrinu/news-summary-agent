@@ -1,132 +1,142 @@
+"""FastAPI application (port 8007): the news-summary workflow behind a BFF login.
+
+Endpoints:
+  POST /query    — run the classify → search → summarize workflow for one query
+  GET  /chat     — chat UI (static/chat-ui.html)
+  GET  /login    — login page (static/login.html)
+  GET  /health   — liveness probe (public)
+  /auth/login, /auth/callback — Keycloak login (see auth/routes.py)
+
+Every path except /login, /auth/login, /auth/callback and /health requires a session
+(``DEFAULT_PUBLIC_PATHS`` in auth/guard.py).
 """
-@Author: Srini Yedluri
-@Date: 3/27/26
-@Time: 11:57 AM
-@File: app.py
-"""
+
 from __future__ import annotations
 
+import logging
+import os
 from pathlib import Path
+from typing import Annotated, Any, cast
 
+from fastapi import Depends, FastAPI, Request, Response
+from langgraph.graph.state import CompiledStateGraph
+from pydantic import Field
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
-"""
-api/app.py
-
-FastAPI application — listens on port 8003.
-
-Endpoints:
-  POST /query    — run the full multi-agent pipeline
-  GET  /health   — liveness probe
-  GET  /ready    — readiness probe (pings Elasticsearch)
-"""
-
-from py_commons_per.logging_setup import setup_logging
-from py_commons_per.vault_secret_loader import load_secrets
-from fastapi import FastAPI, HTTPException, status
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-from agents.manager_agent import run_manager_agent
-import logging
+from adapters.vault_session_store import VaultRefreshTokenStore
+from auth.auth_server_metadata import AuthServerMetadata
+from auth.config import BffConfig
+from auth.discovery import discover_issuer
+from auth.guard import RETRY_AFTER_SECONDS
+from auth.wiring import install_auth
+from config.application_config import get_config, load_config
+from config.logging_setup import setup_logging
+from config.vault_secrets import load_secrets
+from data.news_input import NewsInput
+from data.query_failed_response import QueryFailedResponse
+from data.query_request import QueryRequest
+from data.query_success_response import QuerySuccessResponse
+from graph.run_graph_workflow import run_graph
 
 setup_logging()
-load_secrets()
-
 logger = logging.getLogger(__name__)
 
+load_secrets()
+load_config()
+
+from adapters.lifespan import lifespan
+
 app = FastAPI(
-    title="News Summary RAG",
-    description="Multi-agent pipeline: Category Search → Semantic Search → Summarise",
+    title="News Summary Workflow",
+    description="News summary workflow: classify the query → search articles (es-mcp-server) → summarize with citations",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+
+def get_graph(request: Request) -> CompiledStateGraph[Any, None, Any, Any]:
+    """FastAPI dependency: return the compiled graph from application state."""
+    return cast("CompiledStateGraph[Any, None, Any, Any]", request.app.state.graph)
+
+
+as_meta = AuthServerMetadata(discover_issuer)
+app.state.as_meta = as_meta
+
+# BFF login: default-deny guard + Keycloak login + server-side sessions (tokens never reach the browser).
+# CORS removed: the chat page and the API share one origin (http://news-summary-app:8007).
+
+session_store = VaultRefreshTokenStore(
+    os.environ["VAULT_ADDR"],
+    os.environ["VAULT_TOKEN"],
+    get_config("APP_VAULT_SESSIONS_PATH"),
 )
+app.state.session_store = session_store  # the lifespan sweeps expired entries from it
+install_auth(app, BffConfig.load(), session_store, as_meta)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# ---------------------------------------------------------------------------
-# Request / Response schemas
-# ---------------------------------------------------------------------------
-
-class QueryRequest(BaseModel):
-    query: str = Field(..., min_length=3, description="Natural language news query")
-
-
-class ArticleOut(BaseModel):
-    title: str
-    link: str
-    source: str
-    published_at: str
-
-class QueryResponse(BaseModel):
-    query: str
-    categories: list[str]
-    summary: str
-    articles: list[ArticleOut]
-    duration_seconds: float
-    error: str | None = None
+# static/ sits at the repo root, next to src/
+STATIC_DIR = Path(__file__).resolve().parent.parent.parent / "static"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
-chat_ui_path = Path(__name__).parent.parent
 
-""" End point that will render chat ui html for chat interaction, this is context less """
-@app.get("/")
-def serve_ui():
-    return FileResponse(str(chat_ui_path)+"/static/chat-ui.html")
+
+@app.get("/login")
+def login() -> FileResponse:
+    "Serves the login page"
+    return FileResponse(STATIC_DIR / "login.html")
+
+
+@app.get("/chat")
+def serve_ui() -> FileResponse:
+    """Serve the static chat UI (contextless HTML)."""
+    return FileResponse(STATIC_DIR / "chat-ui.html")
+
 
 @app.get("/health", tags=["Ops"])
-async def health() -> dict:
+def health() -> dict[str, str]:
+    """Liveness probe."""
     return {"status": "ok"}
 
 
-@app.get("/ready", tags=["Ops"])
-async def ready() -> dict:
-    """Ping Elasticsearch to confirm the app is ready to serve traffic."""
-    from agents.base import get_es_client
-    try:
-        es = get_es_client()
-        if not es.ping():
-            raise RuntimeError("ping returned False")
-    except Exception as exc:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Elasticsearch not reachable: {exc}",
-        ) from exc
-    return {"status": "ready"}
-
-
-@app.post("/query", response_model=QueryResponse, tags=["Pipeline"])
-async def query(request: QueryRequest) -> QueryResponse:
+@app.post(
+    "/query",
+    response_model=Annotated[
+        QuerySuccessResponse | QueryFailedResponse,
+        Field(discriminator="status"),
+    ],
+    responses={
+        500: {
+            "model": QueryFailedResponse,
+            "description": "Unexpected failure (fixed text)",
+        },
+        503: {
+            "model": QueryFailedResponse,
+            "description": "Search (es-mcp-server) unavailable; retry after Retry-After seconds",
+        },
+    },
+    tags=["Pipeline"],
+)
+async def query(
+    request: QueryRequest,
+    graph: Annotated[CompiledStateGraph[Any, None, Any, Any], Depends(get_graph)],
+    http_response: Response,
+) -> QuerySuccessResponse | QueryFailedResponse:
     """
-    Run the full multi-agent news RAG pipeline.
+    Run the workflow for one query: articles come from es-mcp-server's MCP tools, the summary from the LLM.
 
-    Flow:
-      1. CategorySearchAgent  — identifies topic categories from the query
-      2. NewsSearchAgent      — semantic search in Elasticsearch
-      3. SummaryAgent         — gpt-4o-mini summarization
+    200 with ``status: ok`` on success; on failure the body is a ``QueryFailedResponse`` and the
+    HTTP status is its ``error_code`` (503 + Retry-After when search is unavailable, else 500).
     """
     logger.info("POST /query  query=%r", request.query)
-    result = run_manager_agent(request.query)
-
-    if result.error:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=result.error,
-        )
-
-    return QueryResponse(
-        query=result.query,
-        categories=result.categories,
-        summary=result.summary,
-        articles=[ArticleOut(**a) for a in result.articles],
-        duration_seconds=result.duration_seconds,
+    user_input = NewsInput(query=request.query)
+    response: QuerySuccessResponse | QueryFailedResponse = await run_graph(
+        user_input, graph
     )
-
+    if isinstance(response, QueryFailedResponse):
+        http_response.status_code = response.error_code
+        if response.error_code == 503:
+            http_response.headers["Retry-After"] = RETRY_AFTER_SECONDS
+    return response

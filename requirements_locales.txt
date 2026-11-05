@@ -1,3 +1,0 @@
---trusted-host localhost
---index-url http://localhost:8080/simple/
-py-commons-per>=1.0.0
