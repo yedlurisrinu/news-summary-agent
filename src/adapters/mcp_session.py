@@ -82,7 +82,7 @@ class LazyMcpSession:
             if self._connected:
                 logger.warning("MCP connection dropped; reconnecting")
                 await self._disconnect()
-            await self._client.__aenter__()
+            await self._client.__aenter__()  # type: ignore[no-untyped-call]  # fastmcp leaves it unannotated
             self._connected = True
             logger.info("MCP connection opened")
 
@@ -97,7 +97,7 @@ class LazyMcpSession:
     async def _disconnect(self) -> None:
         self._connected = False
         try:
-            await self._client.__aexit__(None, None, None)
+            await self._client.__aexit__(None, None, None)  # type: ignore[no-untyped-call]
         except Exception:
             logger.warning("error while closing the MCP connection", exc_info=True)
 
