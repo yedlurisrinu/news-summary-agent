@@ -1,103 +1,89 @@
 """
 tests/nodes/search_test.py
 
-Unit tests for nodes/search.py:
-  - _build_search_query   — multi_match query set, should dropped w/o categories, template not mutated
-  - _append_latest_query  — 7-day range filter + recency-first sort
-  - _get_article_refs     — (article_id, score) extraction
-  - Search.__call__        — refs + timing, fetch_latest path
+Search node against a fake es-mcp-server:
+  - calls ``article_search`` by name with the state's query, categories and recency flag
+  - returns the refs plus SEARCH timing
+  - every failure shape (tool error, no structured content, non-text block, transport
+    error) becomes ``SearchUnavailable`` with the fixed text only
 """
 
 from __future__ import annotations
 
+import pytest
+from fastmcp.client.client import CallToolResult
+from mcp_types import ImageContent, TextContent
 
-class TestBuildSearchQuery:
-    def test_sets_user_query_on_multi_match(self):
-        from nodes.search import Search
+from exception.search_unavailable import SEARCH_UNAVAILABLE_MESSAGE, SearchUnavailable
+from nodes.search import Search
+from tests.fake_mcp import FakeNewsMcp, StubMcpClient
 
-        q = Search._build_search_query("ai news", ["technology"])
-        assert q["query"]["bool"]["must"][0]["multi_match"]["query"] == "ai news"
-
-    def test_categories_joined_into_should(self):
-        from nodes.search import Search
-
-        q = Search._build_search_query("ai news", ["technology", "ai"])
-        assert (
-            q["query"]["bool"]["should"][0]["multi_match"]["query"] == "technology ai"
-        )
-
-    def test_should_dropped_when_no_categories(self):
-        from nodes.search import Search
-
-        q = Search._build_search_query("ai news", [])
-        assert "should" not in q["query"]["bool"]
-
-    def test_does_not_mutate_template(self):
-        from config.application_config import get_config
-        from nodes.search import Search
-
-        Search._build_search_query("ai news", ["technology"])
-        tmpl = get_config("SEARCH_QUERY_TEMPLATE")
-        assert tmpl["query"]["bool"]["must"][0]["multi_match"]["query"] == ""
+pytestmark = pytest.mark.anyio
 
 
-class TestAppendLatestQuery:
-    def test_adds_range_filter_and_sort(self):
-        from nodes.search import Search
-
-        base = {"query": {"bool": {}}}
-        out = Search._append_latest_query(base)
-        assert "published_at" in out["query"]["bool"]["filter"][0]["range"]
-        assert out["sort"][0]["published_at"]["order"] == "desc"
-
-
-class TestGetArticleRefs:
-    def test_parses_hits(self, es_hit):
-        from nodes.search import Search
-
-        resp = {"hits": {"hits": [es_hit]}}
-        refs = Search._get_article_refs(resp)
-        assert refs == [{"article_id": "a1", "score": 1.23}]
-
-    def test_empty_hits(self):
-        from nodes.search import Search
-
-        assert Search._get_article_refs({"hits": {"hits": []}}) == []
+def _state(fetch_latest: bool = False) -> dict:
+    return {
+        "query": "ai in healthcare",
+        "categories": ["technology", "health"],
+        "fetch_latest": fetch_latest,
+    }
 
 
 class TestSearchCall:
-    def test_returns_refs_and_timing(self, make_llm, make_es, es_hit):
-        from nodes.search import Search
+    async def test_returns_refs_and_timing(self, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.refs = [{"article_id": "a1", "score": 2.0}, {"article_id": "a2", "score": 1.0}]
+        out = await Search(fake_mcp.client())(_state())
+        assert out["article_refs"] == fake_mcp.refs
+        assert set(out["duration_seconds"]) == {"SEARCH"}
 
-        es = make_es(search_response={"hits": {"hits": [es_hit]}})
-        node = Search(make_llm([""]), es)
+    async def test_sends_query_categories_and_recency(self, fake_mcp: FakeNewsMcp) -> None:
+        await Search(fake_mcp.client())(_state(fetch_latest=True))
+        assert fake_mcp.calls == [
+            (
+                "article_search",
+                {"query": "ai in healthcare", "categories": ["technology", "health"], "fetch_latest": True},
+            )
+        ]
 
-        result = node(
-            {"query": "ai news", "categories": ["technology"], "fetch_latest": False}
-        )
+    async def test_tool_error_is_search_unavailable(self, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.fail = {"article_search"}
+        with pytest.raises(SearchUnavailable) as exc:
+            await Search(fake_mcp.client())(_state())
+        assert str(exc.value) == SEARCH_UNAVAILABLE_MESSAGE
 
-        assert result["article_refs"] == [{"article_id": "a1", "score": 1.23}]
-        assert "SEARCH" in result["duration_seconds"]
+    async def test_unexpected_server_crash_is_search_unavailable(self, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.crash = {"article_search"}
+        with pytest.raises(SearchUnavailable) as exc:
+            await Search(fake_mcp.client())(_state())
+        assert str(exc.value) == SEARCH_UNAVAILABLE_MESSAGE
+        assert "elasticsearch" not in str(exc.value)
 
-    def test_fetch_latest_applies_filter(self, make_llm, make_es, es_hit):
-        from nodes.search import Search
+    async def test_calls_tool_without_raising_on_error(self) -> None:
+        stub = StubMcpClient(CallToolResult(content=[], structured_content={"article_refs": []}, meta=None))
+        await Search(stub)(_state())  # type: ignore[arg-type]
+        assert stub.calls[0][0] == "article_search" and stub.calls[0][2] is False
 
-        es = make_es(search_response={"hits": {"hits": [es_hit]}})
-        node = Search(make_llm([""]), es)
+    @pytest.mark.parametrize(
+        "result",
+        [
+            CallToolResult(content=[TextContent(type="text", text="boom")], structured_content=None, meta=None, is_error=True),
+            CallToolResult(content=[], structured_content=None, meta=None),
+            CallToolResult(
+                content=[ImageContent(type="image", data="AAAA", mimeType="image/png")],
+                structured_content=None,
+                meta=None,
+            ),
+        ],
+        ids=["is_error", "no_structured_content", "non_text_block"],
+    )
+    async def test_bad_results_are_search_unavailable(self, result: CallToolResult) -> None:
+        with pytest.raises(SearchUnavailable) as exc:
+            await Search(StubMcpClient(result))(_state())  # type: ignore[arg-type]
+        assert str(exc.value) == SEARCH_UNAVAILABLE_MESSAGE
 
-        node({"query": "ai news", "categories": ["technology"], "fetch_latest": True})
-
-        sent_query = es.search.call_args.kwargs
-        assert "filter" in sent_query["query"]["bool"]
-
-    def test_es_exception_propagates(self, make_llm, make_es):
-        import pytest
-
-        from nodes.search import Search
-
-        es = make_es()
-        es.search.side_effect = RuntimeError("ES down")
-        node = Search(make_llm([""]), es)
-
-        with pytest.raises(RuntimeError):
-            node({"query": "ai news", "categories": [], "fetch_latest": False})
+    async def test_transport_error_is_search_unavailable_and_chained(self) -> None:
+        cause = ConnectionError("es-mcp-lb:9599 refused")
+        with pytest.raises(SearchUnavailable) as exc:
+            await Search(StubMcpClient(exc=cause))(_state())  # type: ignore[arg-type]
+        assert str(exc.value) == SEARCH_UNAVAILABLE_MESSAGE
+        assert exc.value.__cause__ is cause

@@ -38,20 +38,22 @@ class TestLoadSecrets:
 
         monkeypatch.setenv("VAULT_ADDR", "http://vault:8200")
         monkeypatch.setenv("VAULT_TOKEN", "tok")
-        monkeypatch.setenv("VAULT_SECRET_PATH", "secret/DB_SERVICES")
+        monkeypatch.setenv("VAULT_SECRET_PATH", "secret/CREDENTIALS")
 
         client = MagicMock()
         client.is_authenticated.return_value = False
-        with patch("config.vault_secrets.Client", return_value=client):
-            with pytest.raises(ValueError, match="authentication failed"):
-                load_secrets()
+        with (
+            patch("config.vault_secrets.Client", return_value=client),
+            pytest.raises(ValueError, match="authentication failed"),
+        ):
+            load_secrets()
 
     def test_success_injects_env(self, monkeypatch):
         from config.vault_secrets import load_secrets
 
         monkeypatch.setenv("VAULT_ADDR", "http://vault:8200")
         monkeypatch.setenv("VAULT_TOKEN", "tok")
-        monkeypatch.setenv("VAULT_SECRET_PATH", "secret/DB_SERVICES")
+        monkeypatch.setenv("VAULT_SECRET_PATH", "secret/CREDENTIALS")
         monkeypatch.delenv("INJECTED_KEY", raising=False)
 
         client = MagicMock()

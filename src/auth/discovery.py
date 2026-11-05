@@ -1,8 +1,9 @@
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
+
+from httpx2 import AsyncClient
 
 from config.application_config import get_config
-from httpx2 import AsyncClient
-from urllib.parse import urlsplit, urlunsplit
 
 
 async def protect_resource_metadata(mcp_url: str) -> Any:

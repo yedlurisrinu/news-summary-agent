@@ -1,14 +1,14 @@
 import copy
-from typing import TypedDict, NotRequired, Annotated
-from channels.article_reference import ArticleReference
+from typing import Annotated, NotRequired, TypedDict
+
 from channels.article_hit import ArticleHit
+from channels.article_reference import ArticleReference
 
 
 def merge_article_hits(
     current: list[ArticleHit], update: list[ArticleHit]
 ) -> list[ArticleHit]:
     """Reducer: append new article hits to existing (no dedupe — refs are pre-deduped)."""
-    # TODO see if we need to do dedupe as of now it is not required
     merged = copy.deepcopy(current)
     for articleHit in update:
         merged.append(articleHit)

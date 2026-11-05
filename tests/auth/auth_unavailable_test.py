@@ -1,5 +1,7 @@
-from fastapi.testclient import TestClient
+"""Auth back-end outages: Keycloak or Vault down must give 503 and keep the session."""
+
 import pytest
+from fastapi.testclient import TestClient
 
 from auth.ports import StoredSession
 from tests.auth.fake_keycloak import FakeKeycloak
@@ -7,17 +9,17 @@ from tests.auth.login_flow_test import BASE, MemoryStore, _build, _login, _sessi
 
 
 class FlakyStore(MemoryStore):
-    """A MemoryStore that can simulate a Vault outage on reads and/or deletes."""
+    """A MemoryStore that can simulate a Vault outage on reads (``get``) and/or deletes."""
 
     def __init__(self) -> None:
         super().__init__()
         self.load_down = False
         self.delete_down = False
 
-    async def load(self, sid: str) -> StoredSession | None:
+    async def get(self, sid: str) -> StoredSession | None:
         if self.load_down:
             raise ConnectionError("vault down")
-        return await super().load(sid)
+        return await super().get(sid)
 
     async def delete(self, sid: str) -> None:
         if self.delete_down:
@@ -25,11 +27,11 @@ class FlakyStore(MemoryStore):
         await super().delete(sid)
 
 
-class TestAuthUnavailable:  # F-E2E6-3: an outage is not a logout
+class TestAuthUnavailable:  # an outage is not a logout
     @pytest.mark.parametrize("outage", ["http_503", "connect", "invalid_client"])
     def test_keycloak_outage_is_503_and_keeps_session(
         self, client: TestClient, kc: FakeKeycloak, store: MemoryStore, outage: str
-    ) -> None:  # U18
+    ) -> None:
         kc.expires_in = 10
         _login(client, kc)
         sid = next(iter(_sessions(client)._live))
@@ -48,7 +50,7 @@ class TestAuthUnavailable:  # F-E2E6-3: an outage is not a logout
 
     def test_restart_with_keycloak_down_keeps_store_entry(
         self, client: TestClient, kc: FakeKeycloak, store: MemoryStore
-    ) -> None:  # U19
+    ) -> None:
         _login(client, kc)
         sid = next(iter(_sessions(client)._live))
         _sessions(client)._live.clear()  # app restart
@@ -60,7 +62,7 @@ class TestAuthUnavailable:  # F-E2E6-3: an outage is not a logout
 
     def test_vault_outage_is_503_and_keeps_session(
         self, kc: FakeKeycloak
-    ) -> None:  # U20
+    ) -> None:
         flaky = FlakyStore()
         client = TestClient(_build(kc, flaky), base_url=BASE)
         kc.expires_in = 10
@@ -74,7 +76,7 @@ class TestAuthUnavailable:  # F-E2E6-3: an outage is not a logout
 
     def test_rejection_with_vault_down_still_logs_out(
         self, kc: FakeKeycloak
-    ) -> None:  # U21
+    ) -> None:
         flaky = FlakyStore()
         client = TestClient(_build(kc, flaky), base_url=BASE)
         kc.expires_in = 10

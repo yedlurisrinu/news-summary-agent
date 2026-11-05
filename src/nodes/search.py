@@ -1,43 +1,39 @@
-"""
-TODO in phase-1 I will be using multi match; embeddings, inference and sematic search will be completed later
-Responsibility:
-  Search the news_articles index using Elasticsearch semantic_text queries
-  (inference handled with client-side embedding).
+"""Search node — find candidate articles through es-mcp-server's ``article_search`` MCP tool.
 
-  When fetch_latest=True, results are filtered to the most recent 7 days
-  and sorted by published_at descending before semantic re-ranking.
-
-Technology: Elasticsearch Python client (semantic query), TODO tracing.
+The tool runs a multi_match query on title and content (boosted by the classified
+categories); with ``fetch_latest`` it keeps the last 7 days, newest first. The node
+returns article references (id + score); content is fetched later by the summary node.
 """
 
-from fastmcp import Client
+import logging
+import time
+
 from fastmcp.client.client import CallToolResult
 from mcp_types import TextContent
-from channels.search_results import SearchResult
-from channels.news_state import NewsState
-from fastmcp.client.transports import StreamableHttpTransport
-import time
-import logging
 
+from adapters.mcp_session import McpToolClient
+from channels.news_state import NewsState
+from channels.search_results import SearchResult
 from data.news_query import NewsQuery
 from exception.search_unavailable import SearchUnavailable
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 class Search:
-    """Graph node: retrieve candidate article references from Elasticsearch."""
+    """Graph node: retrieve candidate article references through the ``article_search`` MCP tool."""
 
     def __init__(
-        self,mcp_client: Client[StreamableHttpTransport]
+        self,mcp_client: McpToolClient
     ):
-        """Store the shared chat model and Elasticsearch client."""
+        """Store the shared MCP client."""
         self._mcp_client = mcp_client
 
     async def __call__(self, state: NewsState) -> SearchResult:
-        """Run the multi_match search (optionally filtered to the last 7 days) and return article refs + timing."""
-        # Search es with query for the results
-        # capture response time
+        """Call ``article_search`` (optionally limited to the last 7 days) and return article refs + timing.
+
+        Any tool error or transport failure becomes ``SearchUnavailable`` with fixed text.
+        """
         start = time.time()
         logger.debug(f"search intent incoming state : {state}")
 
@@ -54,26 +50,25 @@ class Search:
                             }
                         )
                     },
+                    raise_on_error=False,
                 )
-                logger.info(f"Search result = {tool_result}")
-            
-            logger.info(
-                    f"Response from Elasticsearch MCP Server : {tool_result.structured_content}"
-                )
-            sc = tool_result.structured_content
-            if tool_result.is_error or sc is None:
-                block = tool_result.content[0] if tool_result.content else None
-                logger.error(block.text if isinstance(block, TextContent) else "mcp tool returned an error")
-                raise SearchUnavailable(" Search is unavailable at this time, please try after few sec")
-            
-            return {
-                "article_refs": sc["article_refs"],
-                "duration_seconds": {"SEARCH": time.time() - start},
-            }
-        except Exception:
+        except Exception as exc:
             logger.exception(
-                "Exception while searching for articles for query: %s", state["query"]
+                "article_search call failed for query: %s", state["query"]
             )
-            raise
+            raise SearchUnavailable() from exc
 
-       
+        sc = tool_result.structured_content
+        if tool_result.is_error or sc is None:
+            block = tool_result.content[0] if tool_result.content else None
+            logger.error(
+                "article_search returned an error: %r",
+                block.text if isinstance(block, TextContent) else "no text content",
+            )
+            raise SearchUnavailable()
+
+        logger.info("article_search: %d refs", len(sc["article_refs"]))
+        return {
+            "article_refs": sc["article_refs"],
+            "duration_seconds": {"SEARCH": time.time() - start},
+        }

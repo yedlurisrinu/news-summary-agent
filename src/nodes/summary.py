@@ -1,20 +1,22 @@
 """Summary node — mget full article bodies and produce a grounded, cited LLM summary."""
 
-from fastmcp import Client
+import logging
+import time
+
+from fastmcp.client.client import CallToolResult
+from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from fastmcp.client.client import CallToolResult
 from mcp_types import TextContent
 
+from adapters.mcp_session import McpToolClient
 from channels.article_hit import ArticleHit
-from channels.summary_result import SummaryResult
 from channels.news_state import NewsState
-from langchain_core.language_models import BaseChatModel
-import time
-import logging
-from fastmcp.client.transports import StreamableHttpTransport
+from channels.summary_result import SummaryResult
+from config.application_config import get_config
+from exception.search_unavailable import SEARCH_UNAVAILABLE_MESSAGE
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 _SUMMARY_PROMPT = ChatPromptTemplate.from_messages(
     [
@@ -46,23 +48,29 @@ Write the summary:""",
 )
 
 
+SUMMARY_FAILED_MESSAGE = "Unable to summarise the articles at this time"
+
+
 class Summary:
     """Graph node: fetch article content by id and generate a cited, grounded summary."""
 
     def __init__(
         self,
         llm: BaseChatModel,
-        mcp_client: Client[StreamableHttpTransport],
+        mcp_client: McpToolClient,
     ):
-        """Store the shared chat model and Elasticsearch client."""
+        """Store the shared chat model and MCP client."""
         self._llm = llm
         self._mcp_client = mcp_client
 
     async def __call__(self, state: NewsState) -> SummaryResult:
-        """mget article bodies, build context, invoke the summarization chain; returns summary + hits + timing."""
+        """mget article bodies, build context, invoke the summarization chain; returns summary + hits + timing.
+
+        A failed ``mget`` replies with the fixed "search unavailable" text; a failed LLM
+        call replies with ``SUMMARY_FAILED_MESSAGE``. Details are only logged.
+        """
         logger.debug(f"summary intent incoming state : {state}")
         duration_seconds: dict[str, float] = {}
-        # Get actual content
         MGET_START = time.time()
         try:
             async with self._mcp_client:
@@ -75,51 +83,52 @@ class Summary:
                     },
                     raise_on_error=False,
                 )
-                sc = tool_result.structured_content
-                if tool_result.is_error or sc is None:
-                    block = tool_result.content[0] if tool_result.content is not None else None
-                    msg = block.text if isinstance(block, TextContent) else "mcp search tool failed"
-                    logger.error(msg)
-                    (duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START),)
-                    return {
-                        "summary": "Unable to fetch articles at this time",
-                        "article_hits": [],
-                        "duration_seconds": duration_seconds,
-                    }
-                
-            duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
-            # build context
-            SUMMARY_CALL = time.time()
-            context: list[str] = []
-            article_hits: list[ArticleHit] = sc["article_hits"]
-            context = await Summary._build_context(article_hits)
-            # call model with news articles
-            chain = _SUMMARY_PROMPT | self._llm | StrOutputParser()
-            # LLM call for summarization
+        except Exception:
+            logger.exception("mget call failed")
+            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START)
+
+        sc = tool_result.structured_content
+        if tool_result.is_error or sc is None:
+            block = tool_result.content[0] if tool_result.content else None
+            logger.error(
+                "mget returned an error: %r",
+                block.text if isinstance(block, TextContent) else "no text content",
+            )
+            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START)
+
+        duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
+        SUMMARY_CALL = time.time()
+        article_hits: list[ArticleHit] = sc["article_hits"]
+        context = await Summary._build_context(article_hits)
+        chain = _SUMMARY_PROMPT | self._llm | StrOutputParser()
+        try:
             summary: str = await chain.ainvoke(
                 {"query": state["query"], "context": context}
             )
-            # capture response time
-            duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
-            return {
-                "summary": summary,
-                "article_hits": article_hits,
-                "duration_seconds": duration_seconds,
-            }
-        except Exception as e:
-            logger.exception(e)
-            (duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START),)
-            return {
-                "summary": "Unable to fetch articles at this time",
-                "article_hits": [],
-                "duration_seconds": duration_seconds,
-            }
+        except Exception:
+            logger.exception("summary LLM call failed")
+            return Summary._reply(SUMMARY_FAILED_MESSAGE, duration_seconds, "SUMMARY_LLM_CALL", SUMMARY_CALL)
+        duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
+        return {
+            "summary": summary,
+            "article_hits": article_hits,
+            "duration_seconds": duration_seconds,
+        }
+
+    @staticmethod
+    def _reply(
+        text: str, duration_seconds: dict[str, float], step: str, started: float
+    ) -> SummaryResult:
+        """A fixed-text reply with no articles, recording how long the failed step took."""
+        duration_seconds.setdefault(step, time.time() - started)
+        return {"summary": text, "article_hits": [], "duration_seconds": duration_seconds}
 
     @staticmethod
     async def _build_context(
         hits: list[ArticleHit],
     ) -> list[str]:
-        """Turn an ES mget response into LLM context blocks and ArticleHit metadata (content truncated to 1000 chars)."""
+        """Turn mget article hits into LLM context blocks, content capped at ``SUMMARY_CONTENT_MAX_CHARS``."""
+        max_chars = int(get_config("SUMMARY_CONTENT_MAX_CHARS"))
         blocks: list[str] = []
         for i, hit in enumerate(hits):
             blocks.append(
@@ -127,7 +136,7 @@ class Summary:
                 f"title: {hit.get('title')}\n"
                 f"source:{hit.get('source')}\n"
                 f"published at: {hit.get('published_at')}\n"
-                f"content: {hit.get('content', '')}"
+                f"content: {str(hit.get('content') or '')[:max_chars]}"
             )
 
         return blocks

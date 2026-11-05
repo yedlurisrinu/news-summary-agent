@@ -1,18 +1,21 @@
 """Workflow entry point — invokes the compiled graph and maps state to API responses."""
 
+import logging
+from typing import Any
 from uuid import uuid4
 
-# from hashlib import sha256  # retained for reference; see the commented thread_id logic in run_graph
-from typing import Any
+from fastapi import status
 from langchain_core.runnables import RunnableConfig
+from langgraph.graph.state import CompiledStateGraph
+
 from data.news_input import NewsInput
 from data.query_failed_response import QueryFailedResponse
 from data.query_success_response import QuerySuccessResponse
-from langgraph.graph.state import CompiledStateGraph
-from fastapi import status
-import logging
+from exception.search_unavailable import SEARCH_UNAVAILABLE_MESSAGE, SearchUnavailable
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
+
+QUERY_FAILED_MESSAGE = "Unable to process the query at this time, please try again later"
 
 
 def cfg(tid: str, rl: int) -> RunnableConfig:
@@ -25,19 +28,20 @@ async def run_graph(
 ) -> QuerySuccessResponse | QueryFailedResponse:
     """Invoke the compiled graph for one query and map the final state to a response.
 
-    Each request uses a fresh uuid4 thread_id so every run is independent. Any
-    exception is caught and returned as a ``QueryFailedResponse`` (500).
+    Each request uses a fresh uuid4 thread_id so every run is independent (a
+    deterministic thread_id resumed old checkpoints and accumulated article_hits).
+    Any exception is logged and returned as a ``QueryFailedResponse`` with fixed text
+    only: "search unavailable" (503, retry later) for ``SearchUnavailable`` (an
+    ``article_search`` failure), a generic message (500) otherwise. Other MCP failures do
+    not get here: classify ignores a ``category_search`` failure, and a failed ``mget``
+    returns 200 with fixed text from the summary node. Exception details never reach the
+    client. The HTTP status of POST /query is set from ``error_code``.
     """
     try:
-        # Previous approach — deterministic thread_id = sha256 of the normalized query:
-        #   out = graph.invoke({"query": user_input.query},
-        #                      cfg(sha256(user_input.query.strip().casefold().encode()).hexdigest(), 10))
-        # This made article_hits accumulate across repeated identical queries: the persisted
-        # checkpoint was resumed and re-run, and merge_article_hits appends without dedupe.
         out: dict[str, Any] = await graph.ainvoke(
             {"query": user_input.query}, cfg(uuid4().hex, 10)
         )
-        logging.info(f"Total Time Taken = {out['duration_seconds']}")
+        logger.info("Total Time Taken = %s", out["duration_seconds"])
         response = QuerySuccessResponse(
             query=out["query"],
             categories=out["categories"],
@@ -46,10 +50,16 @@ async def run_graph(
             duration_seconds=sum(out["duration_seconds"].values()),
         )
     except Exception as e:
-        logger.exception(f" Exception while agents are fetching news summary: {e}")
+        logger.exception("Exception while agents are fetching news summary")
+        if isinstance(e, SearchUnavailable):
+            return QueryFailedResponse(
+                query=user_input.query,
+                error=SEARCH_UNAVAILABLE_MESSAGE,
+                error_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
         return QueryFailedResponse(
             query=user_input.query,
-            error=str(e) or type(e).__name__,
+            error=QUERY_FAILED_MESSAGE,
             error_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
     return response

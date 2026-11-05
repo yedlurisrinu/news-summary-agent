@@ -1,7 +1,7 @@
 """End-to-end tests of the BFF login against a fake Keycloak (no network, no Vault).
 
 A minimal FastAPI app gets ``install_auth`` exactly as ``api/app.py`` does, with an
-in-memory refresh-token store and a discovery stub. Covers guide step 11, U1-U12.
+in-memory refresh-token store and a discovery stub.
 """
 
 from __future__ import annotations
@@ -10,11 +10,12 @@ import asyncio
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from fastapi.responses import JSONResponse
 import pytest
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from fastapi.testclient import TestClient
 
+from auth.auth_server_metadata import AuthServerMetadata
 from auth.config import BffConfig
 from auth.ports import StoredSession
 from auth.sessions import LoginRequired, SessionStore
@@ -78,7 +79,8 @@ def _build(kc: FakeKeycloak, store: MemoryStore, issuer: str = ISSUER) -> FastAP
     async def discover() -> str:
         return issuer
 
-    install_auth(app, _config(), store, discover, http_transport=kc.transport)
+    as_meta = AuthServerMetadata(discover, http_transport=kc.transport)
+    install_auth(app, _config(), store, as_meta, http_transport=kc.transport)
     return app
 
 
@@ -101,33 +103,18 @@ def _login(client: TestClient, kc: FakeKeycloak) -> dict[str, str]:
     return params
 
 
-@pytest.fixture()
-def kc() -> FakeKeycloak:
-    return FakeKeycloak()
-
-
-@pytest.fixture()
-def store() -> MemoryStore:
-    return MemoryStore()
-
-
-@pytest.fixture()
-def client(kc: FakeKeycloak, store: MemoryStore) -> TestClient:
-    return TestClient(_build(kc, store), base_url=BASE)
-
-
 class TestGuard:
-    def test_public_paths_open(self, client: TestClient) -> None:  # U1
+    def test_public_paths_open(self, client: TestClient) -> None:
         assert client.get("/health").status_code == 200
         assert client.get("/login").status_code == 200
 
     def test_page_without_session_redirects_to_login(
         self, client: TestClient
-    ) -> None:  # U2
+    ) -> None:
         r = client.get("/chat", headers={"accept": "text/html"}, follow_redirects=False)
         assert r.status_code == 302 and r.headers["location"] == "/login"
 
-    def test_api_without_session_is_401(self, client: TestClient) -> None:  # U2
+    def test_api_without_session_is_401(self, client: TestClient) -> None:
         r = client.post("/query", json={})
         assert r.status_code == 401 and r.json() == {"error": "login_required"}
 
@@ -137,8 +124,8 @@ class TestGuard:
         assert client.post("/query", json={}).status_code == 401
 
 
-class TestNoStore:  # F-E2E6-2
-    def test_refused_page_and_api_are_no_store(self, client: TestClient) -> None:  # U13
+class TestNoStore:  # protected responses are never cached by the browser
+    def test_refused_page_and_api_are_no_store(self, client: TestClient) -> None:
         r = client.get("/", headers={"accept": "text/html"}, follow_redirects=False)
         assert r.status_code == 302 and r.headers["cache-control"] == "no-store"
         r = client.post("/query", json={})
@@ -146,7 +133,7 @@ class TestNoStore:  # F-E2E6-2
 
     def test_allowed_page_is_no_store_and_overrides_route(
         self, client: TestClient, kc: FakeKeycloak
-    ) -> None:  # U14
+    ) -> None:
         _login(client, kc)
         r = client.get("/chat", headers={"accept": "text/html"})
         assert r.status_code == 200 and r.headers["cache-control"] == "no-store"
@@ -155,13 +142,13 @@ class TestNoStore:  # F-E2E6-2
             "no-store"
         ]
 
-    def test_public_paths_untouched(self, client: TestClient) -> None:  # U15
+    def test_public_paths_untouched(self, client: TestClient) -> None:
         assert "cache-control" not in client.get("/login").headers
         assert "cache-control" not in client.get("/health").headers
 
 
 class TestLogin:
-    def test_authorize_redirect_params(self, client: TestClient) -> None:  # U3
+    def test_authorize_redirect_params(self, client: TestClient) -> None:
         r = client.get("/auth/login", follow_redirects=False)
         url = urlparse(r.headers["location"])
         q = {k: v[0] for k, v in parse_qs(url.query).items()}
@@ -177,7 +164,7 @@ class TestLogin:
 
     def test_wrong_discovered_issuer_never_redirects_to_it(
         self, kc: FakeKeycloak, store: MemoryStore
-    ) -> None:  # U4
+    ) -> None:
         c = TestClient(
             _build(kc, store, issuer="http://evil:8180/realms/x"), base_url=BASE
         )
@@ -199,7 +186,7 @@ class TestLogin:
         [stored] = store.data.values()
         assert stored.sub == "user-123" and stored.refresh_token == "refresh-1"
 
-    def test_callback_wrong_iss(self, client: TestClient) -> None:  # U5
+    def test_callback_wrong_iss(self, client: TestClient) -> None:
         client.get("/auth/login", follow_redirects=False)
         r = client.get(
             "/auth/callback",
@@ -208,7 +195,7 @@ class TestLogin:
         )
         assert r.headers["location"] == "/login?error=login_failed"
 
-    def test_callback_unknown_state(self, client: TestClient) -> None:  # U6
+    def test_callback_unknown_state(self, client: TestClient) -> None:
         client.get("/auth/login", follow_redirects=False)
         r = client.get(
             "/auth/callback",
@@ -217,7 +204,7 @@ class TestLogin:
         )
         assert r.headers["location"] == "/login?error=state_mismatch"
 
-    def test_callback_access_denied(self, client: TestClient) -> None:  # U7
+    def test_callback_access_denied(self, client: TestClient) -> None:
         r = client.get(
             "/auth/callback", params={"error": "access_denied"}, follow_redirects=False
         )
@@ -233,7 +220,7 @@ def _sessions(client: TestClient) -> SessionStore:
 class TestSessions:
     def test_valid_token_not_refreshed(
         self, client: TestClient, kc: FakeKeycloak
-    ) -> None:  # U8
+    ) -> None:
         _login(client, kc)
         sid = next(iter(_sessions(client)._live))
         before = len(kc.requests)
@@ -242,7 +229,7 @@ class TestSessions:
 
     def test_near_expiry_refreshes_with_resource_and_rotation(
         self, client: TestClient, kc: FakeKeycloak, store: MemoryStore
-    ) -> None:  # U9
+    ) -> None:
         kc.expires_in = 10  # inside the 30 s skew -> refresh on next use
         kc.rotate_refresh = True
         _login(client, kc)
@@ -259,7 +246,7 @@ class TestSessions:
 
     def test_refresh_failure_drops_session(
         self, client: TestClient, kc: FakeKeycloak, store: MemoryStore
-    ) -> None:  # U10
+    ) -> None:
         kc.expires_in = 10
         _login(client, kc)
         sid = next(iter(_sessions(client)._live))
@@ -271,7 +258,7 @@ class TestSessions:
 
     def test_restart_rebuilds_from_store(
         self, client: TestClient, kc: FakeKeycloak
-    ) -> None:  # U11
+    ) -> None:
         _login(client, kc)
         _sessions(
             client
@@ -281,7 +268,7 @@ class TestSessions:
 
     def test_concurrent_refresh_happens_once(
         self, client: TestClient, kc: FakeKeycloak
-    ) -> None:  # U12
+    ) -> None:
         kc.expires_in = 10
         _login(client, kc)
         sid = next(iter(_sessions(client)._live))

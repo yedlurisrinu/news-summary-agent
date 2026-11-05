@@ -1,7 +1,7 @@
-from typing import TypedDict, Required
+from typing import Required, TypedDict
 
-from channels.article_reference import ArticleReference
 from channels.article_hit import ArticleHit
+from channels.article_reference import ArticleReference
 
 
 class SummaryOk(TypedDict):

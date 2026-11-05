@@ -1,76 +1,73 @@
 """
 tests/nodes/classification_test.py
 
-Unit tests for nodes/classification.py:
-  - category_query()        — bool-should clause per category, template not mutated
-  - ClassifyIntent.__call__ — non-news short-circuit (no ES call), news-query path
+ClassifyIntent node with a fake LLM and a fake es-mcp-server:
+  - non-news queries short-circuit (no MCP call)
+  - news queries call ``category_search`` with the extracted categories and record timings
+  - a failing category check never fails the node: classification proceeds
 """
 
 from __future__ import annotations
 
+import json
 
-class TestCategoryQuery:
-    def test_one_should_clause_per_category(self):
-        from nodes.classification import category_query
+import pytest
+from fastmcp.client.client import CallToolResult
+from mcp_types import ImageContent
 
-        q = category_query(["technology", "ai"])
-        should = q["query"]["bool"]["should"]
-        titles = [c["match"]["title"] for c in should]
-        assert titles == ["technology", "ai"]
+from nodes.classification import ClassifyIntent
+from tests.fake_mcp import FakeNewsMcp, StubMcpClient
 
-    def test_does_not_mutate_loaded_template(self):
-        from config.application_config import get_config
-        from nodes.classification import category_query
+pytestmark = pytest.mark.anyio
 
-        category_query(["technology"])
-        assert get_config("CATEGORY_QUERY")["query"]["bool"]["should"] == []
+NEWS = json.dumps({"is_news_query": True, "categories": ["technology"], "fetch_latest": True})
+NOT_NEWS = json.dumps({"is_news_query": False, "categories": [], "fetch_latest": False})
 
 
 class TestClassifyIntentCall:
-    def test_non_news_query_short_circuits(self, make_llm, make_es):
-        from nodes.classification import ClassifyIntent
+    async def test_non_news_query_short_circuits(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+        out = await ClassifyIntent(make_llm([NOT_NEWS]), fake_mcp.client())({"query": "write a poem"})
+        assert out["is_news_query"] is False
+        assert fake_mcp.calls == []
 
-        llm = make_llm(
-            ['{"is_news_query": false, "categories": [], "fetch_latest": false}']
-        )
-        es = make_es()
-        node = ClassifyIntent(llm, es)
+    async def test_news_query_resolves_categories_and_times(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+        out = await ClassifyIntent(make_llm([NEWS]), fake_mcp.client())({"query": "latest tech news"})
+        assert out["is_news_query"] is True and out["fetch_latest"] is True
+        assert out["categories"] == ["technology"]
+        assert fake_mcp.calls == [("category_search", {"categories": ["technology"]})]
+        assert set(out["duration_seconds"]) == {"LLM_LATENCY", "ES_CALL"}
 
-        result = node({"query": "write me a poem"})
+    async def test_category_tool_error_is_swallowed(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.fail = {"category_search"}
+        out = await ClassifyIntent(make_llm([NEWS]), fake_mcp.client())({"query": "tech news"})
+        assert out["is_news_query"] is True and out["categories"] == ["technology"]
 
-        assert result["is_news_query"] is False
-        assert result["duration_seconds"].keys() == {"CLASSIFY_LLM_LATENCY"}
-        es.search.assert_not_called()
+    async def test_resolve_categories_returns_hit_count(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.category_hits = 7
+        node = ClassifyIntent(make_llm([NEWS]), fake_mcp.client())
+        assert await node._resolve_categories(["technology"]) == 7
 
-    def test_news_query_resolves_categories_and_times(self, make_llm, make_es):
-        from nodes.classification import ClassifyIntent
+    async def test_zero_hits_is_reported_as_zero(self, make_llm, fake_mcp: FakeNewsMcp) -> None:
+        fake_mcp.category_hits = 0
+        node = ClassifyIntent(make_llm([NEWS]), fake_mcp.client())
+        assert await node._resolve_categories(["technology"]) == 0
 
-        llm = make_llm(
-            [
-                '{"is_news_query": true, "categories": ["technology"], "fetch_latest": true}'
-            ]
-        )
-        es = make_es(search_response={"hits": {"total": {"value": 3}, "hits": []}})
-        node = ClassifyIntent(llm, es)
-
-        result = node({"query": "latest tech news"})
-
-        assert result["is_news_query"] is True
-        assert result["categories"] == ["technology"]
-        assert result["fetch_latest"] is True
-        assert set(result["duration_seconds"]) == {"LLM_LATENCY", "ES_CALL"}
-        es.search.assert_called_once()
-
-    def test_es_failure_is_swallowed(self, make_llm, make_es):
-        from nodes.classification import ClassifyIntent
-
-        llm = make_llm(
-            ['{"is_news_query": true, "categories": ["sports"], "fetch_latest": false}']
-        )
-        es = make_es()
-        es.search.side_effect = RuntimeError("ES down")
-        node = ClassifyIntent(llm, es)
-
-        # _resolve_categories catches the exception and returns 0 — call still succeeds.
-        result = node({"query": "sports news"})
-        assert result["is_news_query"] is True
+    @pytest.mark.parametrize(
+        "stub",
+        [
+            StubMcpClient(exc=ConnectionError("es-mcp-lb down")),
+            StubMcpClient(CallToolResult(content=[], structured_content=None, meta=None)),
+            StubMcpClient(
+                CallToolResult(
+                    content=[ImageContent(type="image", data="AAAA", mimeType="image/png")],
+                    structured_content=None,
+                    meta=None,
+                    is_error=True,
+                )
+            ),
+        ],
+        ids=["transport_error", "no_structured_content", "non_text_block"],
+    )
+    async def test_failed_category_check_counts_as_zero(self, make_llm, stub: StubMcpClient) -> None:
+        node = ClassifyIntent(make_llm([NEWS]), stub)  # type: ignore[arg-type]
+        assert await node._resolve_categories(["technology"]) == 0

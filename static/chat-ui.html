@@ -674,13 +674,19 @@ http://localhost:8000, it communicates to API at this address
 
       hideTyping();
 
-      if(response.status == 401){
-        window.location.assign('/login?error=session_expired')
+      if (response.status === 401) {
+        window.location.assign('/login?error=session_expired');
+        return;
       }
-      
+
       if (!response.ok) {
-        const errText = await response.text();
-        appendBotMessage(`Error ${response.status}: ${errText || response.statusText}`, true);
+        // Failures carry a JSON body with fixed, user-safe text in `error`
+        let message = response.statusText;
+        try {
+          const body = await response.json();
+          message = body.error || message;
+        } catch (_) { /* non-JSON error body: keep the status text */ }
+        appendBotMessage(message, true);
       } else {
         const data = await response.json();
         appendBotMessage(data);

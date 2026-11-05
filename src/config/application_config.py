@@ -1,11 +1,12 @@
 """Application config — loads resources/application-config.yaml into a module-level dict."""
 
+import logging
 from pathlib import Path
 from typing import Any
-from yaml import safe_load
-import logging
 
-logger = logging.getLogger(__file__)
+from yaml import safe_load
+
+logger = logging.getLogger(__name__)
 
 app_config: dict[str, Any] = {}
 BASE_PATH = str(Path(__file__).resolve().parent.parent)
@@ -20,7 +21,7 @@ def load_config() -> None:
         ) as fh:
             app_config = safe_load(fh)
     except FileNotFoundError:
-        logger.error("Exception while loading application configuration", exc_info=True)
+        logger.exception("Exception while loading application configuration")
 
 
 def get_config(key: str) -> Any:

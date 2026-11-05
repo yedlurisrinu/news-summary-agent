@@ -4,17 +4,17 @@ Non-secret values come from ``resources/application-config.yaml`` (via ``get_con
 the cookie-signing secret comes from Vault, which ``load_secrets()`` has already copied
 into the environment.
 
-YAML keys (Srini adds them):
+YAML keys:
 
     BFF_BASE_URL: "http://news-summary-app:8007"     # every redirect is built from this
     MCP_URL: "http://es-mcp-lb:9599/mcp"            # resource indicator == token audience
     CIMD_CLIENT_ID: "https://news-cimd-host/clients/news-summary-app-cimd.json"
-    ALLOWED_ISSUER: "http://keycloak:8180/realms/es-mcp"
-    SESSION_MAX_AGE: 36000                           # optional; <= Keycloak SSO Session Max
+    ALLOWED_ISSUER_URL: "http://keycloak:8180/realms/es-mcp"
+    SESSION_MAX_AGE_SEC: 36000                       # optional; <= Keycloak SSO Session Max
 
-Vault (secret/CREDENTIALS):
+Vault (secret/NEWS-SUMMARY-APP/CONFIG):
 
-    NEWS_APP_SESSION_SECRET   # >= 32 random bytes, e.g. `openssl rand -base64 48`
+    NEWS_APP_SESSION_SECRET   # >= 32 characters, e.g. `openssl rand -base64 48`
 """
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ class BffConfig:
         secret = os.environ.get(SESSION_SECRET_ENV, "")
         if len(secret) < 32:
             raise ValueError(
-                f"{SESSION_SECRET_ENV} must be set (Vault secret/CREDENTIALS) and be at least 32 characters"
+                f"{SESSION_SECRET_ENV} must be set (Vault secret/NEWS-SUMMARY-APP/CONFIG) and be at least 32 characters"
             )
         try:
             max_age = int(get_config("SESSION_MAX_AGE_SEC"))

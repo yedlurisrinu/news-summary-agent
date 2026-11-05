@@ -15,9 +15,3 @@ class SeedData:
         "I searched for news articles matching your query but couldn't find any relevant results. "
         "Try broadening your search terms or asking about a different topic."
     )
-
-    UNKNOWN_FAILURE = {
-        "summary": "Unable to fetch articles at this time",
-        "article_hits": None,
-        "duration_seconds": 0,
-    }

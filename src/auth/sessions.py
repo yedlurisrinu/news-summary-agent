@@ -1,17 +1,17 @@
-"""Server-side sessions (decision S881).
+"""Server-side sessions: tokens stay on the server, the browser only holds a session id.
 
 - Access token + expiry + ``sub``: in process memory, keyed by ``sid``.
 - Refresh token: in the ``RefreshTokenStore`` (Vault), keyed by ``sid`` - so after an app
   restart a valid cookie is enough to rebuild the session silently.
 - The browser only ever holds ``sid``, inside the signed session cookie.
 
-Lifecycle ("stays logged in while the user interacts", L75):
+Lifecycle (the user stays logged in while they keep using the app):
   valid access token -> use it
   expiring/expired   -> refresh at Keycloak (works while the Keycloak SSO session lives)
    refresh rejected   -> (Keycloak says invalid_grant: SSO session idle/max expired,
                         logged out, revoked) drop the session -> LoginRequired -> login
    no answer          -> (Keycloak down, network error, 5xx, other OAuth error, session
-                       store down) KEEP the session -> AuthUnavailable -> 503 (F-E2E6-3)
+                       store down) KEEP the session -> AuthUnavailable -> 503 (an outage is not a logout)
 """
 
 from __future__ import annotations
@@ -151,7 +151,7 @@ class SessionStore:
         async with live.lock:  # one refresh per session, even with concurrent requests
             if live.expires_at - time.time() > self._skew:
                 return live.access_token
-            stored = await self._store.get(sid)
+            stored = await self._get(sid)
             if stored is None:
                 await self.drop(sid)
                 raise LoginRequired("refresh token missing")

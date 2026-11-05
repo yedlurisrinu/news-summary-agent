@@ -1,6 +1,6 @@
-"""``/auth/login`` and ``/auth/callback`` (guide step 8).
+"""``/auth/login`` and ``/auth/callback``: the authorization-code + PKCE login with Keycloak.
 
-Error mapping (guide step 10): only these codes ever reach the URL; ``static/login.html``
+Error mapping: only these codes ever reach the URL; ``static/login.html``
 turns them into fixed text, so nothing from Keycloak is echoed to the browser.
 """
 
@@ -14,7 +14,7 @@ from starlette.responses import RedirectResponse
 
 from auth.config import BffConfig
 from auth.oauth import KeycloakOAuth
-from auth.sessions import SessionStore
+from auth.sessions import LoginRequired, SessionStore
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ async def auth_login(request: Request) -> RedirectResponse:
             request, config.redirect_uri, resource=config.mcp_url
         )
         return response
-    except Exception as exc:  # discovery or metadata failure
+    except Exception as exc:  # noqa: BLE001 - login boundary: discovery/metadata failure -> fixed error code
         logger.warning("login could not start: %s: %s", type(exc).__name__, exc)
         return _to_login("login_failed")
 
@@ -68,11 +68,18 @@ async def auth_callback(request: Request) -> RedirectResponse:
         return _to_login(
             "access_denied" if exc.error == "access_denied" else "login_failed"
         )
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - login boundary: any failure -> fixed error code
         logger.warning("callback failed: %s", type(exc).__name__)
         return _to_login("login_failed")
 
-    sid = await sessions.create(token)
+    try:
+        sid = await sessions.create(token)
+    except LoginRequired:
+        logger.warning("callback refused: token response has no refresh token")
+        return _to_login("login_failed")
+    except Exception as exc:  # noqa: BLE001 - login boundary: session store (Vault) unavailable
+        logger.warning("callback could not store the session: %s", type(exc).__name__)
+        return _to_login("auth_unavailable")
     request.session.clear()  # drop Authlib's temporary state; new id after login (no fixation)
     request.session["sid"] = sid
     return RedirectResponse("/chat", status_code=302)

@@ -1,10 +1,12 @@
 """Authlib wiring for Keycloak, registered lazily after discovery.
 
-Why lazy: discovery needs es-mcp-server and Keycloak to be up. Doing it on the first
-``/auth/login`` (not at import or startup) lets the app start while they are down -
-the same lesson as nginx ``resolve`` (L69).
+Why lazy: registering the login client needs the authorization-server metadata, which
+needs es-mcp-server (issuer discovery) and Keycloak. It happens on the first
+``/auth/login``, and a failed attempt is retried on the next one. App startup needs
+neither: ``LazyMcpSession`` (adapters/mcp_session.py) connects on the first tool call, and
+issuer discovery happens on the first login or the first MCP call.
 
-Verified against Authlib 1.9.1 (workspace probes, guide step 8):
+Verified against Authlib 1.9.1:
 - ``authorize_redirect(request, redirect_uri, resource=...)`` puts ``resource``, PKCE S256,
   ``state`` and ``nonce`` on the authorize URL; the PKCE verifier/state/nonce live in the
   signed session cookie until the callback.
@@ -23,8 +25,9 @@ from typing import Any
 
 from authlib.integrations.httpx_client import AsyncOAuth2Client
 from authlib.integrations.starlette_client import OAuth
-from auth.config import BffConfig
+
 from auth.auth_server_metadata import AuthServerMetadata
+from auth.config import BffConfig
 
 logger = logging.getLogger(__name__)
 

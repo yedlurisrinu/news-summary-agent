@@ -1,11 +1,10 @@
-from pathlib import Path
-
 # Start scheduler
 import json
 import logging
 import logging.config
+from pathlib import Path
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 def setup_logging(config_file: str = "logging_config.json") -> None:
@@ -16,7 +15,7 @@ def setup_logging(config_file: str = "logging_config.json") -> None:
         with open(path + "/resources/" + config_file) as file_handler:
             config = json.load(file_handler)
         logging.config.dictConfig(config)
-    except Exception as fe:
+    except Exception:
         logging.basicConfig(level=logging.INFO)
-        logger.error(f"Failed to load application logging {fe}", exc_info=True)
+        logger.exception("Failed to load application logging")
     logger.info("Logging configured and application starting.")

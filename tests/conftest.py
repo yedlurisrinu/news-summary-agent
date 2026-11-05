@@ -2,28 +2,31 @@
 conftest.py — pytest fixtures shared across all test modules.
 
 Provides:
-  - A session-wide real application config load (nodes read query templates from it).
-  - Factory fixtures for a fake chat model (FakeListChatModel) and a mock
-    Elasticsearch client, so nodes/graph run with no external services.
+  - A session-wide real application config load (nodes and auth read keys from it).
+  - ``anyio_backend``: async tests run under anyio's pytest plugin
+    (``@pytest.mark.anyio``) on asyncio.
+  - A factory for a fake chat model (FakeListChatModel) and a fake es-mcp-server
+    (see ``tests/fake_mcp.py``), so nodes and the graph run with no external services.
 """
 
 from __future__ import annotations
 
-from unittest.mock import MagicMock
-
 import pytest
+
+from tests.fake_mcp import FakeNewsMcp
 
 
 @pytest.fixture(scope="session", autouse=True)
 def _load_app_config():
-    """Load the real resources/application-config.yaml once for the whole test session.
-
-    Nodes build their ES queries from get_config("CATEGORY_QUERY") /
-    "SEARCH_QUERY_TEMPLATE" / "ES_INDEX", so the config dict must be populated.
-    """
+    """Load the real resources/application-config.yaml once for the whole test session."""
     from config.application_config import load_config
 
     load_config()
+
+
+@pytest.fixture()
+def anyio_backend() -> str:
+    return "asyncio"
 
 
 @pytest.fixture()
@@ -42,39 +45,6 @@ def make_llm():
 
 
 @pytest.fixture()
-def make_es():
-    """Return a factory building a MagicMock Elasticsearch client.
-
-    ``search_response`` feeds es.search(); ``mget_response`` feeds es.mget().
-    """
-
-    def _make(search_response: dict | None = None, mget_response: dict | None = None):
-        es = MagicMock()
-        es.search.return_value = search_response or {
-            "hits": {"total": {"value": 0}, "hits": []}
-        }
-        es.mget.return_value = mget_response or {"docs": []}
-        return es
-
-    return _make
-
-
-@pytest.fixture()
-def es_hit():
-    """A single ES search hit shaped like a real response document."""
-    return {"_source": {"article_id": "a1"}, "_score": 1.23}
-
-
-@pytest.fixture()
-def es_doc():
-    """A single ES mget document with full article content."""
-    return {
-        "_source": {
-            "article_id": "a1",
-            "title": "AI Revolutionises Healthcare",
-            "source": "TechNews",
-            "published_at": "2026-03-28T10:00:00Z",
-            "link": "https://technews.example.com/ai-health",
-            "content": "Artificial intelligence is transforming diagnosis. " * 60,
-        }
-    }
+def fake_mcp() -> FakeNewsMcp:
+    """An in-memory es-mcp-server stand-in; use ``fake_mcp.client()`` for the nodes."""
+    return FakeNewsMcp()

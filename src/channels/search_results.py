@@ -1,4 +1,5 @@
-from typing import TypedDict, Required
+from typing import Required, TypedDict
+
 from channels.article_reference import ArticleReference
 
 

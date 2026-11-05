@@ -1,17 +1,10 @@
-"""
-@Author: Srini Yedluri
-@Date: 3/27/26
-@Time: 12:29 PM
-@File: main.py
-"""
+"""Run the FastAPI app standalone (``python src/main.py``) with uvicorn on port 8007.
 
+The Docker image starts uvicorn directly on ``api.app:app`` (see the Dockerfile CMD).
 """
-main.py — start the FastAPI app on port 8003.
-in case if we need to run but for application this the 
-entry point.
-"""
-import uvicorn
 import logging
+
+import uvicorn
 
 logger = logging.getLogger(__name__)
 

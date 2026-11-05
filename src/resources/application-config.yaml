@@ -1,56 +1,29 @@
 # works for both local, docker same now part of /etc/hosts file
-ELASTIC_URL: "http://elasticsearch:9200" 
-request_timeout: 60
-retry_on_timeout: True
-max_retries: 3
-http_compress: True
-# Connection pooling for cloud
-connections_per_node: 10
-
-# works for both local, docker same now part of /etc/hosts file
 PG_HOST: "postgres"
 PG_PORT: 5432
+PG_POOL_MIN_SIZE: 1
+PG_POOL_MAX_SIZE: 10
 
-ES_INDEX: news_articles
-CATEGORY_QUERY: 
-  size: 0
-  query:
-    bool:
-      should: []                 # filled in code, one match clause per category
-      minimum_should_match: 1
-  aggs:
-    matched_sources:
-      terms:
-        field: source.keyword
-        size: 20
+LLM_MODEL: "openai:gpt-4o-mini"
+LLM_TEMPERATURE: 0.0
+LLM_TIMEOUT_SEC: 10
 
-# Build an ES query that:
-      # - Uses semantic search on the `content.semantic` field (semantic_text). TODO this part is not complete yet
-      # - Boosts documents whose title matches any of the extracted categories.
-SEARCH_QUERY_TEMPLATE:
-  size: 5
-  _source: [article_id]
-  query:
-    bool:
-      must:
-        - multi_match:
-            query: ""             # filled in code: user query
-            fields: ["title^2", "content"]
-            minimum_should_match: "2<75%"
-      should:
-        - multi_match:
-            query: ""             # filled in code: expanded category terms
-            fields: [title]
-            boost: 1.5
+# per-article content cap for the summary prompt (es-mcp-server also truncates)
+SUMMARY_CONTENT_MAX_CHARS: 1000
 
 MCP_URL: "http://es-mcp-lb:9599/mcp"
+# MCP protocol version es-mcp-server speaks (mcp 2.3.0); pinning skips the per-connection probe
+MCP_PROTOCOL_VERSION: "2026-07-28"
 ALLOWED_ISSUER_URL: "http://keycloak:8180/realms/es-mcp"
 BFF_BASE_URL: "http://news-summary-app:8007"
 MCP_WELL_KNOWN_URI: "/.well-known/oauth-protected-resource"
 CIMD_CLIENT_ID: "https://news-cimd-host/clients/news-summary-app-cimd.json"
 SESSION_MAX_AGE_SEC: 36000
 AS_WELL_KNOWN_URL: "/.well-known/openid-configuration"
-APP_VAULT_CONFIG_PATH: NEWS-SUMMARY-APP/CONFIG
 APP_VAULT_SESSIONS_PATH: NEWS-SUMMARY-APP/SESSIONS
+# Stored sessions not updated for this long are deleted (must exceed Keycloak's SSO session max,
+# 36000 s, so a refreshable session is never removed); swept at start-up, then every 24 h.
+SESSION_STORE_MAX_AGE_SEC: 39600
+SESSION_SWEEP_INTERVAL_SEC: 86400
 SERVICE_CLIENT_ID: news-summary-app-svc
 SERVICE_TOKEN_LEEWAY_SEC: 60

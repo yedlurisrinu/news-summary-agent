@@ -1,7 +1,8 @@
 from collections.abc import AsyncGenerator
 
-from auth.service_account_token import ServiceAccountTokenProvider
 from httpx2 import Auth, Request, Response
+
+from auth.service_account_token import ServiceAccountTokenProvider
 
 BEARER = "Bearer"
 

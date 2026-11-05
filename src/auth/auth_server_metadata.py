@@ -1,10 +1,11 @@
+import asyncio
 from typing import Any
+
+from httpx2 import AsyncClient
 
 from auth.ports import DiscoverIssuer
 from config.application_config import get_config
-import asyncio
-from httpx2 import AsyncClient
-from data.oidc_metadata import OIDCMetadata, REQUIRED
+from data.oidc_metadata import REQUIRED, OIDCMetadata
 
 
 class AuthServerMetadata:
@@ -21,6 +22,8 @@ class AuthServerMetadata:
             return self._meta
 
         async with self._lock:
+            if self._meta is not None:  # another caller fetched it while we waited
+                return self._meta
             issuer = await self._discover_issuer()
             async with AsyncClient(transport=self._http_transport) as http:
                 response = await http.get(
@@ -32,7 +35,7 @@ class AuthServerMetadata:
 
                 for key in REQUIRED:
                     if not isinstance(meta.get(key), str):
-                        raise ValueError(
+                        raise ValueError(  # noqa: TRY004 - bad external data (a value error), not a programming type error
                             f"AS metadata is missing {key}"
                         )  # check at the boundary
             if meta["issuer"] != issuer:

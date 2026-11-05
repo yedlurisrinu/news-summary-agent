@@ -7,9 +7,14 @@ services:
       dockerfile: Dockerfile
       network: host
     container_name: news-summary-app
+    logging:              # Docker keeps at most 3 x 10 MB per container, oldest deleted
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
     ports:
-      - "8007:8007"
+      - "127.0.0.1:8007:8007"
     environment:
       - PYTHONPATH=src
       - VAULT_ADDR=http://vault-server:8200

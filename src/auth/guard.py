@@ -1,17 +1,17 @@
 """Default-deny guard: every request needs a live session, except a short allowlist.
 
-Pure ASGI middleware (``scope``/``receive``/``send``), see guide steps 4-6:
+Pure ASGI middleware (``scope``/``receive``/``send``):
 - It must run INSIDE ``SessionMiddleware`` (so ``scope["session"]`` exists). In Starlette
   the LAST ``add_middleware`` call is the OUTERMOST, so add this guard first and
   ``SessionMiddleware`` after it (``wiring.install_auth`` does exactly that).
 - Non-HTTP scopes (``lifespan``, ``websocket``) pass through untouched, otherwise the
   app's startup would never run.
 - If Keycloak or the session store gives no answer, the guard returns 503 (HTML page or
- ``{"error": "auth_unavailable"}``) with ``Retry-After`` and keeps the session (F-E2E6-3).
+ ``{"error": "auth_unavailable"}``) with ``Retry-After`` and keeps the session: an outage is not a logout.
 
 - Every response on a protected path (allowed or refused) carries
   ``Cache-Control: no-store`` (RFC 9111 5.2.2.5), so the browser never shows a stored
-  copy of an authenticated page without asking the app (F-E2E6-2). Public paths are
+  copy of an authenticated page without asking the app. Public paths are
   left alone: ``/login`` is fine to cache.
 
 """
@@ -21,13 +21,10 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from starlette.datastructures import Headers, MutableHeaders
-from starlette.responses import JSONResponse, RedirectResponse
 from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
-from auth import sessions
-from auth.sessions import AuthUnavailable, LoginRequired, SessionStore
 
-from auth.sessions import SessionStore
+from auth.sessions import AuthUnavailable, LoginRequired, SessionStore
 
 DEFAULT_PUBLIC_PATHS = frozenset({"/login", "/auth/login", "/auth/callback", "/health"})
 RETRY_AFTER_SECONDS = "30"
@@ -98,7 +95,7 @@ class AuthGuard:
                 )  # stale cookie: forget it so the next login starts clean
             except (
                 AuthUnavailable
-            ):  # Keycloak/Vault down: say so, keep the session (F-E2E6-3)
+            ):  # Keycloak/Vault down: say so, keep the session
                 await unavailable(scope=scope)(scope=scope, receive=receive, send=send)
                 return
             else:

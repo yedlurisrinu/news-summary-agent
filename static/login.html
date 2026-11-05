@@ -33,7 +33,8 @@
       access_denied: "Sign-in was cancelled.",
       session_expired: "Your session has ended. Please sign in again.",
       state_mismatch: "Sign-in could not be verified. Please try again.",
-      login_failed: "Sign-in failed. Please try again."
+      login_failed: "Sign-in failed. Please try again.",
+      auth_unavailable: "Sign-in is temporarily unavailable. Please try again in a moment."
     };
     const code = new URLSearchParams(location.search).get("error");
     if (code) {

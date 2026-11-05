@@ -1,18 +1,21 @@
-"""The two seams that Srini implements (option 2 split, S889).
+"""The auth package's seams: protocols that the tests replace with in-memory fakes.
 
 ``RefreshTokenStore``
     Durable home of each session's refresh token, so a restart of the app is invisible
-    to the user (decision S881). Implementation: Vault KV v2 under
-    ``secret/news-summary-app/sessions/<sid>`` using ``hvac`` (sync), called through
-    ``asyncio.to_thread`` so the event loop is never blocked. Redis later.
+    to the user. Implementation: Vault KV v2 under
+    ``secret/NEWS-SUMMARY-APP/SESSIONS/<sid>`` using ``hvac`` (sync), called through
+    ``asyncio.to_thread`` so the event loop is never blocked.
 
 ``DiscoverIssuer``
-    ``async () -> str``: fetch es-mcp-server's protected-resource metadata (RFC 9728),
-    check ``resource == MCP_URL`` and ``authorization_servers[0] == ALLOWED_ISSUER``,
+    ``async () -> str``, implemented in ``auth/discovery.py`` and taken by
+    ``AuthServerMetadata``: fetch es-mcp-server's protected-resource metadata (RFC 9728),
+    check ``resource == MCP_URL`` and ``authorization_servers[0] == ALLOWED_ISSUER_URL``,
     and return that issuer. Raise on any mismatch or network error.
 
-Everything in ``auth`` depends only on these protocols, never on hvac or httpx directly,
-so the tests run with in-memory fakes.
+The session/guard code (``auth/sessions.py``, ``auth/guard.py``) depends only on these
+protocols, never on hvac, httpx2 or Authlib directly. Other ``auth`` modules do use
+httpx2/Authlib directly: ``discovery.py``, ``auth_server_metadata.py``, ``oauth.py`` and
+``service_account_token.py``.
 """
 
 from __future__ import annotations

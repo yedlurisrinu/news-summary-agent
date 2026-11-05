@@ -12,12 +12,12 @@ from typing import Any
 from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 
-from auth import mcp_check, routes
+from auth import routes
 from auth.auth_server_metadata import AuthServerMetadata
 from auth.config import BffConfig
 from auth.guard import AuthGuard
 from auth.oauth import KeycloakOAuth
-from auth.ports import DiscoverIssuer, RefreshTokenStore
+from auth.ports import RefreshTokenStore
 from auth.sessions import SessionStore
 
 
@@ -36,7 +36,6 @@ def install_auth(
     app.state.sessions = sessions
 
     app.include_router(routes.router)
-    app.include_router(mcp_check.router)
 
     app.add_middleware(AuthGuard, sessions=sessions)  # inner
     app.add_middleware(  # outer: runs first, fills scope["session"]
