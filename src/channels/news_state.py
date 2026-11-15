@@ -46,7 +46,7 @@ def merge_article_ref(
             }
 
     return sorted(
-        merged_by_id.values(), key=lambda r: (-float(r["score"]), r["article_id"])
+        merged_by_id.values(), key=lambda r: (float(r["score"]), r["article_id"])
     )
 
 
