@@ -40,6 +40,7 @@ JUDGE_AGREEMENT_RUNS_PARAMS: [ [ *JUDGE_1, None, False, True, 1, "Calibration Ru
 
 LLM_TIMEOUT: 600
 LLM_MAX_RETRIES: 1
+COMPONENT_RESULTS_PATH: component_results
 
 # May below config are not needed for eval path, verify latter
 

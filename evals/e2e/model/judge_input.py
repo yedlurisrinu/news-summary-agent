@@ -2,8 +2,8 @@
 
 from dataclasses import dataclass
 
-from evals.model.article_hit import ArticleHit
-from evals.model.models import Criterion
+from evals.e2e.model.article_hit import ArticleHit
+from evals.e2e.model.models import Criterion
 
 
 @dataclass(frozen=True)

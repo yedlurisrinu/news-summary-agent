@@ -19,7 +19,7 @@ from auth.auth_server_metadata import AuthServerMetadata
 from auth.discovery import discover_issuer
 from auth.service_account_token import ServiceAccountTokenProvider
 from auth.service_token_auth import ServiceTokenAuth
-from evals.eval_config.load_eval_config import get_config
+from evals.e2e.eval_config.load_eval_config import get_config
 
 log = logging.getLogger(__name__)
 

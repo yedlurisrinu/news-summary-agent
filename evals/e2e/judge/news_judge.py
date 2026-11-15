@@ -9,12 +9,12 @@ from langchain_openai.chat_models.base import OpenAIRefusalError
 from openai import APIError, APITimeoutError, RateLimitError
 from pydantic import ValidationError
 
-from evals.dumper.dumper import dump_judge_config
-from evals.helpers.paths import judge_run_dir
-from evals.model.judge_config import JudgeConfig
-from evals.model.judge_input import JudgeInput
-from evals.model.models import CaseVerdict, CriterionVerdict
-from evals.model.prompts import ARTICLE_SEPARATOR
+from evals.e2e.dumper.dumper import dump_judge_config
+from evals.e2e.helpers.paths import judge_run_dir
+from evals.e2e.model.judge_config import JudgeConfig
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import CaseVerdict, CriterionVerdict
+from evals.e2e.model.prompts import ARTICLE_SEPARATOR
 
 
 class NewsJudge:

@@ -16,15 +16,15 @@ import pytest
 from sklearn.metrics import cohen_kappa_score
 from statsmodels.stats.proportion import proportion_confint
 
-from evals.helpers.fake_judge import FakeJudge
-from evals.judge.calibration import (
+from evals.e2e.helpers.fake_judge import FakeJudge
+from evals.e2e.judge.calibration import (
     calibrate,
     calibrate_2judges,
     cohen_kappa,
     wilson,
 )
-from evals.model.judge_input import JudgeInput
-from evals.model.models import CaseVerdict, Criterion
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import CaseVerdict, Criterion
 
 pytestmark = pytest.mark.anyio
 

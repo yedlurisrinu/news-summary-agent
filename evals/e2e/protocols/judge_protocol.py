@@ -2,8 +2,8 @@
 
 from typing import Protocol
 
-from evals.model.judge_input import JudgeInput
-from evals.model.models import CaseVerdict
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import CaseVerdict
 
 
 class Judge(Protocol):

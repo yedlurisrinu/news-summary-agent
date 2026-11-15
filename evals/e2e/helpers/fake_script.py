@@ -7,10 +7,10 @@ The same scenario is asserted in tests/evals/calibration_test.py.
 
 import asyncio
 
-from evals.helpers.fake_judge import FakeJudge
-from evals.judge.calibration import calibrate, calibrate_2judges, wilson
-from evals.model.judge_input import JudgeInput
-from evals.model.models import CaseVerdict, Criterion
+from evals.e2e.helpers.fake_judge import FakeJudge
+from evals.e2e.judge.calibration import calibrate, calibrate_2judges, wilson
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import CaseVerdict, Criterion
 
 P, F = True, False
 items_keys = [
