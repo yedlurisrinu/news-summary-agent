@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Climate change policy news",
+    "categories": [
+      "climate"
+    ],
+    "summary": "Recent discussions surrounding climate change policy highlight the urgent need for action as the impacts of climate change become increasingly severe. A report indicates that Earth's condition is \"serious and getting worse,\" with seven out of sixteen planetary vital signs reaching unprecedented extremes, including atmospheric carbon dioxide levels that are 50% higher than preindustrial times. This alarming assessment underscores the necessity for robust climate policies to mitigate further environmental degradation [Earth’s Condition Is ‘Serious and Getting Worse’ as Climate Change Intensifies].\n\nIn Europe, the ambition to expand data centers to support artificial intelligence initiatives is clashing with climate commitments. Germany's plan to double its data center fleet by 2030 faces challenges as policymakers grapple with the need to cut greenhouse gas emissions by 55% within the same timeframe. This situation illustrates the tension between technological advancement and environmental sustainability, prompting a reevaluation of how to balance these competing priorities [Europe Wants Data Centers. Its Climate Goals Are Getting in the Way].\n\nAdditionally, Prince William has raised concerns about the increasing risk of wildfires in the UK due to climate change. He emphasized the importance of preparation and community response in addressing this growing threat, particularly following a significant wildfire incident in Treherbert. His remarks highlight the need for serious consideration of wildfire risks, akin to the approaches taken in other parts of Europe [Prince William says UK faces terrifying risk of more wildfires due to climate change].\n\nOverall, these developments reflect a broader recognition of the urgent need for effective climate change policies that address both immediate environmental challenges and long-term sustainability goals. However, the articles do not provide specific details on new policy initiatives or legislative actions currently being undertaken in response to these challenges.",
+    "articles": [
+      {
+        "title": "The American Dream Wasn’t Built for Climate Change",
+        "link": "https://www.wired.com/story/the-american-dream-wasnt-built-for-climate-change/",
+        "source": "Wired",
+        "published_at": "2026-11-07T10:00:00+00:00"
+      },
+      {
+        "title": "Everyone Hates ‘Digger.’ It’s the Perfect Climate Movie",
+        "link": "https://www.wired.com/story/everyone-hates-digger-its-perfect-climate-movie/",
+        "source": "Wired",
+        "published_at": "2026-10-13T22:08:44+00:00"
+      },
+      {
+        "title": "Earth’s Condition Is ‘Serious and Getting Worse’ as Climate Change Intensifies",
+        "link": "https://www.wired.com/story/climate-change-is-getting-worse-el-nino-looms/",
+        "source": "Wired",
+        "published_at": "2026-10-14T14:00:00+00:00"
+      },
+      {
+        "title": "Europe Wants Data Centers. Its Climate Goals Are Getting in the Way",
+        "link": "https://www.wired.com/story/europe-data-centers-climate-change/",
+        "source": "Wired",
+        "published_at": "2026-10-21T08:30:00+00:00"
+      },
+      {
+        "title": "Prince William says UK faces terrifying risk of more wildfires due to climate change",
+        "link": "https://www.bbc.co.uk/news/articles/cr62yv02zwxwo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-03T23:00:14+00:00"
+      }
+    ],
+    "latency": 5.754316329956055,
+    "status": "ok"
+  }
+}

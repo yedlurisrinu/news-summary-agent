@@ -1,0 +1,38 @@
+[
+  {
+    "criterion_id": "all",
+    "judge_1": "gpt-6.1-terra",
+    "judge_2": "gpt-6.1-sol",
+    "total_items": 32,
+    "agree": 31,
+    "only_j1": 1,
+    "only_j2": 0,
+    "errors_j1": 0,
+    "errors_j2": 0,
+    "kappa": 0.9344
+  },
+  {
+    "criterion_id": "cr1",
+    "judge_1": "gpt-6.1-terra",
+    "judge_2": "gpt-6.1-sol",
+    "total_items": 16,
+    "agree": 15,
+    "only_j1": 1,
+    "only_j2": 0,
+    "errors_j1": 0,
+    "errors_j2": 0,
+    "kappa": 0.875
+  },
+  {
+    "criterion_id": "cr2",
+    "judge_1": "gpt-6.1-terra",
+    "judge_2": "gpt-6.1-sol",
+    "total_items": 16,
+    "agree": 16,
+    "only_j1": 0,
+    "only_j2": 0,
+    "errors_j1": 0,
+    "errors_j2": 0,
+    "kappa": 1.0
+  }
+]

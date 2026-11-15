@@ -1,0 +1,81 @@
+{
+  "query": "News about Zohran Mamdani and surveillance technology",
+  "is_news_query": true,
+  "fetch_latest": false,
+  "categories": [
+    "politics",
+    "technology"
+  ],
+  "article_refs": [
+    {
+      "article_id": "5f1a1bba1ef3d036a52fa7155537712c",
+      "score": 27.737274
+    },
+    {
+      "article_id": "986a1e6883387ffcb215c7af6ade475a",
+      "score": 21.145844
+    },
+    {
+      "article_id": "5a61e66d22d2664ecc717ce75323d157",
+      "score": 20.856892
+    },
+    {
+      "article_id": "5bd559038a933f3f9b97a721e5af82f4",
+      "score": 19.254408
+    },
+    {
+      "article_id": "b0cff994c5eb0bc8f9143dd4a6e57458",
+      "score": 18.25814
+    }
+  ],
+  "summary": "New York City Mayor Zohran Mamdani has publicly criticized the owner of Madison Square Garden, James Dolan, regarding the use of surveillance technology at the venue. Mamdani described such surveillance practices as reflective of broader societal issues, stating that they should not be permitted. He emphasized the importance of local legislation introduced by City Council member Shahana Hanif, which aims to ban the collection of biometric data, including facial recognition, in public spaces throughout the city. This legislative effort is seen as a necessary response to the growing concerns over surveillance practices [TechCrunch].\n\nIn a related discussion about technology and its implications, Mamdani has also addressed the broader topic of artificial intelligence (AI) and its impact on society. He has urged New Yorkers to resist the notion that AI's integration into daily life is inevitable, advocating for public accountability of AI companies. His administration has already taken steps to limit AI use in educational settings, specifically banning its application in elementary and middle schools [TechCrunch][Wired].\n\nMamdani's comments come at a time when there is a perceived lack of federal regulation on AI and surveillance technologies, prompting local leaders to take action. His stance reflects a growing concern among city officials regarding the implications of these technologies on privacy and civil liberties [Wired].",
+  "article_hits": [
+    {
+      "article_id": "5f1a1bba1ef3d036a52fa7155537712c",
+      "title": "New York City’s Mamdani criticizes Madison Square Garden owner over surveillance tech",
+      "source": "TechCrunch",
+      "published_at": "2026-11-03T16:04:55+00:00",
+      "link": "https://techcrunch.com/2026/11/03/new-york-citys-mamdani-criticizes-madison-square-garden-owner-over-surveillance-tech/",
+      "content": "In Brief Posted: 8:04 AM PST · November 3, 2026 Image Credits: Ethan Miller / Getty Images Zack Whittaker New York City’s Mamdani criticizes Madison Square Garden owner over surveillance tech Mayor of New York City Zohran Mamdani has criticized the owner of Madison Square Garden, one of the city’s largest entertainment venues, arguing that the company’s surveillance technology should not be allowed. Mamdani told Wired in an interview on Tuesday that surveillance technologies are “indicative of much that is wrong in our country today.” He added that City Council member Shahana Hanif introduced two pieces of local legislation aimed at banning the collection of biometric data , such as using facial recognition, in public places across the city. Mamdani said that the draft legislation is “an important response to this kind of an issue.” The comments come after a stream of reporting from Wired detailing how Madison Square Garden’s owner James Dolan relies on surveillance cameras and face-sc"
+    },
+    {
+      "article_id": "986a1e6883387ffcb215c7af6ade475a",
+      "title": "‘Our Risk, Their Reward’: Zohran Mamdani on AI and Data Centers",
+      "source": "Wired",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "link": "https://www.wired.com/story/the-big-interview-podcast-nyc-mayor-zohran-mamdani/",
+      "content": "Katie Drummond The Big Story Nov 3, 2026 6:00 AM ‘Our Risk, Their Reward’: Zohran Mamdani on AI and Data Centers Ahead of the midterms, WIRED talked to New York City’s mayor about data centers, AI in schools, and the future of the Democratic party. Photograph: Jutharat Pinyodoonyachet Comment Loader Save Story Save this story Comment Loader Save Story Save this story If you think you had a wild year, just imagine how New York City mayor Zohran Mamdani must feel. In October 2025, weeks before his historic election win, WIRED sat down with Mamdani for an interview at his campaign office. I remember, vividly, the energy that he carried into the room. This was a man, after all, who’d just pulled off a stunning political feat, rising from being an unknown to becoming the mayoral front-runner in a matter of months. In part, that was because of his message, which focused squarely on affordability and the working class. But much of Mamdani’s campaign success can be attributed to how that messa"
+    },
+    {
+      "article_id": "5a61e66d22d2664ecc717ce75323d157",
+      "title": "Mamdani says feds have abdicated on AI, urges New Yorkers to push back",
+      "source": "TechCrunch",
+      "published_at": "2026-10-20T01:27:03+00:00",
+      "link": "https://techcrunch.com/2026/10/19/mamdani-says-feds-have-abdicated-on-ai-urges-new-yorkers-to-push-back/",
+      "content": "Two of New York’s sweethearts, Mayor Zohran Mamdani and activist and “Broad City” star Ilana Glazer, spoke about AI at Webster Hall in Manhattan on Monday night, with Glazer posing questions to the mayor about the future of AI in society. Mamdani encouraged New Yorkers to resist the overwhelming feeling that AI is inevitably coming for their jobs, their kids’ minds, and their dignity, and to take back control instead. His message came at a moment when the federal government is doing little to regulate AI, leaving cities to act on their own. At The People’s AI Assembly, an event hosted by the AI Now Institute , a think tank that explores the social implications of AI, Mamdani argued that the technology’s rapid rollout is not inevitable and that public officials should hold AI companies accountable. Last month, Mamdani ordered a ban on AI use in elementary and middle schools. Glazer, a parent, said the technology’s arrival in classrooms unsettles her. “It just makes me nervous. It feels "
+    },
+    {
+      "article_id": "5bd559038a933f3f9b97a721e5af82f4",
+      "title": "ICE agents looked more like 'mass shooters' than law enforcement in NYC shooting: Mamdani - New York Daily News",
+      "source": "New York Daily News",
+      "published_at": "2026-10-11T22:17:14Z",
+      "link": "https://www.nydailynews.com/2026/10/11/ice-agents-looked-more-like-mass-shooters-than-law-enforcement-in-nyc-shooting-mamdani/",
+      "content": "News Crime and Public Safety ICE agents looked more like ‘mass shooters’ than law enforcement in NYC shooting: Mamdani Share this: Share on Facebook (Opens in new window) Facebook Share on Bluesky (Opens in new window) Bluesky Share on X (Opens in new window) X Barry Williams / New York Daily News Mayor Zohran Mamdani spoke out Sunday against the ICE agents who shot Oscar Belgal on Marble Hill Ave. on Thursday. (Barry Williams / New York Daily News) By John Annese | JANNESE@nydailynews.com | New York Daily News PUBLISHED: October 11, 2026 at 6:17 PM EDT | UPDATED: October 12, 2026 at 11:39 AM EDT Mayor Mamdani on Sunday compared videos of Immigration and Customs Enforcement agents shooting a man in a car with his 5-year-old boy in the backseat last week to recordings of mass shooter killings in a scathing rebuke of the controversial federal officers he wants out of New York City. “It feels as if you’re almost looking at a mass shooter as opposed to seeing someone who’s purportedly repr"
+    },
+    {
+      "article_id": "b0cff994c5eb0bc8f9143dd4a6e57458",
+      "title": "Mother of Ghanaian boy killed in US 'wants justice' as she flies for funeral",
+      "source": "BBC",
+      "published_at": "2026-11-04T15:18:03+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cq62yjnmg4ego?at_medium=RSS&at_campaign=rss",
+      "content": "Mother of Ghanaian boy killed in US 'wants justice' as she flies for funeral Image source, SantaClausians Image caption, Javits Frimpong was chased down and fatally shot last week on his way to school By Thomas Naadi BBC Africa , Reporting from Accra Published 4 November 2026, 14:01 GMT Updated 1 hour ago The mother of a 15-year-old Ghanaian boy who was fatally shot in the United States  last week has left Ghana for America after being granted an emergency visa by President Donald Trump. \"I want justice for my son,\" Doris Adu Gyamfi told the BBC at the airport before her departure. She said he had dreamt of becoming a medical doctor. Her son, Javits Frimpong, who had only been in the US for a year, was chased down and shot on Thursday morning on his way to school in the Bronx, New York. He was taken to a local hospital, where he was pronounced dead. Police have not made any arrests and an investigation is ongoing as authorities search for three teenage boys in connection with the shoot"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.9317936897277832,
+    "mcp_category_search_call": 0.017937421798706055,
+    "mcp_article_search_call": 0.014007806777954102,
+    "mcp_mget_call": 0.009847164154052734,
+    "summary_llm_call": 7.035460948944092
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "query": "Latest science and space news",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "science",
+    "space"
+  ],
+  "article_refs": [
+    {
+      "article_id": "27c5710f09f1b1e04660bfc7495a18b1",
+      "score": 7.016421
+    },
+    {
+      "article_id": "c61fc5ea4b2c602c020f0e3b59c1c6ac",
+      "score": 6.73991
+    },
+    {
+      "article_id": "e4e8929500d02b4c74632e59413aabd3",
+      "score": 5.990925
+    },
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "score": 5.5212607
+    },
+    {
+      "article_id": "f691d12760bfbde86a6d7c10969bc6e7",
+      "score": 5.3432674
+    }
+  ],
+  "summary": "Recent developments in science and technology highlight significant advancements in artificial intelligence and environmental health. A notable announcement comes from the startup Radical Numerics, which has introduced a new model called Omnii Defense. This model is designed to identify both natural and AI-engineered pathogens without requiring an internet connection, making it particularly useful for researchers in remote areas. The startup aims to address concerns about the potential use of AI in developing bioweapons, despite many experts considering this a low-likelihood threat [A Startup Wants to Fight AI Bioweapons With AI].\n\nIn the realm of artificial intelligence, Google has launched its latest model, Gemini 4 Carbon, which is touted as its strongest AI system to date. This model features an innovative \"swarm\" capability and is positioned to compete with leading AI systems from other companies. The rollout follows a prior release to select cybersecurity professionals, indicating a strategic approach to enhancing AI capabilities in security contexts [Google releases Gemini 4 Carbon with agent ‘swarm’ feature - The Verge].\n\nAdditionally, the British startup Fractile has secured $720 million in funding to advance its development of AI chips. This investment, backed by the UK government, aims to bolster the country's position in the AI hardware market. Fractile plans to adopt a full-stack approach that includes not only chip development but also a machine learning compiler to optimize the execution of large language models [With $720M round, Britain’s Fractile gets a leg up in the race for AI chips].\n\nOn an environmental note, recent data from the Environment Agency indicates a significant reduction in toxic \"forever\" chemicals, specifically PFOS and PFOA, in England's rivers. The levels of these chemicals have decreased by nearly a third over the past decade, attributed to stricter regulations. This progress reflects growing awareness and action regarding the harmful effects of these substances on health and the environment [Significant drop in levels of toxic 'forever' chemicals in England's rivers]. \n\nOverall, these developments underscore the ongoing interplay between technological innovation and environmental health, with significant implications for public safety and industry practices.",
+  "article_hits": [
+    {
+      "article_id": "27c5710f09f1b1e04660bfc7495a18b1",
+      "title": "A Startup Wants to Fight AI Bioweapons With AI",
+      "source": "Wired",
+      "published_at": "2026-11-11T17:00:00+00:00",
+      "link": "https://www.wired.com/story/startup-fights-ai-bioweapons-with-ai/",
+      "content": "Emily Mullin Science Nov 11, 2026 12:00 PM A Startup Wants to Fight AI Bioweapons With AI Startup Radical Numerics has developed a model that it says can identify natural and AI-engineered pathogens without an internet connection. Photo-illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Frontier AI labs have warned that their technology could help develop dangerous bioweapons . Now, a startup says it has developed a defense. On Wednesday, Radical Numerics announced that it has developed a new edge model called Omnii Defense that is designed to flag natural and AI-engineered pathogens using a laptop and a USB gene sequencer. It can also run without an internet connection, allowing researchers in the field with spotty connections to use it. Though many scientists say AI-made bioweapons are a low-likelihood threat, Radical Numerics hopes its technology will help researchers and public health officials identify emergi"
+    },
+    {
+      "article_id": "c61fc5ea4b2c602c020f0e3b59c1c6ac",
+      "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
+      "source": "Hacker News",
+      "published_at": "2026-11-10T18:01:15+00:00",
+      "link": "https://github.com/GoogleChrome/modern-web-guidance",
+      "content": "Modern Web Guidance Modern Web Guidance is a set of skills that embed web platform expertise, best practices, and browser compatibility data directly into your coding agents. It helps to steer your coding agents away from legacy patterns, and instead toward solutions that harness the power and capabilities of the modern web platform. Stewarded by the Google Chrome, Microsoft Edge, Mozilla Firefox, and MDN teams, alongside the web development community. Documentation · Eval Dashboard · Source Code · Report an Issue Quickstart npx modern-web-guidance@latest install This command runs an interactive wizard to install Modern Web Guidance. See Alternative Installation Methods below. Try it out (without installing) # Search for relevant guides npx modern-web-guidance@latest search \" animate a dialog modal backdrop \" # Retrieve a guide by ID npx modern-web-guidance@latest retrieve \" animate-to-from-top-layer \" # Scan a codebase for legacy patterns to modernize npx modern-web-guidance@latest le"
+    },
+    {
+      "article_id": "e4e8929500d02b4c74632e59413aabd3",
+      "title": "Google releases Gemini 4 Carbon with agent ‘swarm’ feature - The Verge",
+      "source": "The Verge",
+      "published_at": "2026-11-10T16:00:00Z",
+      "link": "https://www.theverge.com/ai-artificial-intelligence/1030787/google-gemini-4-carbon-public-rollout",
+      "content": "AI News Tech Google releases Gemini 4 Carbon with agent ‘swarm’ feature It ‘pushes the frontier even further’ than its last release, Argon.﻿ It ‘pushes the frontier even further’ than its last release, Argon.﻿ by Robert Hart Nov 10, 2026, 4:00 PM UTC Link Share Gift Image: Google Robert Hart is a London-based reporter at The Verge covering all things AI and a Senior Tarbell Fellow. Previously, he wrote about health, science and tech for Forbes . Google is rolling out its latest AI model, Gemini 4 Carbon, to the general public after releasing it to a select group of “cybersecurity defenders” two weeks ago. Google claims Carbon is its “strongest model” yet, and capable of competing with the very best systems from Anthropic and OpenAI. Google says Gemini 4 Carbon “pushes the frontier even further” than Argon, referring to the company’s other frontier model that launched only last month . The company said Argon will likely remain “the ideal choice for the majority of software engineering a"
+    },
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "title": "With $720M round, Britain’s Fractile gets a leg up in the race for AI chips",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:34:55+00:00",
+      "link": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+      "content": "Fractile , a British startup developing AI chips, has raised a $720 million Series C backed by Britain’s Sovereign AI Fund with hopes of “ensuring the U.K. has a greater stake in the hardware that will underpin its future economy,” its government stated . Alongside the likes of Axelera , Etched , and OLIX , this makes Fractile one of the top-funded startup players in the race for purpose-built AI chips. Such chips are one of several avenues being explored to reduce the cost of inference — aka using increasingly demanding AI models in production. However, Fractile seeks to go beyond hardware with a full-stack approach that also includes a machine learning compiler to maximize the speed at which LLMs will get executed on its chips. As a result, the company frames itself as a frontier AI company, and its latest round led by Thrive Capital, Founders Fund, Lightspeed Venture Partners and Redpoint was priced accordingly. According to the British government, the valuation was “over £5 billion"
+    },
+    {
+      "article_id": "f691d12760bfbde86a6d7c10969bc6e7",
+      "title": "Significant drop in levels of toxic 'forever' chemicals in England's rivers",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:12:59+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cmze75r55g3jo?at_medium=RSS&at_campaign=rss",
+      "content": "Significant drop in levels of toxic 'forever' chemicals in England's rivers Image source, Getty/Peter Chadwick LRPS Image caption, Old landfill and industrial sites have been major sources of the chemicals in rivers like the Mersey By Esme Stallard Senior climate and science reporter Published 43 minutes ago Levels of the two most toxic \"forever\" chemicals in England's rivers have dropped by nearly a third over the last decade, according to new figures from the Environment Agency (EA). The decline in the chemicals, PFOS and PFOA, has been put down to stricter restrictions on their use in products after increasing evidence emerged of their damaging impact on human health and the environment. One expert studying the impact of the chemicals said it was \"brilliant\" to see how far the UK has come on this issue. Thousands of other forever chemicals, known officially as PFAS, remain in use but the regulator said its report showed the need for them all to be better monitored and regulated. PFA"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.978529691696167,
+    "mcp_category_search_call": 0.02140498161315918,
+    "mcp_article_search_call": 0.05676722526550293,
+    "mcp_mget_call": 0.009793281555175781,
+    "summary_llm_call": 7.765782594680786
+  }
+}

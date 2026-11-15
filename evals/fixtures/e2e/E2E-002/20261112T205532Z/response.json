@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What's new in the semiconductor industry?",
+    "categories": [
+      "technology"
+    ],
+    "summary": "The retrieved articles do not provide any specific updates or developments related to the semiconductor industry. The articles cover a range of topics, including IBM's advancements in quantum computing with the announcement of the IBM Quantum Nighthawk r3 processor, which is designed to execute 10,000 quantum operations across 520 qubits. However, this information pertains to quantum computing rather than semiconductor technology directly [IBM Quantum Nighthawk Demonstrates New Levels of Speed and Quality].\n\nAdditionally, there are articles discussing unrelated subjects such as a scandal involving Nvidia's CEO Jensen Huang, general strikes in Spain, and a commentary on work hours in the U.S. None of these articles address current trends, innovations, or challenges specifically within the semiconductor industry.\n\nAs a result, there is no new information available regarding the semiconductor industry from the provided articles.",
+    "articles": [
+      {
+        "title": "Author says there were 'real concerns' about David Walliams within publishing industry",
+        "link": "https://www.bbc.co.uk/news/articles/c95y15830k77o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T20:40:47+00:00"
+      },
+      {
+        "title": "IBM Quantum Nighthawk Demonstrates New Levels of Speed and Quality",
+        "link": "https://newsroom.ibm.com/2026-11-11-ibm-quantum-nighthawk-demonstrates-new-levels-of-speed-and-quality,-with-plans-to-scale-beyond-1,000-qubits-in-2027",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T19:47:59+00:00"
+      },
+      {
+        "title": "Why are we still working this hard?",
+        "link": "https://wilsoniumite.com/2026/11/11/why-are-we-still-working-this-hard/",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T20:05:29+00:00"
+      },
+      {
+        "title": "The unfolding Jensen Huang scandal: a timeline",
+        "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T23:50:00+00:00"
+      },
+      {
+        "title": "Clashes in Barcelona as thousands join Spain general strike",
+        "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T19:59:48+00:00"
+      }
+    ],
+    "latency": 6.954944849014282,
+    "status": "ok"
+  }
+}

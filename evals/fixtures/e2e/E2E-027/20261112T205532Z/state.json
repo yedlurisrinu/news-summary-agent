@@ -1,0 +1,17 @@
+{
+  "query": "¿Cuáles son las últimas noticias de tecnología?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "technology",
+    "tech"
+  ],
+  "article_refs": [],
+  "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+  "article_hits": [],
+  "latency": {
+    "classify_llm_call": 0.9364831447601318,
+    "mcp_category_search_call": 0.02131199836730957,
+    "mcp_article_search_call": 0.015228509902954102
+  }
+}

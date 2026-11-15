@@ -1,6 +1,7 @@
 from typing import Required, TypedDict
 
 from channels.article_hit import ArticleHit
+from channels.latencies import Latency
 
 
 class SummaryResult(TypedDict):
@@ -8,4 +9,4 @@ class SummaryResult(TypedDict):
 
     summary: Required[str]
     article_hits: Required[list[ArticleHit]]
-    duration_seconds: Required[dict[str, float]]  # Time this agent took
+    latency: Required[Latency]

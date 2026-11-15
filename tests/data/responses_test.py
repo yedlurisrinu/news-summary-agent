@@ -25,7 +25,7 @@ class TestQuerySuccessResponse:
                     "published_at": "2026-01-01",
                 }
             ],
-            duration_seconds=0.5,
+            latency=0.5,
         )
         assert resp.status == "ok"
         assert resp.articles[0].title == "T"

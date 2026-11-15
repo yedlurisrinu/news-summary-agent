@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Who is leading in the polls for the next UK general election?",
+    "categories": [
+      "politics"
+    ],
+    "summary": "The retrieved articles do not provide any information regarding the current polling leaders for the next UK general election. The articles focus on various topics, including Andy Burnham's push for closer ties with the EU and significant events surrounding a general strike in Spain, but they do not address polling data or political standings in the UK.\n\nAs such, there is no available information on who is leading in the polls for the next UK general election. The articles primarily discuss political developments and events unrelated to UK election polling. Therefore, the query remains unanswered based on the provided content.",
+    "articles": [
+      {
+        "title": "Burnham's push for closer EU ties causes ripples in his party and others",
+        "link": "https://www.bbc.co.uk/news/articles/cr78251892z7o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:30:48+00:00"
+      },
+      {
+        "title": "Spain sees widespread disruption in first general strike for 14 years",
+        "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T17:44:32+00:00"
+      },
+      {
+        "title": "Clashes in Barcelona as thousands join Spain general strike",
+        "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T19:59:48+00:00"
+      },
+      {
+        "title": "Clashes erupt in Barcelona after thousands join Spain general strike",
+        "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T22:07:37+00:00"
+      },
+      {
+        "title": "Clashes erupt in Barcelona as thousands join Spain general strike",
+        "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T20:52:52+00:00"
+      }
+    ],
+    "latency": 3.297356605529785,
+    "status": "ok"
+  }
+}

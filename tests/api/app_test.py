@@ -31,7 +31,7 @@ STATE = {
             "link": "https://example.com/ai",
         }
     ],
-    "duration_seconds": {"CLASSIFY": 0.1, "SEARCH": 0.2},
+    "latency": {"classify_llm_call": 0.1, "mcp_article_search_call": 0.2},
 }
 
 

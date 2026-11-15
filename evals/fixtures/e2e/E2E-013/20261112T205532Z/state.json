@@ -1,0 +1,81 @@
+{
+  "query": "What has Apple announced this week?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "technology",
+    "tech"
+  ],
+  "article_refs": [
+    {
+      "article_id": "36e448efca6903636ac45a98bdd06d0d",
+      "score": 5.6988482
+    },
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "score": 5.6754622
+    },
+    {
+      "article_id": "dfb93d6a5584ab672c30e3f2c1281390",
+      "score": 5.313737
+    },
+    {
+      "article_id": "3455a245af17a31281bb418f8d52c625",
+      "score": 4.1643367
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "score": 3.114981
+    }
+  ],
+  "summary": "This week, there have been no announcements from Apple reported in the retrieved articles. The articles primarily focus on other topics, including the ongoing situation with Poundland, which is seeking more time to secure a rescue deal, and Lego's BrickLink marketplace being taken offline due to unusual activity. \n\nPoundland is reportedly in emergency talks to avoid immediate collapse, with its US owners indicating a willingness to extend the deadline for finding a buyer. This comes as the company faces financial difficulties and scrutiny from MPs regarding its management [Article 0][Article 3]. \n\nAdditionally, Lego has temporarily shut down its BrickLink marketplace after detecting unusual activity, although details about the nature of this activity and any potential impact on customer data remain unclear [Article 1]. \n\nThere is also political news regarding Andy Burnham's push for closer ties with the EU, which is causing ripples within his party and others as he prepares for discussions with European leaders [Article 2]. However, none of these articles provide any information about recent announcements or developments from Apple.",
+  "article_hits": [
+    {
+      "article_id": "36e448efca6903636ac45a98bdd06d0d",
+      "title": "Poundland set for more time to secure a rescue deal as emergency talks continue",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:49:05+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
+      "content": "Poundland set for more time to secure a rescue deal as emergency talks continue Image source, Getty Images By Simon Jack , Business editor , Michael Race , Business reporter and Emma Simpson , Business correspondent Published 11 November 2026 Updated 5 minutes ago Poundland looks set to avoid immediate collapse after its US owners told MPs on Wednesday they were in favour of extending a deadline to find a rescue deal. The discount chain, which has 11,000 employees, has been edging towards administration after being blocked by Gordon Borthers from accessing cash in its bank accounts. A deadline to secure a buyer for the business is set to expire at midnight, but sources close to the situation told the BBC they expect more time will be given, thanks to the release funding in recent days. A committee of MPs questioned Gordon Brothers following accusations that the investment firm hopes to profit from selling off Poundland's 600 stores and stock piecemeal. Gordon Brothers - which bought th"
+    },
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+      "source": "BBC",
+      "published_at": "2026-11-11T22:26:18+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+      "content": "Lego marketplace BrickLink offline after 'unusual activity' detected Image source, Reuters Image caption, The marketplace is sometimes called the 'eBay' of Lego By Zoe Kleinman Technology editor Published 28 minutes ago Lego has taken its online marketplace BrickLink offline after detecting what it described as unusual activity on the platform. BrickLink is used by Lego collectors worldwide to buy and sell secondhand Lego sets, source new bricks and purchase limited edition releases. It was originally set up by a fan, but Lego acquired it in 2019. In a homepage message, the firm said that before restoring BrickLink, it wanted to \"fully understand\" what had happened. \"That means containing the issue, investigating how it happened and checking for related issues,\" Lego said. It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected. After being contacted by the BBC, Lego published the update. BrickLink has been of"
+    },
+    {
+      "article_id": "dfb93d6a5584ab672c30e3f2c1281390",
+      "title": "Burnham's push for closer EU ties causes ripples in his party and others",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:30:48+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cr78251892z7o?at_medium=RSS&at_campaign=rss",
+      "content": "Burnham's push for closer EU ties causes ripples in his party and others Image source, EPA/Shutterstock By Harry Farley , Political correspondent , Henry Zeffman , Chief political correspondent and Jack Fenwick , Political correspondent Published 24 minutes ago There is renewed attention on the prime minister's push for closer relations with Europe - and that is causing ripples in his own party and others. Andy Burnham told his Cabinet earlier this week: \"I firmly believe we have ended up with a harder Brexit than people voted for… no sensible person thinks the deal negotiated by the Tories is working for the country.\" It comes ahead of a week which will focus minds on the UK's relationship with the bloc. On Thursday, at a gathering of European leaders in Dublin, Burnham will for the first time meet those who could prove pivotal as he sells his vision for Britain's future in the bloc. And next week, he will deliver a speech on foreign policy, in which – for Burnham – Europe is a centra"
+    },
+    {
+      "article_id": "3455a245af17a31281bb418f8d52c625",
+      "title": "Poundland set for more time to secure a rescue deal as emergency talks continue",
+      "source": "BBC",
+      "published_at": "2026-11-11T22:08:56+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
+      "content": "Poundland set for more time to secure a rescue deal as emergency talks continue Image source, Getty Images By Simon Jack , Business editor , Michael Race , Business reporter and Emma Simpson , Business correspondent Published 11 November 2026, 00:02 GMT Updated 14 minutes ago Poundland looks set to avoid immediate collapse after its US owners told MPs on Wednesday they were in favour of extending a deadline to find a rescue deal. The discount chain, which has 11,000 employees, has been edging towards administration after being blocked by Gordon Borthers from accessing cash in its bank accounts. A deadline to secure a buyer for the business is set to expire at midnight, but sources close to the situation told the BBC they expect more time will be given, thanks to the release of £10m in funding. A committee of MPs questioned Gordon Brothers following accusations that the investment firm hopes to profit from selling off Poundland's 600 stores and stock piecemeal. Gordon Brothers - which b"
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "title": "Some under-25s should get less benefits, Milburn review to say",
+      "source": "BBC",
+      "published_at": "2026-11-11T23:22:04+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+      "content": "Some under-25s should get less benefits, Milburn review to say Image caption, Alan Milburn will publish his review next week By Ewan Somerville , Political reporter , Nick Eardley , Political correspondent and Chris Mason , Political editor Published 3 minutes ago Some young people could see reductions to the benefits they are entitled to, under a radical overhaul of the system to be recommended by a government-commissioned review. Alan Milburn's year-long report, which will be published on Tuesday, will recommend moving under-25s off the main sickness and disability benefits, the Times reported , external . Milburn, a former Labour health secretary, has been tasked by the government with helping reduce the one in eight 18- to 24-year-olds in the UK who are not in education, employment or training - or \"Neet\". He said on Wednesday night that his plans would not be \"pain-free\" and would affect both existing and new claimants. His report is expected to recommend that under-25s are no lon"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.2645676136016846,
+    "mcp_category_search_call": 0.016947031021118164,
+    "mcp_article_search_call": 0.17795515060424805,
+    "mcp_mget_call": 0.0088043212890625,
+    "summary_llm_call": 3.3185243606567383
+  }
+}

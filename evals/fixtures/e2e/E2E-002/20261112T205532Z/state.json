@@ -1,0 +1,80 @@
+{
+  "query": "What's new in the semiconductor industry?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "technology"
+  ],
+  "article_refs": [
+    {
+      "article_id": "6265bd941e8466ac36f8f0c84a8fb8f4",
+      "score": 6.174942
+    },
+    {
+      "article_id": "f240d9137411fb80b85e38649c31f949",
+      "score": 5.2814145
+    },
+    {
+      "article_id": "bcc29d7dffc676cf94934b736d4dd908",
+      "score": 5.112691
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "score": 3.7556643
+    },
+    {
+      "article_id": "d22cddd5cbb6b7d3a7716a2617ebeaec",
+      "score": 3.3688235
+    }
+  ],
+  "summary": "The retrieved articles do not provide any specific updates or developments related to the semiconductor industry. The articles cover a range of topics, including IBM's advancements in quantum computing with the announcement of the IBM Quantum Nighthawk r3 processor, which is designed to execute 10,000 quantum operations across 520 qubits. However, this information pertains to quantum computing rather than semiconductor technology directly [IBM Quantum Nighthawk Demonstrates New Levels of Speed and Quality].\n\nAdditionally, there are articles discussing unrelated subjects such as a scandal involving Nvidia's CEO Jensen Huang, general strikes in Spain, and a commentary on work hours in the U.S. None of these articles address current trends, innovations, or challenges specifically within the semiconductor industry.\n\nAs a result, there is no new information available regarding the semiconductor industry from the provided articles.",
+  "article_hits": [
+    {
+      "article_id": "6265bd941e8466ac36f8f0c84a8fb8f4",
+      "title": "Author says there were 'real concerns' about David Walliams within publishing industry",
+      "source": "BBC",
+      "published_at": "2026-11-11T20:40:47+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c95y15830k77o?at_medium=RSS&at_campaign=rss",
+      "content": "Author says there were 'real concerns' about David Walliams within publishing industry To play this video you need to enable JavaScript in your browser. This video can not be played Figure caption, Watch: Author says she was 'warned' about David Walliams' behaviour By Lucy Manning , Special correspondent and Jo Adnitt , BBC News Investigations Published 11 November 2026, 18:24 GMT Updated 13 minutes ago Author Chloe Combi has said she had heard rumours that there were \"real concerns\" about David Walliams's behaviour within the publishing industry more than a decade ago. Combi told BBC News she had heard there were allegations about his \"behaviour around young female staff\" and says she was told in 2015 to warn schools that he was \"not an appropriate booking\". An investigation by the Guardian and ITV News alleged that Walliams has been accused by several women of sexual misconduct, inappropriate behaviour and abusing his position, which he denies. HarperCollins, which published Walliams"
+    },
+    {
+      "article_id": "f240d9137411fb80b85e38649c31f949",
+      "title": "IBM Quantum Nighthawk Demonstrates New Levels of Speed and Quality",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T19:47:59+00:00",
+      "link": "https://newsroom.ibm.com/2026-11-11-ibm-quantum-nighthawk-demonstrates-new-levels-of-speed-and-quality,-with-plans-to-scale-beyond-1,000-qubits-in-2027",
+      "content": "All press releases IBM Quantum Nighthawk Demonstrates New Levels of Speed and Quality, with Plans to Scale Beyond 1,000 Qubits in 2027 New Nighthawk r3 processor will be built to execute 10,000 quantum operations, enabling larger and more complex computations as IBM advances its roadmap toward fault tolerance Clients and partners including E.ON, Algorithmiq, and Q-CTRL have run more than 34 billion circuits on Nighthawk r2, reporting speedups of up to 19x beyond previous IBM quantum processors Enhanced IBM Quantum Platform unites quantum with classical computing in one environment Nov 11, 2026 YORKTOWN HEIGHTS, NY, November 11, 2026 — IBM (NYSE: IBM ) today announced IBM Quantum Nighthawk r3, its next-generation processor, will be built to accurately execute 10,000 quantum operations across 520 qubits to tackle larger, more complex problems while maintaining the speed and quality demonstrated by the current generation Nighthawk available today. In 2027, IBM plans to link two Nighthawk "
+    },
+    {
+      "article_id": "bcc29d7dffc676cf94934b736d4dd908",
+      "title": "Why are we still working this hard?",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T20:05:29+00:00",
+      "link": "https://wilsoniumite.com/2026/11/11/why-are-we-still-working-this-hard/",
+      "content": "Why Are We Still Working This Hard? In 1973, what a forty-hour week of work produced takes sixteen hours to produce today. That’s according to Bureau of Economic Analysis (BEA) input output tables. An hour of work in American business now makes two and a half times what it made in 1973. For every forty hours that used to be needed, twenty-four have been freed. You have probably not noticed them. The forty-hour week was written into American law by an act of 1938, and hasn’t changed. Counted for each head of population, the hours worked in American business in 2024 were 10 percent higher than in 1973. As a country, the US took the whole of fifty years’ progress as more output and none of it as time. It was supposed to go differently. In 1930 the economist John Maynard Keynes wrote a short essay about the world his grandchildren would live in. He predicted that “the standard of life in progressive countries one hundred years hence will be between four and eight times as high as it is to-"
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "title": "The unfolding Jensen Huang scandal: a timeline",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T23:50:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "content": "Nvidia co-founder CEO Jensen Huang has never been as flashy or controversy-prone as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk. Now, the 63-year-old industry kingpin has admitted that he cheated on his wife of 40 years in an affair that could have ramifications beyond Huang’s personal life and potentially impact national security. United States officials believe that Huang’s likely romantic interest, Megaspeed executive Alice Huang, is a Chinese spy who has been feeding information back to Beijing. (Alice Huang, a Chinese citizen, is of no relation to Jensen Huang.) Megaspeed, a Singapore-based AI infrastructure company, had reportedly purchased $4.8 billion in Nvidia chips over the last two years. The U.S. and Singapore have both previously investigated Megaspeed over suspicions that the firm was illegally sharing chips with China. The Justice Department has since taken over the federal investigation into the company, the Times has reported. The story took a sudden ne"
+    },
+    {
+      "article_id": "d22cddd5cbb6b7d3a7716a2617ebeaec",
+      "title": "Clashes in Barcelona as thousands join Spain general strike",
+      "source": "BBC",
+      "published_at": "2026-11-11T19:59:48+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "content": "Clashes in Barcelona as thousands join Spain general strike Image source, Reuters By Nick Beake , Europe correspondent , Reporting from Madrid , Guy Hedgecoe , Reporting from Madrid and Alba Morgade Published 11 November 2026, 14:06 GMT Updated 24 minutes ago Clashes have broken out between groups of protesters and police in Barcelona after tens of thousands of people took part in Spain's first general strike for 14 years, called by the country's main unions over housing and the high cost of living. Some 120,000 people joined a demonstration in the capital Madrid and more than 50,000 turned out in Barcelona, where footage showed masked men setting fire to rubbish bins and smashing shop windows as police fired tear gas. Transport and other public services across Spain faced serious disruption. Spaniards are due to vote in parliamentary elections on 29 November. The head of the big UGT labour union, Pepe Álvarez, said the strike was a success with \"massive\" participation, while Unai Sord"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.8385200500488281,
+    "mcp_category_search_call": 0.011873960494995117,
+    "mcp_article_search_call": 0.12963271141052246,
+    "mcp_mget_call": 0.009531021118164062,
+    "summary_llm_call": 5.9653871059417725
+  }
+}

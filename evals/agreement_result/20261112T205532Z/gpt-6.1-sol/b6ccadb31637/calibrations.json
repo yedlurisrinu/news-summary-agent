@@ -1,0 +1,29 @@
+[
+  {
+    "criterion_id": "all",
+    "total_items": 32,
+    "agree": 12,
+    "false_pass": 0,
+    "false_fail": 20,
+    "human_fails": 0,
+    "human_passes": 32
+  },
+  {
+    "criterion_id": "cr1",
+    "total_items": 16,
+    "agree": 8,
+    "false_pass": 0,
+    "false_fail": 8,
+    "human_fails": 0,
+    "human_passes": 16
+  },
+  {
+    "criterion_id": "cr2",
+    "total_items": 16,
+    "agree": 4,
+    "false_pass": 0,
+    "false_fail": 12,
+    "human_fails": 0,
+    "human_passes": 16
+  }
+]

@@ -1,0 +1,81 @@
+{
+  "query": "What is the latest on Anthropic?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "tech",
+    "ai"
+  ],
+  "article_refs": [
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "score": 8.06672
+    },
+    {
+      "article_id": "8ee5ea787f2f18b4a86096aa51a99474",
+      "score": 7.8186684
+    },
+    {
+      "article_id": "a39a60826439d3fe24ab94d27c81b498",
+      "score": 5.271676
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "score": 3.4389725
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "score": 3.0009055
+    }
+  ],
+  "summary": "The latest updates on Anthropic indicate that the company is actively engaging in discussions about the philosophical implications of artificial intelligence, particularly concerning its Claude models. In April 2026, Anthropic hosted a conference that brought together religious scholars and philosophical thinkers to explore the concept of the \"soul\" in relation to large language models (LLMs). This event highlights the growing interest in understanding the ethical and metaphysical dimensions of AI technology, suggesting that Anthropic is not only focused on technical advancements but also on the broader implications of its work in AI [Article 1].\n\nWhile specific recent developments regarding Anthropic's products or business activities were not detailed in the retrieved articles, the company's engagement with philosophical discussions indicates a commitment to addressing the societal impacts of AI. This approach may reflect a strategic positioning within the competitive landscape of AI development, where ethical considerations are becoming increasingly important to stakeholders and the public alike [Article 1].\n\nNo additional information was found regarding Anthropic's financial status, partnerships, or product launches in the provided articles. Therefore, while the philosophical discussions are noteworthy, further details about the company's operational updates or market activities remain unanswered.",
+  "article_hits": [
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "title": "With $720M round, Britain’s Fractile gets a leg up in the race for AI chips",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:34:55+00:00",
+      "link": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+      "content": "Fractile , a British startup developing AI chips, has raised a $720 million Series C backed by Britain’s Sovereign AI Fund with hopes of “ensuring the U.K. has a greater stake in the hardware that will underpin its future economy,” its government stated . Alongside the likes of Axelera , Etched , and OLIX , this makes Fractile one of the top-funded startup players in the race for purpose-built AI chips. Such chips are one of several avenues being explored to reduce the cost of inference — aka using increasingly demanding AI models in production. However, Fractile seeks to go beyond hardware with a full-stack approach that also includes a machine learning compiler to maximize the speed at which LLMs will get executed on its chips. As a result, the company frames itself as a frontier AI company, and its latest round led by Thrive Capital, Founders Fund, Lightspeed Venture Partners and Redpoint was priced accordingly. According to the British government, the valuation was “over £5 billion"
+    },
+    {
+      "article_id": "8ee5ea787f2f18b4a86096aa51a99474",
+      "title": "Tools for exploring the souls of large language models",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T20:45:50+00:00",
+      "link": "https://oshea00.github.io/posts/tinygpt-visualizer/",
+      "content": "TinyGPT Visualizer: Tools for Exploring the Souls of Large Language Models On metaphysics, large language models, and souls. Using TinyGPT Visualizer to decode how large language models think and act. October 29, 2026 · 3 min · Michael OShea There is that old joke told by Woody Allen describing his experience as a university student: “I was thrown out of college for cheating on the metaphysics exam; I looked into the soul of the boy sitting next to me.” If he’d managed to pass his course, Woody Allen might have been ahead of his time. Metaphysics is becoming a popular topic today, and it seems now everyone desperately wants to look for souls in large language models (LLMs). A recent conference last April was held by Anthropic with religious scholars and philosophical thinkers to discuss the nature of the soul when it came to their latest Claude models. It seems they needed guidance that Dario Amodei was unable to provide. The time seems ripe to dig into how we might actually peer into "
+    },
+    {
+      "article_id": "a39a60826439d3fe24ab94d27c81b498",
+      "title": "Congress to call Jensen Huang in to answer for alleged Chinese spy affair",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:22:22+00:00",
+      "link": "https://techcrunch.com/2026/11/11/congress-to-call-jensen-huang-in-to-answer-for-alleged-chinese-spy-affair/",
+      "content": "In Brief Posted: 11:22 AM PST · November 11, 2026 Image Credits: Jose Sarmento Matos/Bloomberg / Getty Images Rebecca Bellan Congress to call Jensen Huang in to answer for alleged Chinese spy affair Congress is gearing up to subpoena Nvidia CEO Jensen Huang to answer their questions about his affair with an alleged Chinese spy , Bloomberg reports , citing two House Republicans. The report comes a week after House Republicans Brian Mast, John Moolenaar, and Rick Crawford sent a letter to Huang asking him to appear before their committees for a joint, closed-door briefing in regards to his relations with Alice Huang, the Megaspeed executive and suspected Chinese spy. House China committee Chairman Moolenaar said Wednesday on Fox Business that Huang has until the end of the day to respond to the request. If he doesn’t agree to the briefing, he’ll likely be subpoenaed, said Moolenaar. Mast, who chairs the House Foreign Affairs Committee, on Wednesday said his committee is preparing a subpo"
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+      "source": "Wired",
+      "published_at": "2026-11-11T19:55:54+00:00",
+      "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+      "content": "Will Knight Business Nov 11, 2026 2:55 PM I Saw the Future of Robotics in a Virtual Duck That Chases My Cat An OpenAI model helped me teach the Microduck to waddle and moonlight as a tiny cat butler. Photo-Illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Allow me to introduce you to the robot cat butler I’m developing with help from AI. Using OpenAI’s GPT-6 Sol , I taught a virtual version of Microduck —a cute robot from Pollen Robotics and Hugging Face—to walk around a room and identify any bengal cats in its vicinity. (The clip above shows the robot waddling toward a target feline; its eye view is shown top right.) I’m still waiting patiently for a physical Microduck— please hurry up and ship it, guys —but simulated behavior is relatively simple, so it should transfer over to the real thing. I plan to have the robot automatically dispense a treat for my pet bengal, Leona, perhaps by bowing its head to release "
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "title": "The unfolding Jensen Huang scandal: a timeline",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T23:50:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "content": "Nvidia co-founder CEO Jensen Huang has never been as flashy or controversy-prone as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk. Now, the 63-year-old industry kingpin has admitted that he cheated on his wife of 40 years in an affair that could have ramifications beyond Huang’s personal life and potentially impact national security. United States officials believe that Huang’s likely romantic interest, Megaspeed executive Alice Huang, is a Chinese spy who has been feeding information back to Beijing. (Alice Huang, a Chinese citizen, is of no relation to Jensen Huang.) Megaspeed, a Singapore-based AI infrastructure company, had reportedly purchased $4.8 billion in Nvidia chips over the last two years. The U.S. and Singapore have both previously investigated Megaspeed over suspicions that the firm was illegally sharing chips with China. The Justice Department has since taken over the federal investigation into the company, the Times has reported. The story took a sudden ne"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.0454468727111816,
+    "mcp_category_search_call": 0.011480093002319336,
+    "mcp_article_search_call": 0.15291237831115723,
+    "mcp_mget_call": 0.008191347122192383,
+    "summary_llm_call": 4.002090215682983
+  }
+}

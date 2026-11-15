@@ -1,0 +1,13 @@
+{
+  "query": "Latest news about the zorblax quantum turnip festival in Vrellnia",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [],
+  "article_refs": [],
+  "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+  "article_hits": [],
+  "latency": {
+    "classify_llm_call": 0.7483704090118408,
+    "mcp_article_search_call": 0.014668941497802734
+  }
+}

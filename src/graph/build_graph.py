@@ -29,7 +29,7 @@ async def reply_off_topic(state: NewsState) -> SummaryResult:
     return {
         "summary": SeedData._OFF_TOPIC_REPLY,
         "article_hits": [],
-        "duration_seconds": {},
+        "latency": {},  # nothing measured here; merge_latencies keeps earlier entries
     }
 
 
@@ -41,7 +41,7 @@ async def reply_no_results(state: NewsState) -> SummaryResult:
     return {
         "summary": SeedData._NO_NEWS_FOUND_REPLY,
         "article_hits": [],
-        "duration_seconds": {},
+        "latency": {},  # nothing measured here; merge_latencies keeps earlier entries
     }
 
 

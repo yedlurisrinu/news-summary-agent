@@ -1,0 +1,111 @@
+# =============================================================================
+# BLIND LABELS — e2e captures, run 20261112T205532Z
+# =============================================================================
+# Labeller: Srini. Fill BEFORE any real judge (terra or sol) has graded these
+# captures, and do not open any judge output while labelling (ADR 0012.6).
+#
+# For each case, read:
+#   evals/fixtures/e2e/<case_id>/20261112T205532Z/response.json   -> body.query, body.summary
+#   evals/fixtures/e2e/<case_id>/20261112T205532Z/state.json      -> article_hits (title, source,
+#                                                         published_at, content)
+# Judge the summary against the article content as the summariser saw it: the first
+# 1000 characters of each article's content (SUMMARY_CONTENT_MAX_CHARS), plus title,
+# source and published_at. A claim beyond the 1000-char cut is unsupported.
+#
+# Values: pass | fail. One value per criterion; no n/a (every case below has a summary).
+# note: one sentence; on a fail, quote the offending summary text.
+# Do not read the case's `notes` in e2e_cases.yaml while labelling: they name the
+# failure the case was built to provoke and would steer the label.
+#
+# Rubric v2 (approved 10-Nov, T05-S246) — the same text the judge receives:
+#   cr1: The summary addresses the user's query. It leads with what the articles report that answers the query. When the articles answer none or only part of the query, the summary says so plainly, and it does not present unrelated articles as the answer.
+#   cr2: Every factual claim in the summary (names, roles, numbers, dates, events) is stated in the provided articles; a claim followed by a citation is stated in the cited article. The summary adds no facts, predictions or conclusions of its own.
+#
+# Scope: the 16 judged cases whose capture holds a summary. Left out: E2E-015, 025,
+# 026, 027 (no-results reply) and E2E-019 (off-topic reply) — no summary to judge.
+# =============================================================================
+
+run_id: "20261112T205532Z"
+labeller: Srini
+labeled_at: "2026-11-12T18:30-08:00"        # fill when done, e.g. 2026-11-12T18:30-08:00
+labels:
+  - case_id: E2E-001
+    query: "What are the latest developments in AI regulation?"
+    cr1: pass  # pass | fail
+    cr2: pass  # pass | fail
+    note: ""
+  - case_id: E2E-002
+    query: "What's new in the semiconductor industry?"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-003
+    query: "Summarize recent cybersecurity incidents"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-004
+    query: "What is happening in US politics?"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-005
+    query: "Give me the latest business news about big tech earnings"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-006
+    query: "Any news on crypto exchanges and hacks?"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-007
+    query: "What are startups raising money for in AI right now?"
+    cr1:  pass        # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-008
+    query: "Latest science and space news"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-009
+    query: "What's new in health and medicine?"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-010
+    query: "Climate change policy news"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-011
+    query: "What is the latest on Anthropic?"
+    cr1:  pass          # pass | fail
+    cr2:  pass          # pass | fail
+    note: ""
+  - case_id: E2E-012
+    query: "News about Zohran Mamdani and surveillance technology"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-013
+    query: "What has Apple announced this week?"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-014
+    query: "What did the Federal Reserve decide at its last meeting?"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-016
+    query: "Who is leading in the polls for the next UK general election?"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""
+  - case_id: E2E-017
+    query: "How many people were laid off in tech this month and at which companies?"
+    cr1: pass           # pass | fail
+    cr2: pass           # pass | fail
+    note: ""

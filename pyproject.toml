@@ -22,6 +22,10 @@ dependencies = [
     "mcp-types==2.3.0",
     "pyyaml==6.0.3",
     "starlette==1.10.0",
+    "agentevals==0.0.9",
+    "statsmodels==0.15.0",
+    "scikit-learn==1.9.1",
+    "ruamel-yaml==0.19.1",
 ]
 
 [dependency-groups]
@@ -39,12 +43,29 @@ mypy_path = "src"
 explicit_package_bases = true
 namespace_packages = true
 warn_unused_ignores = true
+exclude = ["^evals/z_temp/"]  # scratch scripts, git-ignored
 
 # Untyped third-party packages only (no py.typed, no stub package).
 # Never set ignore_missing_imports globally: it hides missing first-party modules.
 [[tool.mypy.overrides]]
 module = ["hvac", "hvac.*", "authlib.*"]
 ignore_missing_imports = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+dev-mode-dirs = ["src", "."]          # editable install puts these two folders on sys.path
+
+# The wheel ships src/ as top-level packages (adapters, api, auth, ...) with their resource
+# files. Not used by the Docker image (uv sync --no-install-project + PYTHONPATH=src) or by
+# local dev (editable install via dev-mode-dirs); it keeps `uv build` / `pip install .` honest.
+# evals/ and tests/ are dev-only and stay out of the wheel.
+[tool.hatch.build.targets.wheel]
+only-include = ["src"]
+sources = ["src"]
+exclude = ["**/__pycache__", "src/learning", "src/news_summary_agent.egg-info"]
 
 [tool.uv]
 package = true
@@ -53,7 +74,8 @@ package = true
 # No rule selection: the rules are ruff's defaults for the pinned version (ruff==0.16.8 in the dev
 # group), so they only change when that pin is bumped.
 target-version = "py312"
-src = ["src", "tests"]
+src = ["src", "."]  # first-party: the app packages in src/, plus evals and tests at the root
+extend-exclude = ["evals/z_temp"]  # scratch scripts, git-ignored
 
 [tool.coverage.run]
 source = ["src"]

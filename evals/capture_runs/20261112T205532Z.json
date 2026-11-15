@@ -1,0 +1,337 @@
+{
+  "run_id": "20261112T205532Z",
+  "mode": "capture",
+  "golden_set_version": {
+    "e2e_cases_sha": "e10725c866f4",
+    "frozen_index": "news_articles_frozen_v1"
+  },
+  "reference_now": "2026-11-12T00:57:30.525Z",
+  "offset_ms": 71881705,
+  "retriever": {
+    "backend": "lexical",
+    "mcp_url": "http://es-mcp-eval-server:9553/mcp"
+  },
+  "app_version": "c72612b",
+  "started_at": "2026-11-12T20:55:32.713841+00:00",
+  "cases": [
+    {
+      "case_id": "E2E-001",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 6.35,
+      "frozen_check": {
+        "case_id": "E2E-001",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-002",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 6.96,
+      "frozen_check": {
+        "case_id": "E2E-002",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-003",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 7.85,
+      "frozen_check": {
+        "case_id": "E2E-003",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-004",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.71,
+      "frozen_check": {
+        "case_id": "E2E-004",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-005",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 6.3,
+      "frozen_check": {
+        "case_id": "E2E-005",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-006",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.18,
+      "frozen_check": {
+        "case_id": "E2E-006",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-007",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 6.18,
+      "frozen_check": {
+        "case_id": "E2E-007",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-008",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 8.84,
+      "frozen_check": {
+        "case_id": "E2E-008",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-009",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.17,
+      "frozen_check": {
+        "case_id": "E2E-009",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-010",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.76,
+      "frozen_check": {
+        "case_id": "E2E-010",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-011",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.23,
+      "frozen_check": {
+        "case_id": "E2E-011",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-012",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 7.0,
+      "frozen_check": {
+        "case_id": "E2E-012",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-013",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 4.79,
+      "frozen_check": {
+        "case_id": "E2E-013",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-014",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 2.75,
+      "frozen_check": {
+        "case_id": "E2E-014",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-015",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 1.41,
+      "frozen_check": {
+        "case_id": "E2E-015",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-016",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 3.3,
+      "frozen_check": {
+        "case_id": "E2E-016",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-017",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 4.46,
+      "frozen_check": {
+        "case_id": "E2E-017",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-018",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 6.27,
+      "frozen_check": {
+        "case_id": "E2E-018",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-019",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.82,
+      "frozen_check": {
+        "case_id": "E2E-019",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-020",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.38,
+      "frozen_check": {
+        "case_id": "E2E-020",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    },
+    {
+      "case_id": "E2E-021",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.91,
+      "frozen_check": {
+        "case_id": "E2E-021",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-022",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.8,
+      "frozen_check": {
+        "case_id": "E2E-022",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-023",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.93,
+      "frozen_check": {
+        "case_id": "E2E-023",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-024",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.78,
+      "frozen_check": {
+        "case_id": "E2E-024",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-025",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.77,
+      "frozen_check": {
+        "case_id": "E2E-025",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-026",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.9,
+      "frozen_check": {
+        "case_id": "E2E-026",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-027",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 0.98,
+      "frozen_check": {
+        "case_id": "E2E-027",
+        "articles": 0
+      }
+    },
+    {
+      "case_id": "E2E-028",
+      "http_status": 200,
+      "threads": 0,
+      "elapsed_s": 5.06,
+      "frozen_check": {
+        "case_id": "E2E-028",
+        "articles": 5,
+        "missing_in_frozen": [],
+        "published_after_reference_now": []
+      }
+    }
+  ],
+  "ended_at": "2026-11-12T20:57:33.689564+00:00"
+}

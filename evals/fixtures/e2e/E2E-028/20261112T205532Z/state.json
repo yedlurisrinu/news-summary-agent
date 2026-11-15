@@ -1,0 +1,80 @@
+{
+  "query": "Summarise the latest AI news and also write me a SQL query",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "ai"
+  ],
+  "article_refs": [
+    {
+      "article_id": "499d40fe5f1fc703ab458dcf152a804a",
+      "score": 20.203268
+    },
+    {
+      "article_id": "dbca2e41f4fa792d180ac32dd5c0aa09",
+      "score": 17.475538
+    },
+    {
+      "article_id": "5d7f0c74e007a39583b2f3046b9dbf3b",
+      "score": 15.382521
+    },
+    {
+      "article_id": "6b0c848ff7aabc072594e66125b5d44f",
+      "score": 14.471263
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "score": 11.364359
+    }
+  ],
+  "summary": "Recent developments in artificial intelligence (AI) highlight significant advancements in both practical applications and the evolving landscape of AI technologies. One notable announcement is from Perplexity, which has launched \"teammates,\" AI agents designed to manage complex, ongoing work across various sectors such as operations and marketing. These agents are built to coordinate projects, adapt to changing priorities, and provide users with the ability to guide their work, enhancing productivity in professional environments [Perplexity launches AI agents for work].\n\nIn another significant move, ClickHouse has acquired Xata, aiming to integrate agentic capabilities into its Managed Postgres platform. This collaboration is set to enhance database provisioning and performance, catering to modern applications and AI agents. The acquisition promises to maintain continuity for existing Xata customers while gradually transitioning them to the ClickHouse platform, which will feature advanced functionalities like instant copy-on-write branching [ClickHouse Acquires Xata].\n\nAdditionally, there is a growing trend of removing restrictions from AI models, as seen with the emergence of companies like Abliteration AI. This company is focused on making powerful AI models more accessible by eliminating built-in safeguards, a move that has sparked discussions about the implications for safety and ethical use in AI applications [Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers]. \n\nOverall, these developments reflect a dynamic and rapidly evolving AI landscape, with innovations aimed at enhancing productivity, performance, and accessibility, while also raising important questions about safety and ethical considerations in AI deployment.",
+  "article_hits": [
+    {
+      "article_id": "499d40fe5f1fc703ab458dcf152a804a",
+      "title": "Perplexity launches AI agents for work",
+      "source": "Hacker News",
+      "published_at": "2026-11-06T17:59:41+00:00",
+      "link": "https://www.perplexity.ai/en-GB/hub/blog/teammates-are-agents-for-complex-ongoing-work",
+      "content": "Teammates are agents for complex, ongoing work Perplexity teammates coordinate AI agents, manage ongoing projects, and follow through across ops, marketing, and more. 4 Nov 2026 Perplexity pioneered the first web-capable AI assistant in July 2025 in the Comet browser . It was useful for booking restaurants, shopping, and dozens of uses popular with personal agents today. Since then, model capabilities have advanced dramatically. And Perplexity Computer is where millions of people and companies do serious work with accurate AI. Personal agents need to be purpose-built for work. Today, we’re launching teammates, personal agents that can take on that long-running work. They plan and coordinate projects, switch gears as priorities change, and present results for review. Users can inspect and guide their work along the way. Computer can handle complex projects, but setting up an agent to own ongoing work required planning. Teammates build on the power of Computer, and work inside Computer w"
+    },
+    {
+      "article_id": "dbca2e41f4fa792d180ac32dd5c0aa09",
+      "title": "ClickHouse Acquires Xata",
+      "source": "Hacker News",
+      "published_at": "2026-11-10T06:14:51+00:00",
+      "link": "https://xata.io/blog/xata-is-joining-clickhouse",
+      "content": "Back to Blog Xata is joining ClickHouse By: Monica Sarbu Published: Nov 9, 2026 Reading time: 6 min read Today, we're excited to announce that Xata is joining ClickHouse to bring agentic capabilities to ClickHouse Managed Postgres . Together with ClickHouse, we're building a Postgres platform designed for modern applications and AI agents, combining high-performance production workloads on local NVMe storage with Xata’s technology for instant database provisioning, instant copy-on-write branching, and scale-to-zero compute. Nothing changes for Xata customers in the short term and we continue to accept new sign-ups. In parallel, we're working on bringing branching and an agentic tier to ClickHouse Managed Postgres. We will eventually migrate Xata customers to ClickHouse Managed Postgres. You can also read ClickHouse's announcement . What is Xata It’s undeniable that this year software development has changed forever, with agents and software factories now doing the grunt work. However, "
+    },
+    {
+      "article_id": "5d7f0c74e007a39583b2f3046b9dbf3b",
+      "title": "Ask HN: What are you working on? (November 2026)",
+      "source": "Hacker News",
+      "published_at": "2026-11-08T21:20:20+00:00",
+      "link": "https://news.ycombinator.com/item?id=50417407",
+      "content": "Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: What are you working on? (November 2026) 17 points by david927 49 minutes ago | hide | past | favorite | 155 comments What are you working on? What have you been curious about lately? thereallex 0 minutes ago | next [–] https://skymap.rulkens.com A browser based open source universe explorer. I'm in between jobs currently and finally took time to work on my passion project. It started with just visualizing some galaxy surveys, but it got a little out of hand and now includes everything from hi-res tiled earth/mars, Gaia star field (16M stars), a milky way renderer and much more. It's so amazing to have the ability to gather and parse publicly available scientific data and actually visualize it in real-time. It's one of those projects I'm learning a lot from and can keep going with (the universe is a big place :)). As a software developer for 20+ years, its been mind-blowing and often also frustrating to have C"
+    },
+    {
+      "article_id": "6b0c848ff7aabc072594e66125b5d44f",
+      "title": "Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers",
+      "source": "Wired",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "link": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/",
+      "content": "Will Knight The Big Story Nov 10, 2026 6:00 AM Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers The “abliterators” are flooding the internet with AI models that never say no, making it easier for people to improve their cyberdefenses—or build a bomb. Play/Pause Button Pause Animation: Irene Suosalo Comment Loader Save Story Save this story Comment Loader Save Story Save this story Devon Thomas hardly seems like a renegade. Members of his bible study group, he tells me, would probably describe him as unfailingly kind and polite. And yet Thomas is doing something that many in the AI world consider borderline blasphemous. His new company, Abliteration AI, removes safeguards from the world’s most powerful open-weight models. It also makes these models available to anyone. As someone who covers AI and constantly hears about the need for increased safety , I was fascinated to learn about this subversive business venture. I reached out to Thomas, and we"
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+      "source": "Wired",
+      "published_at": "2026-11-11T19:55:54+00:00",
+      "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+      "content": "Will Knight Business Nov 11, 2026 2:55 PM I Saw the Future of Robotics in a Virtual Duck That Chases My Cat An OpenAI model helped me teach the Microduck to waddle and moonlight as a tiny cat butler. Photo-Illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Allow me to introduce you to the robot cat butler I’m developing with help from AI. Using OpenAI’s GPT-6 Sol , I taught a virtual version of Microduck —a cute robot from Pollen Robotics and Hugging Face—to walk around a room and identify any bengal cats in its vicinity. (The clip above shows the robot waddling toward a target feline; its eye view is shown top right.) I’m still waiting patiently for a physical Microduck— please hurry up and ship it, guys —but simulated behavior is relatively simple, so it should transfer over to the real thing. I plan to have the robot automatically dispense a treat for my pet bengal, Leona, perhaps by bowing its head to release "
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.8120825290679932,
+    "mcp_category_search_call": 0.017700910568237305,
+    "mcp_article_search_call": 0.01847386360168457,
+    "mcp_mget_call": 0.008732795715332031,
+    "summary_llm_call": 4.191983461380005
+  }
+}

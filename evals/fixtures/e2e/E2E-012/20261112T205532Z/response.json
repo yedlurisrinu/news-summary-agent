@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "News about Zohran Mamdani and surveillance technology",
+    "categories": [
+      "politics",
+      "technology"
+    ],
+    "summary": "New York City Mayor Zohran Mamdani has publicly criticized the owner of Madison Square Garden, James Dolan, regarding the use of surveillance technology at the venue. Mamdani described such surveillance practices as reflective of broader societal issues, stating that they should not be permitted. He emphasized the importance of local legislation introduced by City Council member Shahana Hanif, which aims to ban the collection of biometric data, including facial recognition, in public spaces throughout the city. This legislative effort is seen as a necessary response to the growing concerns over surveillance practices [TechCrunch].\n\nIn a related discussion about technology and its implications, Mamdani has also addressed the broader topic of artificial intelligence (AI) and its impact on society. He has urged New Yorkers to resist the notion that AI's integration into daily life is inevitable, advocating for public accountability of AI companies. His administration has already taken steps to limit AI use in educational settings, specifically banning its application in elementary and middle schools [TechCrunch][Wired].\n\nMamdani's comments come at a time when there is a perceived lack of federal regulation on AI and surveillance technologies, prompting local leaders to take action. His stance reflects a growing concern among city officials regarding the implications of these technologies on privacy and civil liberties [Wired].",
+    "articles": [
+      {
+        "title": "New York City’s Mamdani criticizes Madison Square Garden owner over surveillance tech",
+        "link": "https://techcrunch.com/2026/11/03/new-york-citys-mamdani-criticizes-madison-square-garden-owner-over-surveillance-tech/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-03T16:04:55+00:00"
+      },
+      {
+        "title": "‘Our Risk, Their Reward’: Zohran Mamdani on AI and Data Centers",
+        "link": "https://www.wired.com/story/the-big-interview-podcast-nyc-mayor-zohran-mamdani/",
+        "source": "Wired",
+        "published_at": "2026-11-03T11:00:00+00:00"
+      },
+      {
+        "title": "Mamdani says feds have abdicated on AI, urges New Yorkers to push back",
+        "link": "https://techcrunch.com/2026/10/19/mamdani-says-feds-have-abdicated-on-ai-urges-new-yorkers-to-push-back/",
+        "source": "TechCrunch",
+        "published_at": "2026-10-20T01:27:03+00:00"
+      },
+      {
+        "title": "ICE agents looked more like 'mass shooters' than law enforcement in NYC shooting: Mamdani - New York Daily News",
+        "link": "https://www.nydailynews.com/2026/10/11/ice-agents-looked-more-like-mass-shooters-than-law-enforcement-in-nyc-shooting-mamdani/",
+        "source": "New York Daily News",
+        "published_at": "2026-10-11T22:17:14Z"
+      },
+      {
+        "title": "Mother of Ghanaian boy killed in US 'wants justice' as she flies for funeral",
+        "link": "https://www.bbc.co.uk/news/articles/cq62yjnmg4ego?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-04T15:18:03+00:00"
+      }
+    ],
+    "latency": 8.009047031402588,
+    "status": "ok"
+  }
+}

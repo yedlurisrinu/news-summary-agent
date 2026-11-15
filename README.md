@@ -110,10 +110,27 @@ Success (`status: "ok"`):
       "published_at": "2026-03-28"
     }
   ],
-  "duration_seconds": 2.341,
+  "latency": 2.341,
   "status": "ok"
 }
 ```
+
+`latency` is the sum, in seconds, of the external calls the run made (`time.perf_counter`
+deltas). It is not the request's wall-clock time: graph overhead between calls is not counted.
+Each node records its calls in the `latency` state channel (`Latency` in
+`src/channels/latencies.py`, merged by `merge_latencies`). A key is present only when its call ran:
+
+| Key | Node | Call |
+|---|---|---|
+| `classify_llm_call` | classify | intent LLM call |
+| `mcp_category_search_call` | classify | MCP `category_search` (news queries only) |
+| `mcp_article_search_call` | search | MCP `article_search` |
+| `mcp_mget_call` | summarize | MCP `mget` (also recorded when it fails) |
+| `summary_llm_call` | summarize | summary LLM call (also recorded when it fails) |
+
+An off-topic query has only `classify_llm_call`; a query with no search results has the first
+three. The guard-rail reply nodes add nothing. The per-call values are logged
+(`Total Time Taken = {...}`) but not returned in the response.
 
 Failure (`status: "failed"`). The HTTP status equals `error_code`: **503** with `Retry-After: 30`
 when search (es-mcp-server) is unavailable, **500** for anything else. `error` is always fixed
@@ -281,20 +298,123 @@ first MCP call) and are retried on the next request if they fail.
 ## Test
 
 ```bash
-uv run pytest                                   # 150 tests (pytest.ini: pythonpath=src, *_test.py)
+uv run pytest                                   # 212 tests (pytest.ini: pythonpath=src ., *_test.py)
 uv run pytest --cov=src --cov-report=term       # 99.90% total (measured); fail_under = 90 ([tool.coverage.report])
 uv run mypy --strict src
-uv run ruff check src tests                     # "All checks passed!"
+uv run mypy --strict evals
+uv run ruff check src tests evals               # "All checks passed!"
+uv run ruff format --check src tests evals
 ```
 
 - Ruff uses its default rule set for the pinned `ruff==0.16.8` (no rule selection in
-  `[tool.ruff]`, `pyproject.toml`). Ruff is not run in CI.
+  `[tool.ruff]`, `pyproject.toml`). `src = ["src", "."]` makes the app packages, `evals` and
+  `tests` first-party for import sorting. Ruff is not run in CI.
+- `evals/z_temp/` (scratch scripts) is git-ignored and excluded from ruff and mypy.
+- Packaging (hatchling): `uv sync` installs the project in editable mode (`dev-mode-dirs` puts
+  `src/` and the repo root on `sys.path`). `uv build` makes a wheel with the `src/` packages and
+  their resource files only (no `evals/`, `tests/`, `static/`). The Docker image uses neither:
+  it runs `uv sync --no-install-project` with `PYTHONPATH=src`.
 
 - Async tests use anyio's pytest plugin (`pytestmark = pytest.mark.anyio`).
 - No live services are needed:
   - `tests/fake_mcp.py`: an in-memory fastmcp server with the same tools as es-mcp-server, reached through `fastmcp.Client(server)`.
   - `tests/auth/fake_keycloak.py`: a fake Keycloak over `httpx2.MockTransport`.
   - In-memory session stores, `InMemorySaver` for checkpoints, and a fake LLM.
+- `tests/trajectory/` runs the stubbed trajectory evals (see [Evals](#evals)) and
+  `tests/evals/` tests the judge agreement maths, so both run with every `uv run pytest`.
+  Coverage is measured on `src/` only.
+
+## Evals
+
+Everything lives in `evals/`; paths in `evals/resources/eval_config.yaml` are relative to
+that folder (`BASE_PATH` in `evals/helpers/constants.py`). Run the scripts from the repo root
+with `uv run python -m ...`. Importing an eval module has no side effects: setup (logging,
+Vault secrets, configs) happens only under `__main__`.
+
+| Layer | Cases | Needs | Entry point |
+|---|---|---|---|
+| Trajectory (stubbed) | `cases/trajectory_cases.yaml` | nothing (scripted LLM + in-memory fake MCP) | `uv run pytest tests/trajectory` |
+| E2E capture | `cases/e2e_cases.yaml` (28) | eval MCP server, frozen ES index, OpenAI, Keycloak | `python -m evals.fixtures.fixture_capture_runner` |
+| Blind labelling | `labels/e2e_labels.yaml` | a capture run | `python -m evals.z_temp.label_view` (local helper, git-ignored) |
+| Judge calibration / agreement | rubric `cases/rubric.yaml` (cr1, cr2) | labels + captures, OpenAI | `python -m evals.main` |
+
+`cases/component_cases.yaml` holds per-node cases (classify, search, summarize); no runner uses it yet.
+
+### Trajectory evals (deterministic, run in CI)
+
+`evals/trajectory/harness.py` runs the app's real graph with the case's scripted LLM replies
+(`llm_script`) and fake MCP data (`mcp`). It then checks the node order, the MCP tool calls and
+args, the LLM call order and inputs, and the outcome (HTTP status, canned reply name, no
+internal details leaking). `tests/trajectory/trajectory_test.py` has one test per case, plus
+the budget case TRJ-020 (step / tool / LLM call limits) and the isolation case TRJ-021 (two runs on
+one graph, checked against its YAML `expect`). An unknown key in a case's `expect` or `outcome`
+(e.g. a typo such as `tool_call`) fails the case, so a mistyped expectation is never skipped.
+`any_order` is a true multiset match that also compares tool args. `tests/trajectory/harness_test.py`
+tests these rules.
+
+### E2E capture
+
+```bash
+# env: ES_NEWS_SUMMARY_EVAL_API_KEY, plus Vault (VAULT_ADDR, VAULT_TOKEN, VAULT_SECRET_PATH)
+# for OPENAI_API_KEY and SERVICE_CLIENT_SECRET
+uv run python -m evals.fixtures.fixture_capture_runner --only E2E-001   # smoke: one case
+uv run python -m evals.fixtures.fixture_capture_runner                  # all cases
+```
+
+Preflight (`fixture_capture_runtime.py`): reads `_meta.reference_now`, `_meta.reference_now_ms`
+and the `published_at` runtime field of `ES_FROZEN_EVAL_INDEX`, and stops if any is missing.
+It then sets the runtime script's `offset_ms` so the frozen articles look current. Each case
+runs through the app's `build()` + `run_graph()` with a fresh `InMemorySaver` and is frozen to:
+
+```
+fixtures/e2e/<case_id>/<run_id>/response.json   # {"http_status", "body"}
+fixtures/e2e/<case_id>/<run_id>/state.json      # final NewsState (article_hits with content, latency)
+capture_runs/<run_id>.json                      # provenance: cases sha, index, reference_now, git rev, per-case result
+```
+
+Each capture's articles are also looked up in the frozen index and the result is stored in the
+run record as `frozen_check` (`missing_in_frozen`, `published_after_reference_now`). This is
+recorded only: it does not fail the run, so read it in `capture_runs/<run_id>.json`.
+
+### Labelling and judging
+
+1. Label the captures of `CAPTURED_RUN_ID` blind in `labels/e2e_labels.yaml`
+   (`pass` / `fail` per criterion), before looking at any judge output.
+   `uv run python -m evals.z_temp.label_view [E2E-001 ...] [--run <run_id>]` prints each capture
+   the way the summariser saw it (local helper in the git-ignored `z_temp/`; paths come from `eval_config.yaml`).
+2. `uv run python -m evals.main` runs the rows of `JUDGE_AGREEMENT_RUNS_PARAMS` one at a time
+   and asks before the next one (`q` stops). Each row is
+   `[judge_1, judge_2, agreement_run, judge_vs_label, per_judge_agreement_runs, label]`:
+   - `agreement_run: true`: judge 1 grades every labelled (case, criterion) item → `verdicts.json`.
+     Items come from the judged seed cases (`judge` not `skip`), only the criteria each case lists
+     in `judge.criteria`, and only captures with articles (a fixed off-topic / no-results /
+     failure reply has nothing to grade). A missing capture is skipped with a warning.
+   - `judge_vs_label: true`: judge 1's saved verdicts vs the labels → `calibrations.json`
+   - both `false`: judge 1 vs judge 2 saved verdicts → `judges_agreement-<v1>-<v2>.json`
+
+   Results are written and logged as one row for all criteria pooled (`criterion_id: "all"`)
+   followed by one row per criterion, each with its 95% Wilson interval; judge-vs-judge rows also
+   carry Cohen's kappa (agreement corrected for chance, `null` when undefined). Read the
+   per-criterion rows: the pooled row mixes criteria, and its items are not independent (each
+   case gives one item per criterion), so its Wilson interval is too narrow.
+
+Outputs (`JUDGE_VERDICTS_PATH`, `JUDGES_CALIBRATION_AGREEMENT_PATH`):
+
+```
+agreement_result/<captured_run_id>/<model>/<judge_version>/judge_config.json
+agreement_result/<captured_run_id>/<model>/<judge_version>/verdicts.json
+agreement_result/<captured_run_id>/<model>/<judge_version>/calibrations.json
+agreement_result/<captured_run_id>/judges_agreement-<v1>-<v2>.json
+```
+
+`judge_version` is `JudgeConfig.version`, the first 12 hex characters of a SHA-256 over the
+judge config: model, reasoning effort, timeout, retries, prompts, article separator, rubric
+and verdict schema. Changing any of these (including `rubric.yaml` or `model/prompts.py`)
+gives a new folder and needs a new agreement run.
+
+`evals/helpers/fake_script.py` (`python -m evals.helpers.fake_script`) shows the agreement
+maths on scripted judges (`FakeJudge`), with no API calls. `tests/evals/calibration_test.py`
+asserts the same scenario.
 
 ## Ports
 

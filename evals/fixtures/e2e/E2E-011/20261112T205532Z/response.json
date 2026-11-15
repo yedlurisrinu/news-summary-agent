@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What is the latest on Anthropic?",
+    "categories": [
+      "tech",
+      "ai"
+    ],
+    "summary": "The latest updates on Anthropic indicate that the company is actively engaging in discussions about the philosophical implications of artificial intelligence, particularly concerning its Claude models. In April 2026, Anthropic hosted a conference that brought together religious scholars and philosophical thinkers to explore the concept of the \"soul\" in relation to large language models (LLMs). This event highlights the growing interest in understanding the ethical and metaphysical dimensions of AI technology, suggesting that Anthropic is not only focused on technical advancements but also on the broader implications of its work in AI [Article 1].\n\nWhile specific recent developments regarding Anthropic's products or business activities were not detailed in the retrieved articles, the company's engagement with philosophical discussions indicates a commitment to addressing the societal impacts of AI. This approach may reflect a strategic positioning within the competitive landscape of AI development, where ethical considerations are becoming increasingly important to stakeholders and the public alike [Article 1].\n\nNo additional information was found regarding Anthropic's financial status, partnerships, or product launches in the provided articles. Therefore, while the philosophical discussions are noteworthy, further details about the company's operational updates or market activities remain unanswered.",
+    "articles": [
+      {
+        "title": "With $720M round, Britain’s Fractile gets a leg up in the race for AI chips",
+        "link": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T19:34:55+00:00"
+      },
+      {
+        "title": "Tools for exploring the souls of large language models",
+        "link": "https://oshea00.github.io/posts/tinygpt-visualizer/",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T20:45:50+00:00"
+      },
+      {
+        "title": "Congress to call Jensen Huang in to answer for alleged Chinese spy affair",
+        "link": "https://techcrunch.com/2026/11/11/congress-to-call-jensen-huang-in-to-answer-for-alleged-chinese-spy-affair/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T19:22:22+00:00"
+      },
+      {
+        "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+        "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+        "source": "Wired",
+        "published_at": "2026-11-11T19:55:54+00:00"
+      },
+      {
+        "title": "The unfolding Jensen Huang scandal: a timeline",
+        "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T23:50:00+00:00"
+      }
+    ],
+    "latency": 5.220120906829834,
+    "status": "ok"
+  }
+}

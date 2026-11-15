@@ -1,0 +1,368 @@
+# =============================================================================
+# TRAJECTORY EVALS — the path through the graph and the tool calls along it
+# =============================================================================
+# Scope (aligned 11-Nov, T05-S281): deterministic, code-graded checks of the graph's
+# path, tool calls, tool arguments and outcome mapping. No judge, no human labels,
+# no golden-set relevance labels. Lives in news-summary-agent/evals/trajectory, runs in
+# the unit job (no API key, no ES), gates at 100%, and does NOT count toward the 40-60
+# golden set (Srini, 11-Nov 14:37, T05-S282). Matcher built on agentevals trajectory
+# match via the LangGraph + MCP adapter (D1).
+#
+# What the app's LLM decides on the path (D, code read at main 7c6d802):
+#   only classify's output — is_news_query picks search vs reply_off_topic; categories
+#   decides whether category_search runs and feeds article_search; fetch_latest feeds
+#   article_search. Everything after that is code. Whether the LLM gets those outputs
+#   right is graded by the classify component cases, not here.
+#
+# Graph (src/graph/build_graph.py)
+#   START -> classify -> [route_after_classify] -> search | reply_off_topic
+#   search -> [route_after_search] -> summarize (article_refs non-empty) | reply_no_results
+#   summarize, reply_off_topic, reply_no_results -> END
+#
+# Which node makes which call (D, src/nodes/*.py)
+#   classify  : LLM (classify prompt); then category_search ONLY when is_news_query AND
+#               categories non-empty; a category_search error or crash is logged and ignored
+#   search    : article_search {user_query: {query, categories, fetch_latest}}; any error,
+#               crash or exception inside its try (including a missing state key) ->
+#               SearchUnavailable -> HTTP 503 + Retry-After: 30
+#   summarize : mget {ids} (ids from merge_article_ref: deduped, higher score kept,
+#               sorted score desc then article_id); then LLM (summary prompt). An mget
+#               failure or LLM failure returns fixed text with HTTP 200
+#   any other exception -> HTTP 500 query_failed (run_graph_workflow.run_graph)
+#
+# What is recorded per run
+#   nodes      : ordered node names (graph.astream(..., stream_mode="updates"), one per node)
+#   tool_calls : ordered (tool, args) — FakeNewsMcp.calls (in-memory FastMCP server, so
+#                args arrive as plain dicts; article_search is recorded as the user_query
+#                fields themselves: {query, categories, fetch_latest})
+#   llm_calls  : ordered LLM invocations tagged classify | summarize (scripted fake model)
+#   outcome    : HTTP status + status field + canned text name, if any
+#
+# Mode: stubbed — scripted LLM (`llm_script`, in order) + FakeNewsMcp configured from
+#   `mcp`. Fully deterministic; needs no API key or ES; runs on every PR.
+#   live_llm routing cases (draft TRJ-030..032) dropped (Srini, 11-Nov 14:39, T05-S283):
+#   all 12 queries are classify cases with Srini's labels, and the route is a pure
+#   function of is_news_query (TRJ-001/002). Live-stack cases (draft TRJ-040/041)
+#   dropped (Srini, 11-Nov 14:40, T05-S284): connection reuse and the 401 retry are
+#   unit-tested in tests/adapters/mcp_session_test.py and tests/auth/service_token_test.py.
+#
+# Match types (agentevals trajectory-match names in brackets; C, to verify on
+#   agentevals 0.0.9 at build — its evaluators take message lists, so the graph trace
+#   needs the LangGraph + MCP adapter from D1)
+#   exact     : same elements, same order, nothing extra          [strict]
+#   any_order : same multiset                                       [unordered]
+#   in_order  : expected is an ordered subsequence of actual        [no equivalent; custom]
+#   absent    : none of these may appear                            [custom]
+# Argument checks use dotted paths into the tool args.
+#
+# Fields: source (ADR 0012.5) on every case; `notes` explain the case, not scored.
+# =============================================================================
+
+version: 1
+
+paths:
+  HAPPY: [ classify, search, summarize ]
+  OFF_TOPIC: [ classify, reply_off_topic ]
+  NO_RESULTS: [ classify, search, reply_no_results ]
+  SEARCH_ERR: [ classify ] # search raises before emitting an update -> 503
+
+# -----------------------------------------------------------------------------
+# PASS CRITERIA (trajectory suite)
+# -----------------------------------------------------------------------------
+pass_criteria:
+  case_pass: >
+    Every key under `expect` holds: nodes / tool_calls / llm_calls under their match type, absent_tools never called, every arg_check equal, outcome fields equal (canned names resolve to shared.canned_texts in component_cases.yaml), budget limits not exceeded. Tool-call entries given only as names match on tool name; entries with args match on the args given (a subset of actual args is enough unless match is exact).
+  suite_gate: "100% (deterministic: one failing case fails the gate; no interval needed)"
+  flake_policy: "none expected. A flake is a bug in the harness or the code."
+  pinned_behaviour: >
+    TRJ-014 and TRJ-015 pin today's handling of a classify JSON with a missing key (Srini, 11-Nov 14:41, T05-S285: leave as is). If a code change moves either, update the expectation on purpose; it is not a regression.
+  suite_report: [ pass/fail per case, first divergence (expected vs actual step), tool and LLM call counts ]
+
+cases:
+
+# ---------------- route coverage ----------------
+- id: TRJ-001
+  source: generated
+  title: happy path, full trajectory
+  query: "What are the latest developments in AI regulation?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai, politics ], fetch_latest: true }
+  - summarize: "Regulators ... [Title a1] ... "
+  mcp: { category_hits: 12, refs: [ { a1: 1.5 }, { a2: 3.2 } ], docs: [ a1, a2 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    tool_calls:
+      match: exact
+      value:
+      - { tool: category_search, args: { categories: [ ai, politics ] } }
+      - { tool: article_search, args: { query: "What are the latest developments in AI regulation?", categories: [ ai, politics ], fetch_latest: true } }
+      - { tool: mget, args: { ids: [ a2, a1 ] } } # merge_article_ref: score desc
+    llm_calls: { match: exact, value: [ classify, summarize ] }
+    outcome: { http_status: 200, status: ok, not_canned: true }
+
+- id: TRJ-002
+  source: generated
+  title: off-topic stops after classify
+  query: "Write a Python function that reverses a linked list."
+  llm_script:
+  - classify: { is_news_query: false, categories: [], fetch_latest: false }
+  expect:
+    nodes: { match: exact, value: OFF_TOPIC }
+    tool_calls: { match: exact, value: [] }
+    llm_calls: { match: exact, value: [ classify ] }
+    outcome: { http_status: 200, status: ok, canned: off_topic, articles: [] }
+
+- id: TRJ-003
+  source: generated
+  title: news query with no categories skips category_search but still searches
+  query: "What's going on in the world?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [], fetch_latest: false }
+  - summarize: "... [Title a1] ..."
+  mcp: { refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    tool_calls:
+      match: exact
+      value:
+      - { tool: article_search, args: { categories: [], fetch_latest: false } }
+      - { tool: mget, args: { ids: [ a1 ] } }
+    absent_tools: [ category_search ]
+
+- id: TRJ-004
+  source: generated
+  title: empty search goes to guard rail 2, no summary LLM
+  query: "Latest news about the zorblax quantum turnip festival"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ world ], fetch_latest: true }
+  mcp: { category_hits: 0, refs: [] }
+  expect:
+    nodes: { match: exact, value: NO_RESULTS }
+    tool_calls: { match: exact, value: [ category_search, article_search ] }
+    absent_tools: [ mget ]
+    llm_calls: { match: exact, value: [ classify ] }
+    outcome: { http_status: 200, status: ok, canned: no_results, articles: [] }
+
+- id: TRJ-005
+  source: generated
+  title: category_search hits 0, workflow still continues
+  query: "Any news on quantum computing?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ science, technology ], fetch_latest: false }
+  - summarize: "... [Title a1] ..."
+  mcp: { category_hits: 0, refs: [ { a1: 2.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    tool_calls: { match: exact, value: [ category_search, article_search, mget ] }
+
+# ---------------- failure trajectories ----------------
+- id: TRJ-006
+  source: generated
+  title: category_search tool error is advisory
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: true }
+  - summarize: "... [Title a1] ..."
+  mcp: { fail: [ category_search ], refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    tool_calls: { match: exact, value: [ category_search, article_search, mget ] }
+    outcome: { http_status: 200, status: ok }
+
+- id: TRJ-007
+  source: generated
+  title: category_search crash (transport) is advisory
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: true }
+  - summarize: "... [Title a1] ..."
+  mcp: { crash: [ category_search ], refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    outcome: { http_status: 200, status: ok }
+
+- id: TRJ-008
+  source: generated
+  title: article_search tool error -> 503, nothing after search
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  mcp: { fail: [ article_search ] }
+  expect:
+    nodes: { match: exact, value: SEARCH_ERR }
+    tool_calls: { match: exact, value: [ category_search, article_search ] }
+    absent_tools: [ mget ]
+    llm_calls: { match: exact, value: [ classify ] }
+    outcome: { http_status: 503, status: failed, error: search_unavailable } # Retry-After is set by the API layer (tests/api), not visible from run_graph
+
+- id: TRJ-009
+  source: generated
+  title: article_search transport crash -> 503
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  mcp: { crash: [ article_search ] }
+  expect:
+    nodes: { match: exact, value: SEARCH_ERR }
+    absent_tools: [ mget ]
+    outcome: { http_status: 503, status: failed, error: search_unavailable, no_internal_leak: true }
+
+- id: TRJ-010
+  source: generated
+  title: mget fails -> summarize ends without an LLM call
+  notes: "The node-level outcome is in tests/nodes/summary_test.py; this case adds the graph path and HTTP mapping."
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  mcp: { fail: [ mget ], refs: [ { a1: 1.0 } ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    tool_calls: { match: exact, value: [ category_search, article_search, mget ] }
+    llm_calls: { match: exact, value: [ classify ] }
+    outcome: { http_status: 200, status: ok, summary: search_unavailable, articles: [] }
+
+- id: TRJ-011
+  source: generated
+  title: summary LLM raises -> fixed text, path unchanged
+  notes: "Node-level outcome also in summary_test.py; this case adds the graph path and HTTP mapping."
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  - summarize: { raise: RuntimeError }
+  mcp: { refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: HAPPY }
+    llm_calls: { match: exact, value: [ classify, summarize ] }
+    outcome: { http_status: 200, status: ok, summary: summary_failed, articles: [] }
+
+- id: TRJ-012
+  source: generated
+  title: classify LLM raises -> 500, no tools called
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { raise: RuntimeError }
+  expect:
+    nodes: { match: exact, value: [] } # classify never emits an update
+    tool_calls: { match: exact, value: [] }
+    outcome: { http_status: 500, status: failed, error: query_failed, no_internal_leak: true }
+
+- id: TRJ-013
+  source: generated
+  title: classify returns non-JSON -> 500, no tools called
+  query: "What is new in AI?"
+  llm_script:
+  - classify: "Sure! This is a news query about AI."
+  expect:
+    tool_calls: { match: exact, value: [] }
+    outcome: { http_status: 500, status: failed, error: query_failed }
+
+- id: TRJ-014
+  source: generated
+  title: classify JSON missing fetch_latest
+  notes: |
+    Corrected 11-Nov (D, code read; U until run): search reads state["fetch_latest"]
+    inside its try block, so the KeyError becomes SearchUnavailable -> 503 with
+    Retry-After, not the 500 the draft expected. A malformed classify output is
+    reported to the user as a search outage. Pinned as today's behaviour (T05-S285).
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ] }
+  mcp: { refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    nodes: { match: exact, value: [ classify ] }
+    tool_calls: { match: exact, value: [ category_search ] }
+    absent_tools: [ article_search, mget ]
+    outcome: { http_status: 503, status: failed, error: search_unavailable }
+
+- id: TRJ-015
+  source: generated
+  title: classify JSON missing is_news_query
+  notes: "route_after_classify reads state['is_news_query'] outside any try -> KeyError -> 500 query_failed (D, code read; U until run). classify makes no category_search call because result.get('is_news_query') is falsy."
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { categories: [ ai ], fetch_latest: false }
+  expect:
+    tool_calls: { match: exact, value: [] }
+    outcome: { http_status: 500, status: failed, error: query_failed }
+
+# ---------------- argument and state propagation ----------------
+- id: TRJ-016
+  source: generated
+  title: fetch_latest flows from classify into article_search
+  query: "Today's sports news"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ sports ], fetch_latest: true }
+  - summarize: "... [Title a1] ..."
+  mcp: { refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  expect:
+    arg_checks:
+    - { tool: article_search, path: fetch_latest, equals: true }
+    - { tool: article_search, path: categories, equals: [ sports ] }
+    - { tool: article_search, path: query, equals: "Today's sports news" }
+
+- id: TRJ-017
+  source: generated
+  title: duplicate refs from article_search are deduped before mget
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  - summarize: "..."
+  mcp: { refs: [ { a1: 1.0 }, { a2: 2.0 }, { a1: 3.0 } ], docs: [ a1, a2 ] }
+  expect:
+    arg_checks:
+    - { tool: mget, path: ids, equals: [ a1, a2 ] } # a1 keeps 3.0; score desc
+
+- id: TRJ-018
+  source: generated
+  title: equal scores sort by article_id
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  - summarize: "..."
+  mcp: { refs: [ { b2: 1.0 }, { a9: 1.0 }, { c1: 1.0 } ], docs: [ a9, b2, c1 ] }
+  expect:
+    arg_checks:
+    - { tool: mget, path: ids, equals: [ a9, b2, c1 ] }
+
+- id: TRJ-019
+  source: generated
+  title: summary LLM receives only mget content, capped at SUMMARY_CONTENT_MAX_CHARS
+  notes: "The 1000-char cap is already unit-tested (summary_test.py TestBuildContext); this case checks what reaches the LLM through the graph."
+  query: "What is new in AI?"
+  llm_script:
+  - classify: { is_news_query: true, categories: [ ai ], fetch_latest: false }
+  - summarize: "..."
+  mcp: { refs: [ { a1: 1.0 } ], docs: [ { a1: { content_len: 5000 } } ] }
+  expect:
+    llm_input_checks:
+    - { llm_call: summarize, max_content_chars: 1000 } # 5000-char body reaches the LLM cut at 1000
+    - { llm_call: summarize, titles: [ "Title a1" ] } # the mget hit's title is in the context
+
+# ---------------- loop / budget / isolation ----------------
+- id: TRJ-020
+  source: generated
+  title: no node runs twice; step budget
+  applies_to: [ TRJ-001, TRJ-002, TRJ-003, TRJ-004 ]
+  expect:
+    each_node_at_most_once: true
+    max_steps: 3 # run_graph passes recursion_limit 10
+    max_tool_calls: 3
+    max_llm_calls: 2
+
+- id: TRJ-021
+  source: generated
+  title: back-to-back runs do not share state
+  notes: >
+    Regression guard for the fixed bug in run_graph's docstring (a deterministic thread_id resumed old checkpoints and accumulated article_hits). Covers, without the live stack, the isolation risk left when E2E-029 was dropped (T05-S280). Needs a real checkpointer (in-memory saver) so a reused thread_id would show.
+  sequence:
+  - query: "What is new in AI?"
+    llm_script: [ { classify: { is_news_query: true, categories: [ ai ], fetch_latest: false } }, { summarize: "..." } ]
+    mcp: { refs: [ { a1: 1.0 } ], docs: [ a1 ] }
+  - query: "What is new in sports?"
+    llm_script: [ { classify: { is_news_query: true, categories: [ sports ], fetch_latest: false } }, { summarize: "..." } ]
+    mcp: { refs: [ { s1: 1.0 } ], docs: [ s1 ] }
+  expect:
+    run_2:
+      arg_checks: [ { tool: mget, path: ids, equals: [ s1 ] } ]
+      outcome: { articles_ids: [ s1 ] }
+    distinct_thread_ids: true

@@ -1,0 +1,42 @@
+{
+  "model_name": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "timeout_s": 600,
+  "max_retries": 1,
+  "system_prompt": "You are an evaluator for a news-summary system. You grade ONE criterion for ONE summary.\n\nCriterion:\n{criterion}\n\nHow to grade:\n1. Read the user's query, the retrieved articles and the summary.\n2. Judge only this criterion. Ignore writing quality, length, style and any other criterion.\n3. Use only the article text provided as evidence. Do not use outside knowledge, even if you believe a statement is true.\n4. First write the evidence: quote the summary sentence(s) the criterion concerns, and the article text that supports or contradicts them. If the articles say nothing about a sentence, say so.\n5. Then decide: passed is true only if the summary fully meets the criterion; otherwise passed is false. If you are unsure, decide false and explain why in the evidence.",
+  "human_prompt": "User query:\n{query}\n\nRetrieved articles (each begins with its title):\n{articles}\n\nSummary to grade:\n{summary}",
+  "article_separator": "\n\n---\n\n",
+  "rubric": [
+    {
+      "id": "cr1",
+      "kind": "judged",
+      "rule_text": "The summary addresses the user's query. It leads with what the articles report that answers the query. When the articles answer none or only part of the query, the summary says so plainly, and it does not present unrelated articles as the answer.\n"
+    },
+    {
+      "id": "cr2",
+      "kind": "judged",
+      "rule_text": "Every factual claim in the summary (names, roles, numbers, dates, events) is stated in the provided articles; a claim followed by a citation is stated in the cited article. The summary adds no facts, predictions or conclusions of its own."
+    }
+  ],
+  "verdict_schema": {
+    "description": "This holds the result of the judge's criterion verdict for a case",
+    "properties": {
+      "evidence": {
+        "description": "Quote the summary sentence or article text the case's criterion verdict rest on ",
+        "title": "Evidence",
+        "type": "string"
+      },
+      "passed": {
+        "description": "indicating if the case passed or failed at the criterion",
+        "title": "Passed",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "evidence",
+      "passed"
+    ],
+    "title": "CriterionVerdict",
+    "type": "object"
+  }
+}

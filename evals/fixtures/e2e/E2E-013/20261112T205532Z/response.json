@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What has Apple announced this week?",
+    "categories": [
+      "technology",
+      "tech"
+    ],
+    "summary": "This week, there have been no announcements from Apple reported in the retrieved articles. The articles primarily focus on other topics, including the ongoing situation with Poundland, which is seeking more time to secure a rescue deal, and Lego's BrickLink marketplace being taken offline due to unusual activity. \n\nPoundland is reportedly in emergency talks to avoid immediate collapse, with its US owners indicating a willingness to extend the deadline for finding a buyer. This comes as the company faces financial difficulties and scrutiny from MPs regarding its management [Article 0][Article 3]. \n\nAdditionally, Lego has temporarily shut down its BrickLink marketplace after detecting unusual activity, although details about the nature of this activity and any potential impact on customer data remain unclear [Article 1]. \n\nThere is also political news regarding Andy Burnham's push for closer ties with the EU, which is causing ripples within his party and others as he prepares for discussions with European leaders [Article 2]. However, none of these articles provide any information about recent announcements or developments from Apple.",
+    "articles": [
+      {
+        "title": "Poundland set for more time to secure a rescue deal as emergency talks continue",
+        "link": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:49:05+00:00"
+      },
+      {
+        "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+        "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T22:26:18+00:00"
+      },
+      {
+        "title": "Burnham's push for closer EU ties causes ripples in his party and others",
+        "link": "https://www.bbc.co.uk/news/articles/cr78251892z7o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:30:48+00:00"
+      },
+      {
+        "title": "Poundland set for more time to secure a rescue deal as emergency talks continue",
+        "link": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T22:08:56+00:00"
+      },
+      {
+        "title": "Some under-25s should get less benefits, Milburn review to say",
+        "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T23:22:04+00:00"
+      }
+    ],
+    "latency": 4.786798477172852,
+    "status": "ok"
+  }
+}

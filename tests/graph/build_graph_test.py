@@ -7,6 +7,7 @@ LLM, a fake es-mcp-server and an in-memory checkpointer:
   - news query → summary from the LLM with the fetched articles
   - off-topic → guard rail #1, no MCP calls
   - no search results → guard rail #2, mget never called
+  - the final state carries one latency entry per external call that ran
 """
 
 from __future__ import annotations
@@ -18,7 +19,13 @@ import pytest
 from langgraph.checkpoint.memory import InMemorySaver
 
 from data.seed_data import SeedData
-from graph.build_graph import build, route_after_classify, route_after_search
+from graph.build_graph import (
+    build,
+    reply_no_results,
+    reply_off_topic,
+    route_after_classify,
+    route_after_search,
+)
 from tests.fake_mcp import FakeNewsMcp
 
 pytestmark = pytest.mark.anyio
@@ -69,6 +76,13 @@ class TestEndToEndRouting:
             "article_search",
             "mget",
         ]
+        assert set(out["latency"]) == {
+            "classify_llm_call",
+            "mcp_category_search_call",
+            "mcp_article_search_call",
+            "mcp_mget_call",
+            "summary_llm_call",
+        }
 
     async def test_off_topic_hits_guard_rail_1(
         self, make_llm, fake_mcp: FakeNewsMcp
@@ -76,6 +90,7 @@ class TestEndToEndRouting:
         out = await _run(make_llm([NOT_NEWS]), fake_mcp, "write a poem")
         assert out["summary"] == SeedData._OFF_TOPIC_REPLY
         assert out["article_hits"] == [] and fake_mcp.calls == []
+        assert set(out["latency"]) == {"classify_llm_call"}
 
     async def test_no_results_hits_guard_rail_2(
         self, make_llm, fake_mcp: FakeNewsMcp
@@ -84,3 +99,23 @@ class TestEndToEndRouting:
         out = await _run(make_llm([NEWS]), fake_mcp, "tech news")
         assert out["summary"] == SeedData._NO_NEWS_FOUND_REPLY
         assert "mget" not in [name for name, _ in fake_mcp.calls]
+        assert set(out["latency"]) == {
+            "classify_llm_call",
+            "mcp_category_search_call",
+            "mcp_article_search_call",
+        }
+
+
+class TestReplyNodes:
+    """The guard-rail replies measure nothing: they add no latency and do not need it in state."""
+
+    @pytest.mark.parametrize(
+        ("node", "text"),
+        [
+            (reply_off_topic, SeedData._OFF_TOPIC_REPLY),
+            (reply_no_results, SeedData._NO_NEWS_FOUND_REPLY),
+        ],
+    )
+    async def test_reply_without_latency_in_state(self, node, text) -> None:
+        out = await node({"query": "q"})
+        assert out == {"summary": text, "article_hits": [], "latency": {}}

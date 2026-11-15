@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "How many people were laid off in tech this month and at which companies?",
+    "categories": [
+      "technology",
+      "tech"
+    ],
+    "summary": "The retrieved articles do not provide any information regarding layoffs in the tech industry for the current month or specify which companies were involved. The articles focus on unrelated topics, such as supercomputers at Virginia Tech, child protection technology, and issues surrounding corporate behavior in the AI industry. \n\nAs a result, there is no data available to answer the user's query about the number of people laid off in tech this month or the companies affected. Further information from other sources would be necessary to address this inquiry.",
+    "articles": [
+      {
+        "title": "The Power and Legacy of Virginia Tech's Mac-Based Supercomputers",
+        "link": "https://512pixels.net/2026/11/va-tech-system-x-system-g/",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T17:30:47+00:00"
+      },
+      {
+        "title": "Former minister calls for phone tech to block live-streamed child sex abuse",
+        "link": "https://www.bbc.co.uk/news/articles/ck9q8g0x14geo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T16:38:49+00:00"
+      },
+      {
+        "title": "Former minister calls for phone tech to block live-streamed child sex abuse",
+        "link": "https://www.bbc.co.uk/news/articles/ck9q8g0x14geo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T17:56:49+00:00"
+      },
+      {
+        "title": "Is Jensen Huang’s bad behavior more commonplace than it seems?",
+        "link": "https://techcrunch.com/2026/11/11/is-jensen-huangs-bad-behavior-more-commonplace-than-it-seems/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T16:16:07+00:00"
+      },
+      {
+        "title": "Launch HN: Pomerado (YC F26) – Turn any website into an MCP for agents",
+        "link": "https://news.ycombinator.com/item?id=50455811",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T17:11:56+00:00"
+      }
+    ],
+    "latency": 4.456456422805786,
+    "status": "ok"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What's new in health and medicine?",
+    "categories": [
+      "health"
+    ],
+    "summary": "Recent discussions in health and medicine have focused on the effectiveness and value of over-the-counter cold and flu medications. A report from BBC highlights that many consumers may be overpaying for \"max strength\" cold and flu pills, as experts suggest that there is little difference in efficacy between these premium products and cheaper alternatives. Professor Jayne Lawrence from the University of Manchester emphasizes that basic painkillers are often just as effective, and consumers might benefit from opting for less expensive options that have also been tested for safety and effectiveness [Are max strength cold and flu pills worth the money?].\n\nThe article points out that while well-known brands may provide reassurance to shoppers, the actual performance of these medications does not significantly differ from their lower-cost counterparts. This insight comes at a time when many individuals are seeking relief during the flu season, prompting a reevaluation of spending on health products [Are max strength cold and flu pills worth the money?].\n\nOverall, the findings suggest a need for consumers to be more discerning about their choices in cold and flu remedies, potentially leading to cost savings without sacrificing health outcomes. However, the articles do not provide new developments in other areas of health and medicine beyond this discussion on cold and flu medications.",
+    "articles": [
+      {
+        "title": "Are max strength cold and flu pills worth the money?",
+        "link": "https://www.bbc.co.uk/news/articles/cjkgep4rgngro?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:12:28+00:00"
+      },
+      {
+        "title": "Some under-25s should get less benefits, Milburn review to say",
+        "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T23:22:04+00:00"
+      },
+      {
+        "title": "The 22 Best Early Black Friday Deals: Our Ultimate Picks (2026)",
+        "link": "https://www.wired.com/story/best-black-friday-deals-11-11-2026/",
+        "source": "Wired",
+        "published_at": "2026-11-11T17:08:14+00:00"
+      },
+      {
+        "title": "Olaf Sakkers is betting he can beat the emerging-manager squeeze",
+        "link": "https://techcrunch.com/2026/11/11/olaf-sakkers-is-betting-he-can-beat-the-emerging-manager-squeeze/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T20:04:28+00:00"
+      },
+      {
+        "title": "The unfolding Jensen Huang scandal: a timeline",
+        "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T23:50:00+00:00"
+      }
+    ],
+    "latency": 5.161879539489746,
+    "status": "ok"
+  }
+}

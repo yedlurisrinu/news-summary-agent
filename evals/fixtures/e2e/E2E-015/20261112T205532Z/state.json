@@ -1,0 +1,16 @@
+{
+  "query": "Latest cricket scores from the India vs Australia series",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "sports"
+  ],
+  "article_refs": [],
+  "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+  "article_hits": [],
+  "latency": {
+    "classify_llm_call": 1.385591983795166,
+    "mcp_category_search_call": 0.008276939392089844,
+    "mcp_article_search_call": 0.012195348739624023
+  }
+}

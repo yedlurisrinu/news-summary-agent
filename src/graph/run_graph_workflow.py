@@ -43,14 +43,15 @@ async def run_graph(
         out: dict[str, Any] = await graph.ainvoke(
             {"query": user_input.query}, cfg(uuid4().hex, 10)
         )
-        logger.info("Total Time Taken = %s", out["duration_seconds"])
+        logger.info("Total Time Taken = %s", out["latency"])
         response = QuerySuccessResponse(
             query=out["query"],
             categories=out["categories"],
             summary=out["summary"],
             articles=out["article_hits"],
-            duration_seconds=sum(out["duration_seconds"].values()),
+            latency=sum(out["latency"].values()),
         )
+
     except Exception as e:
         logger.exception("Exception while agents are fetching news summary")
         if isinstance(e, SearchUnavailable):

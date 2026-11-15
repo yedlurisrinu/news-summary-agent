@@ -1,0 +1,80 @@
+{
+  "query": "Who is leading in the polls for the next UK general election?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "politics"
+  ],
+  "article_refs": [
+    {
+      "article_id": "dfb93d6a5584ab672c30e3f2c1281390",
+      "score": 13.1336155
+    },
+    {
+      "article_id": "22c85430811fcb4c616ac72cc2fd174a",
+      "score": 12.645025
+    },
+    {
+      "article_id": "d22cddd5cbb6b7d3a7716a2617ebeaec",
+      "score": 12.262815
+    },
+    {
+      "article_id": "3c71ca7ca19f6859baeb119e96c122d6",
+      "score": 11.556465
+    },
+    {
+      "article_id": "ea3078b1b14ccaf06953388341fea2c0",
+      "score": 11.319263
+    }
+  ],
+  "summary": "The retrieved articles do not provide any information regarding the current polling leaders for the next UK general election. The articles focus on various topics, including Andy Burnham's push for closer ties with the EU and significant events surrounding a general strike in Spain, but they do not address polling data or political standings in the UK.\n\nAs such, there is no available information on who is leading in the polls for the next UK general election. The articles primarily discuss political developments and events unrelated to UK election polling. Therefore, the query remains unanswered based on the provided content.",
+  "article_hits": [
+    {
+      "article_id": "dfb93d6a5584ab672c30e3f2c1281390",
+      "title": "Burnham's push for closer EU ties causes ripples in his party and others",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:30:48+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cr78251892z7o?at_medium=RSS&at_campaign=rss",
+      "content": "Burnham's push for closer EU ties causes ripples in his party and others Image source, EPA/Shutterstock By Harry Farley , Political correspondent , Henry Zeffman , Chief political correspondent and Jack Fenwick , Political correspondent Published 24 minutes ago There is renewed attention on the prime minister's push for closer relations with Europe - and that is causing ripples in his own party and others. Andy Burnham told his Cabinet earlier this week: \"I firmly believe we have ended up with a harder Brexit than people voted for… no sensible person thinks the deal negotiated by the Tories is working for the country.\" It comes ahead of a week which will focus minds on the UK's relationship with the bloc. On Thursday, at a gathering of European leaders in Dublin, Burnham will for the first time meet those who could prove pivotal as he sells his vision for Britain's future in the bloc. And next week, he will deliver a speech on foreign policy, in which – for Burnham – Europe is a centra"
+    },
+    {
+      "article_id": "22c85430811fcb4c616ac72cc2fd174a",
+      "title": "Spain sees widespread disruption in first general strike for 14 years",
+      "source": "BBC",
+      "published_at": "2026-11-11T17:44:32+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "content": "Spain sees widespread disruption in first general strike for 14 years To play this video you need to enable JavaScript in your browser. This video can not be played Figure caption, Watch: Protesters gather across Spain for first general strike in 14 years By Nick Beake , Europe correspondent , Reporting from Madrid , Guy Hedgecoe , Reporting from Madrid and Alba Morgade Published 11 November 2026, 14:06 GMT Updated 4 minutes ago Transport and other public services across Spain have faced serious disruption in the first general strike for 14 years called by the main unions over housing and the high cost of living. Demonstrations have taken place across the country, including in Madrid and Barcelona, where tens of thousands marched in the evening. Spaniards are due to vote in parliamentary elections on 29 November. The head of the big UGT labour union, Pepe Álvarez, said the strike was a success with \"massive\" participation, while Unai Sordo of the CC OO union said turnout was \"very sign"
+    },
+    {
+      "article_id": "d22cddd5cbb6b7d3a7716a2617ebeaec",
+      "title": "Clashes in Barcelona as thousands join Spain general strike",
+      "source": "BBC",
+      "published_at": "2026-11-11T19:59:48+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "content": "Clashes in Barcelona as thousands join Spain general strike Image source, Reuters By Nick Beake , Europe correspondent , Reporting from Madrid , Guy Hedgecoe , Reporting from Madrid and Alba Morgade Published 11 November 2026, 14:06 GMT Updated 24 minutes ago Clashes have broken out between groups of protesters and police in Barcelona after tens of thousands of people took part in Spain's first general strike for 14 years, called by the country's main unions over housing and the high cost of living. Some 120,000 people joined a demonstration in the capital Madrid and more than 50,000 turned out in Barcelona, where footage showed masked men setting fire to rubbish bins and smashing shop windows as police fired tear gas. Transport and other public services across Spain faced serious disruption. Spaniards are due to vote in parliamentary elections on 29 November. The head of the big UGT labour union, Pepe Álvarez, said the strike was a success with \"massive\" participation, while Unai Sord"
+    },
+    {
+      "article_id": "3c71ca7ca19f6859baeb119e96c122d6",
+      "title": "Clashes erupt in Barcelona after thousands join Spain general strike",
+      "source": "BBC",
+      "published_at": "2026-11-11T22:07:37+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "content": "Clashes erupt in Barcelona after thousands join Spain general strike To play this video you need to enable JavaScript in your browser. This video can not be played Figure caption, Watch: Protesters and police clash in Barcelona By Nick Beake , Europe correspondent , Reporting from Madrid , Guy Hedgecoe , Reporting from Madrid and Alba Morgade Published 11 November 2026, 14:06 GMT Updated 16 minutes ago Clashes have broken out between groups of masked men and police in Barcelona after tens of thousands of people took part in Spain's first general strike for 14 years, called by the country's main unions over housing and the high cost of living. Some 120,000 people joined a demonstration in the capital Madrid and more than 50,000 turned out in Barcelona, where footage showed masked men setting fire to rubbish bins and smashing shop windows as police fired tear gas. Transport and other public services across Spain faced serious disruption. Spaniards are due to vote in parliamentary electio"
+    },
+    {
+      "article_id": "ea3078b1b14ccaf06953388341fea2c0",
+      "title": "Clashes erupt in Barcelona as thousands join Spain general strike",
+      "source": "BBC",
+      "published_at": "2026-11-11T20:52:52+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "content": "Clashes erupt in Barcelona as thousands join Spain general strike To play this video you need to enable JavaScript in your browser. This video can not be played Figure caption, Watch: Protesters and police clash in Barcelona By Nick Beake , Europe correspondent , Reporting from Madrid , Guy Hedgecoe , Reporting from Madrid and Alba Morgade Published 11 November 2026, 14:06 GMT Updated 2 minutes ago Clashes have broken out between groups of protesters and police in Barcelona after tens of thousands of people took part in Spain's first general strike for 14 years, called by the country's main unions over housing and the high cost of living. Some 120,000 people joined a demonstration in the capital Madrid and more than 50,000 turned out in Barcelona, where footage showed masked men setting fire to rubbish bins and smashing shop windows as police fired tear gas. Transport and other public services across Spain faced serious disruption. Spaniards are due to vote in parliamentary elections o"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.7867815494537354,
+    "mcp_category_search_call": 0.013094663619995117,
+    "mcp_article_search_call": 0.05307650566101074,
+    "mcp_mget_call": 0.008192777633666992,
+    "summary_llm_call": 2.436211109161377
+  }
+}

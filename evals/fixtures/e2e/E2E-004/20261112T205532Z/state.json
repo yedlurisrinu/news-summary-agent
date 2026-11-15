@@ -1,0 +1,80 @@
+{
+  "query": "What is happening in US politics?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "politics"
+  ],
+  "article_refs": [
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "score": 6.266239
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "score": 5.459517
+    },
+    {
+      "article_id": "bcc29d7dffc676cf94934b736d4dd908",
+      "score": 5.2875767
+    },
+    {
+      "article_id": "4242c5d7ef15354cd52ce588f4781959",
+      "score": 3.6396859
+    },
+    {
+      "article_id": "807dd26b2b02ac62491a3664f5af0eed",
+      "score": 3.0669346
+    }
+  ],
+  "summary": "Recent developments in U.S. politics indicate a significant focus on potential impeachment proceedings against Defense Secretary Pete Hegseth. Following the recent elections, House Democrats are reportedly preparing to build a strong case for an impeachment inquiry against Hegseth, who is seen as a primary target for investigations in the upcoming Congress. Sources close to the Trump administration suggest that Hegseth is now in a precarious position, with various outcomes from these inquiries potentially damaging to him and the administration [Pete Hegseth Is About to Get His Ass Kicked].\n\nThis political maneuvering comes in the wake of the elections, where Democrats are strategizing to leverage their newfound power in Congress. The implications of these actions could lead to significant political ramifications, as Democrats aim to present a compelling case that appeals to both their base and moderate Republicans [Pete Hegseth Is About to Get His Ass Kicked].\n\nWhile the articles provide insight into the impeachment plans, they do not elaborate on the specific reasons for the potential impeachment or the broader context of Hegseth's actions that may have prompted this response. Additionally, there is no information regarding other political developments or issues currently affecting U.S. politics beyond the impeachment inquiry [Pete Hegseth Is About to Get His Ass Kicked].",
+  "article_hits": [
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+      "source": "BBC",
+      "published_at": "2026-11-11T22:26:18+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+      "content": "Lego marketplace BrickLink offline after 'unusual activity' detected Image source, Reuters Image caption, The marketplace is sometimes called the 'eBay' of Lego By Zoe Kleinman Technology editor Published 28 minutes ago Lego has taken its online marketplace BrickLink offline after detecting what it described as unusual activity on the platform. BrickLink is used by Lego collectors worldwide to buy and sell secondhand Lego sets, source new bricks and purchase limited edition releases. It was originally set up by a fan, but Lego acquired it in 2019. In a homepage message, the firm said that before restoring BrickLink, it wanted to \"fully understand\" what had happened. \"That means containing the issue, investigating how it happened and checking for related issues,\" Lego said. It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected. After being contacted by the BBC, Lego published the update. BrickLink has been of"
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "title": "Some under-25s should get less benefits, Milburn review to say",
+      "source": "BBC",
+      "published_at": "2026-11-11T23:22:04+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+      "content": "Some under-25s should get less benefits, Milburn review to say Image caption, Alan Milburn will publish his review next week By Ewan Somerville , Political reporter , Nick Eardley , Political correspondent and Chris Mason , Political editor Published 3 minutes ago Some young people could see reductions to the benefits they are entitled to, under a radical overhaul of the system to be recommended by a government-commissioned review. Alan Milburn's year-long report, which will be published on Tuesday, will recommend moving under-25s off the main sickness and disability benefits, the Times reported , external . Milburn, a former Labour health secretary, has been tasked by the government with helping reduce the one in eight 18- to 24-year-olds in the UK who are not in education, employment or training - or \"Neet\". He said on Wednesday night that his plans would not be \"pain-free\" and would affect both existing and new claimants. His report is expected to recommend that under-25s are no lon"
+    },
+    {
+      "article_id": "bcc29d7dffc676cf94934b736d4dd908",
+      "title": "Why are we still working this hard?",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T20:05:29+00:00",
+      "link": "https://wilsoniumite.com/2026/11/11/why-are-we-still-working-this-hard/",
+      "content": "Why Are We Still Working This Hard? In 1973, what a forty-hour week of work produced takes sixteen hours to produce today. That’s according to Bureau of Economic Analysis (BEA) input output tables. An hour of work in American business now makes two and a half times what it made in 1973. For every forty hours that used to be needed, twenty-four have been freed. You have probably not noticed them. The forty-hour week was written into American law by an act of 1938, and hasn’t changed. Counted for each head of population, the hours worked in American business in 2024 were 10 percent higher than in 1973. As a country, the US took the whole of fifty years’ progress as more output and none of it as time. It was supposed to go differently. In 1930 the economist John Maynard Keynes wrote a short essay about the world his grandchildren would live in. He predicted that “the standard of life in progressive countries one hundred years hence will be between four and eight times as high as it is to-"
+    },
+    {
+      "article_id": "4242c5d7ef15354cd52ce588f4781959",
+      "title": "Pete Hegseth Is About to Get His Ass Kicked",
+      "source": "Wired",
+      "published_at": "2026-11-11T22:00:00+00:00",
+      "link": "https://www.wired.com/story/pete-hegseth-is-about-to-get-his-ass-kicked/",
+      "content": "Hugo Lowell Politics Nov 11, 2026 5:00 PM Pete Hegseth Is About to Get His Ass Kicked House Democrats are already planning to make their impeachment case against the defense secretary as airtight—and appealing to Republicans—as possible. Photo-illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story It’s been one week since Election Day, and Pete Hegseth is facing a different kind of war. Trump administration officials tell Inner Loop they knew the defense secretary would face a slew of investigations in the next Congress. Now, they think he is on track to be Democrats’ number one target—and Democrats are already planning to make their case as airtight as possible. “Hegseth is now a passenger in whatever comes next,” says one source close to President Donald Trump. “And all the outcomes are potentially damaging.” House Democratic aides tell Inner Loop that Democrats are likely to pursue an impeachment inquiry against He"
+    },
+    {
+      "article_id": "807dd26b2b02ac62491a3664f5af0eed",
+      "title": "Andreeva wins 11 games in a row to thrash Sabalenka at WTA Finals",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:48:23+00:00",
+      "link": "https://www.bbc.co.uk/sport/tennis/articles/cq1md03gz0zvo?at_medium=RSS&at_campaign=rss",
+      "content": "Andreeva wins 11 games in a row to thrash Sabalenka at WTA Finals Image source, Getty Images Image caption, Mirra Andreeva beat Aryna Sabalenka in the 2025 Indian Wells final By Amy Lofthouse BBC Sport Senior Journalist Published 11 November 2026 Updated 42 minutes ago Mirra Andreeva won 11 games in a row as she thrashed world number two Aryna Sabalenka to reach the last four at the WTA Finals. French Open champion Andreeva was 4-1 down in the opening set before producing some superb tennis and taking advantage of an increasingly erratic Sabalenka performance. The 19-year-old Russian went on to deliver a statement 6-4 6-0 victory over four-time major singles winner Sabalenka. \"I will be honest, I feel like Aryna did not have the best day,\" Andreeva told Sky Sports. \"I feel like I cannot really take all the credit today - I feel like that is not very fair in some ways. \"I'm just happy. I had a goal in front of me to commit no matter what and control the things I can control.\" As poor as"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.9586427211761475,
+    "mcp_category_search_call": 0.019063472747802734,
+    "mcp_article_search_call": 0.17483806610107422,
+    "mcp_mget_call": 0.009788036346435547,
+    "summary_llm_call": 4.547940969467163
+  }
+}

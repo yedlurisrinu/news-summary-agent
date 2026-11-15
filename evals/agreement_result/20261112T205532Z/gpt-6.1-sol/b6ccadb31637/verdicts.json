@@ -1,0 +1,290 @@
+[
+  {
+    "evidence": "The summary correctly opens, “The latest developments in AI regulation are not explicitly detailed in the retrieved articles.” However, it then substitutes tangential stories and speculative regulatory implications for an answer: “they suggest a growing awareness of the need for oversight in the AI sector” and U.K. investment in Fractile “may lead to future regulatory frameworks aimed at managing the development and deployment of AI systems.” The Fractile article reports only funding backed by Britain’s Sovereign AI Fund, intended to ensure “the U.K. has a greater stake in the hardware that will underpin its future economy”; it says nothing about future regulatory frameworks or growing demand for oversight. The summary also presents the Huang controversy as an indication of AI-regulation developments. That article reports that the U.S. and Singapore investigated Megaspeed “over suspicions that the firm was illegally sharing chips with China” and that the Justice Department took over the investigation, but provides no new AI-regulation measures. Although the summary plainly acknowledges the coverage gap, its intervening discussion presents tangential reporting and unsupported regulatory speculation as a substitute for the requested updates.",
+    "passed": false,
+    "case_id": "E2E-001",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary calls Megaspeed “a Chinese company” and says “U.S. officials are investigating connections between Huang's personal life and national security concerns.” The cited Huang article instead identifies Megaspeed as “a Singapore-based AI infrastructure company.” It says officials believe Alice Huang is a Chinese spy and that the Justice Department took over an investigation “into the company”; it does not explicitly report an investigation into connections between Huang’s personal life and national security.\n\nThe summary states that the articles “suggest a growing awareness of the need for oversight in the AI sector” and that U.K. investment “may lead to future regulatory frameworks aimed at managing the development and deployment of AI systems [Article 0].” The Fractile article reports a “$720 million Series C backed by Britain’s Sovereign AI Fund” with hopes of “ensuring the U.K. has a greater stake in the hardware that will underpin its future economy.” It says nothing about future regulatory frameworks or growing awareness of a need for oversight. Those are added conclusions and predictions.\n\nThe summary also asserts, “The landscape of AI regulation remains dynamic.” The provided articles do not establish this claim or describe concrete AI regulatory changes.",
+    "passed": false,
+    "case_id": "E2E-001",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with “The retrieved articles do not provide any specific updates or developments related to the semiconductor industry” and dismisses “a scandal involving Nvidia's CEO Jensen Huang” as unrelated. However, that article reports: “Megaspeed, a Singapore-based AI infrastructure company, had reportedly purchased $4.8 billion in Nvidia chips over the last two years,” that U.S. and Singapore authorities investigated suspicions it was “illegally sharing chips with China,” and that “The Justice Department has since taken over the federal investigation into the company.” These are relevant chip-industry developments that the summary should report rather than dismiss. The summary also acknowledges IBM’s newly announced processor but concludes categorically that “there is no new information available regarding the semiconductor industry.” Even if the quantum-computing item is treated as adjacent rather than directly relevant, the Nvidia chip-investigation reporting makes that blanket conclusion unjustified.",
+    "passed": false,
+    "case_id": "E2E-002",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states, \"The retrieved articles do not provide any specific updates or developments related to the semiconductor industry,\" and \"None of these articles address current trends, innovations, or challenges specifically within the semiconductor industry.\" These are unsupported conclusions. The Nvidia article explicitly reports semiconductor-related transactions and investigations: \"Megaspeed ... had reportedly purchased $4.8 billion in Nvidia chips over the last two years\" and \"The U.S. and Singapore have both previously investigated Megaspeed over suspicions that the firm was illegally sharing chips with China.\" It also says, \"The Justice Department has since taken over the federal investigation into the company.\" The summary's IBM specifications are supported by the cited article: \"IBM ... today announced IBM Quantum Nighthawk r3 ... will be built to accurately execute 10,000 quantum operations across 520 qubits.\" However, the added assertion that this concerns quantum computing \"rather than semiconductor technology directly\" is not stated in that article. The final claim, \"there is no new information available regarding the semiconductor industry from the provided articles,\" likewise adds the summary's own unsupported conclusion.",
+    "passed": false,
+    "case_id": "E2E-002",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with incidents responsive to the query: “Recent cybersecurity incidents have highlighted significant vulnerabilities across various sectors, including hospitality, critical infrastructure, and open-source AI platforms.” It then describes Wyndham’s exposed database, French refrigeration-system attacks, and attacks involving AI platforms. The articles support these as relevant incidents: Wyndham “has acknowledged a cybersecurity incident” involving “a password inside the source code of Wyndham’s Android app” granting database access; the French report describes attacks that “took control of digital thermostats to push temperatures up to above 50C”; and the AI-platform article reports an October OpenCode attack targeting “users’ third-party API keys,” a summer breach of Hugging Face, and Fireworks disclosing access to “some customers’ model weights, datasets, and billing information.” These articles answer the broad query, and the summary focuses on those incidents rather than presenting the unrelated article about removing chatbot safeguards as an incident. No partial-answer disclaimer is necessary for this general request.",
+    "passed": true,
+    "case_id": "E2E-003",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states: “This breach potentially exposed personal information of millions of customers.” The Wyndham article says the database “had millions of entries, but he was unable to determine an accurate number of exposed customer records.” Millions of database entries does not establish that millions of customers’ personal information was potentially exposed. The other details are supported: the researcher found “a password inside the source code of Wyndham’s Android app,” granting access to a database “hosted by tech company Salesforce,” containing names, email addresses and login tokens; Wyndham “touts some 129 million enrolled rewards members.”\n\nThe summary states: “Recent attacks have targeted companies like Hugging Face and Fireworks, leading to unauthorized access to sensitive data, including API keys and customer information.” The cited article attributes the API-key targeting specifically to “The October attack on OpenCode,” not Hugging Face or Fireworks. It separately says an OpenAI agent swarm breached Hugging Face after accessing evaluation answers, and that Fireworks attackers accessed “some customers’ model weights, datasets, and billing information.” The summary conflates these distinct incidents and their affected data.\n\nThe summary concludes: “Overall, these incidents reflect ongoing challenges in cybersecurity, emphasizing the need for robust security measures across various industries to protect sensitive information and critical infrastructure.” This is the summary’s own general conclusion, not a conclusion stated in the provided articles about these incidents collectively. The Wired refrigeration article does make the narrower observation that “cybersecurity fundamentals are still key to digital defense.”",
+    "passed": false,
+    "case_id": "E2E-003",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with the relevant U.S. political development: “House Democrats are reportedly preparing to build a strong case for an impeachment inquiry against Hegseth.” The article supports this: “House Democrats are already planning to make their impeachment case against the defense secretary as airtight—and appealing to Republicans—as possible,” and officials believe he is “on track to be Democrats’ number one target.” The summary explicitly acknowledges the limited coverage: “they do not elaborate on the specific reasons for the potential impeachment” and provide no information about “other political developments.” The provided political article does not explain the grounds for impeachment or offer a broader U.S. political roundup. The summary does not present the unrelated Lego, UK benefits, productivity, or tennis articles as answers to the query. Although details such as appealing to “their base and moderate Republicans” are not expressly stated in the article, they do not change that the summary addresses the query, leads with the relevant reporting, and plainly identifies the coverage limitations.",
+    "passed": true,
+    "case_id": "E2E-004",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary's core claim that House Democrats are preparing an impeachment inquiry against Defense Secretary Pete Hegseth is supported: the cited article says, “House Democrats are already planning to make their impeachment case ... as airtight—and appealing to Republicans—as possible,” and that aides say Democrats “are likely to pursue an impeachment inquiry.” However, the summary adds unsupported claims. It says outcomes could be damaging “to him and the administration,” whereas the article only quotes a source saying, “Hegseth is now a passenger in whatever comes next” and “all the outcomes are potentially damaging”; it does not state damage to the administration. The sentence “Democrats are strategizing to leverage their newfound power in Congress” is not stated in the provided article, which mentions only the next Congress and that it has been one week since Election Day. The summary also asserts that Democrats aim to appeal to “both their base and moderate Republicans”; the article mentions appealing to “Republicans,” without specifying moderates or the Democratic base. Finally, “The implications of these actions could lead to significant political ramifications” is the summary's own prediction rather than a claim stated in the article.",
+    "passed": false,
+    "case_id": "E2E-004",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with “Recent earnings reports from major tech companies reveal significant developments in the industry, particularly focusing on CoreWeave,” but the provided articles contain only one earnings report, about CoreWeave, described as “a neocloud that rents out the computing power behind AI.” Its reported figures support the summary’s CoreWeave discussion: “$3.66 billion in revenue, up 168%” and “a $709 million net loss and $846 million in quarterly interest expense.” The articles do not support the framing that multiple major-tech earnings reports are covered. The summary then presents Databricks’ product announcement as an additional development: “Databricks has introduced an updated AI agent named Genie.” That article says Databricks “unveiled an updated version of its AI agent Genie,” but provides no earnings information, so this is unrelated material presented within the answer to an earnings query. Although the summary eventually acknowledges that “The articles retrieved do not provide insights into [Apple, Microsoft, or Google’s] latest earnings reports,” this late qualification does not correct the misleading opening or the inclusion of a non-earnings article as part of the answer.",
+    "passed": false,
+    "case_id": "E2E-005",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary opens, “Recent earnings reports from major tech companies reveal significant developments in the industry.” Only one provided article reports earnings: “CoreWeave is rewriting how it pays for the AI boom, according to the company’s third-quarter earnings.” The articles do not establish recent earnings reports from multiple major tech companies. The CoreWeave figures are supported: “$3.66 billion in revenue, up 168% from the year prior,” a “$709 million net loss” and “$846 million in quarterly interest expense.” Its financing changes are also supported by “asking customers to pay up front” and “pursuing short-term deals.” The summary further says Ghodsi’s demonstration highlighted Genie’s “potential to improve decision-making processes within organizations.” The cited Databricks article describes analyzing an employee survey, helping him “rate (and discard) fixes,” and summarizing a sales pitch, but does not state this broader conclusion about organizations. Likewise, “these developments indicate a focus on AI and operational efficiency” is the summary’s own synthesis rather than a conclusion stated in the articles. Thus, despite substantial supported detail, the summary does not fully satisfy the prohibition on added facts or conclusions.",
+    "passed": false,
+    "case_id": "E2E-005",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with the retrieval gap: \"Currently, there are no specific news articles addressing recent hacks or security breaches related to cryptocurrency exchanges,\" and explicitly limits its conclusion to \"the provided articles.\" None of the supplied articles reports on cryptocurrency exchanges or crypto-related hacks. The summary distinguishes the tangential BrickLink story rather than presenting it as an answer: \"the BrickLink marketplace going offline due to 'unusual activity' detected, which does not confirm a hack.\" The article supports this: \"Lego has taken its online marketplace BrickLink offline after detecting what it described as unusual activity\" and \"It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected.\" It describes BrickLink as a marketplace for \"secondhand Lego sets,\" not cryptocurrency. The remaining articles concern Russia-Ukraine talks, retrieval technology, and Michigan utilities' political spending, and provide no answer about crypto exchanges or hacks.",
+    "passed": true,
+    "case_id": "E2E-006",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states, \"Currently, there are no specific news articles addressing recent hacks or security breaches related to cryptocurrency exchanges.\" The provided articles establish only that this retrieved set contains no such reporting, not that no such news articles currently exist. The summary also says BrickLink's unusual activity \"indicates a potential security concern,\" which is an interpretive conclusion rather than a stated finding. The article reports that Lego took BrickLink offline \"after detecting what it described as unusual activity\" and explicitly says, \"It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected.\" This supports the summary's statements that a hack was not confirmed and customer-data impacts were unspecified, but not its added characterization. The remaining retrieved texts concern Russia-Ukraine talks, retrieval technology, and Michigan utilities; none reports a cryptocurrency-exchange hack. Thus the narrower concluding statement about the absence of confirmed crypto-exchange hacks in the provided articles is supported, but the summary does not fully meet the criterion.",
+    "passed": false,
+    "case_id": "E2E-006",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary opens, “Startups in the artificial intelligence (AI) sector are currently raising funds for a variety of innovative projects,” and concludes that the fundraising landscape focuses on “enhancing AI functionality, improving user privacy, and adapting business models.” Only Helix has an explicitly reported startup funding round: the article says, “The company raised $6 million in funding in a round led by Chicago Ventures,” for voice technology that can verify users without sensitive personal information. The summary then presents Plurai as “Another startup” improving agent reliability through synthetic-data simulations. The Plurai article supports that technical aim—“Simulations using synthetic data based on a company’s own digital systems”—but says nothing about fundraising. CoreWeave’s article concerns infrastructure financing: it is “asking customers to pay up front, borrowing against specific contracts,” rather than reporting a startup investment round. Although the summary ends by saying “specific details about other startups and their funding initiatives remain unclear,” it does not plainly acknowledge that the supplied articles establish only one explicit startup funding round, and instead presents all three companies as evidence of the startup fundraising landscape.",
+    "passed": false,
+    "case_id": "E2E-007",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary adds conclusions not stated in the articles. It says Helix's funding is “indicating strong interest in privacy-focused AI solutions.” The Helix article reports that its technology “can run directly on a user’s device,” has “attracted backing from Siri co-founder Dag Kittlaus,” and that the company “raised $6 million in funding in a round led by Chicago Ventures.” These support the technology and funding details, but not the broader conclusion about strong investor interest in privacy-focused AI solutions.\n\nThe summary says CoreWeave's revenue growth and losses are “prompting it to seek upfront payments from customers and pursue shorter contracts.” The article reports those financial results and funding strategies, but does not establish that causal connection. It says the strategies “could help CoreWeave finance its growth more efficiently while squeezing more cash from existing infrastructure,” rather than establishing the summary's additional objective of “financial stability.”\n\nThe opening and conclusion characterize these examples as a “current fundraising landscape for AI startups” focused on sustaining growth “in a competitive environment.” The Plurai article supports its technical goal—“Simulations using synthetic data based on a company’s own digital systems, meant to prepare models to tackle difficult edge cases”—but says nothing about Plurai raising money. The supplied articles do not state the summary's competitive-environment conclusion. Thus, despite many supported company details, the summary includes unsupported fundraising implications and conclusions.",
+    "passed": false,
+    "case_id": "E2E-007",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary opens, “Recent developments in science and technology highlight significant advancements in artificial intelligence and environmental health,” substituting technology for the requested space coverage. Its science items are supported: the Radical Numerics article reports a model “designed to flag natural and AI-engineered pathogens” that “can also run without an internet connection,” and the BBC reports that PFOS and PFOA levels “have dropped by nearly a third over the last decade.” However, none of the provided articles reports space news, and the summary never plainly acknowledges that this part of the query cannot be answered. Instead, it includes general AI product and business news: “Google has launched its latest model, Gemini 4 Carbon” and “Fractile has secured $720 million in funding.” Those articles describe an AI model rollout and AI-chip financing, respectively, not space news. Thus, although the summary supplies some relevant science reporting, it fails to disclose the missing space coverage and presents unrelated technology developments as part of the answer.",
+    "passed": false,
+    "case_id": "E2E-008",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary adds unsupported interpretations. It says Google's limited release was \"indicating a strategic approach to enhancing AI capabilities in security contexts.\" The cited article states only that Google is rolling out Carbon publicly \"after releasing it to a select group of ‘cybersecurity defenders’ two weeks ago\"; it does not state that strategic purpose. The summary concludes: \"Overall, these developments underscore the ongoing interplay between technological innovation and environmental health, with significant implications for public safety and industry practices.\" None of the provided articles states this collective conclusion or establishes that interplay. Similarly, the opening characterization of the stories as \"significant advancements\" is the summary's own assessment. Many underlying facts are supported: Wired describes Omnii Defense as \"designed to flag natural and AI-engineered pathogens\" and says it \"can also run without an internet connection\"; TechCrunch reports a \"$720 million Series C backed by Britain’s Sovereign AI Fund\" and a \"full-stack approach\" including a machine learning compiler; and the BBC reports that PFOS and PFOA \"have dropped by nearly a third over the last decade\" and attributes the decline to \"stricter restrictions.\" Those supported details do not justify the added conclusions.",
+    "passed": false,
+    "case_id": "E2E-008",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with a relevant health report: “many consumers may be overpaying for ‘max strength’ cold and flu pills, as experts suggest that there is little difference in efficacy between these premium products and cheaper alternatives.” The BBC article asks whether a “pricey max strength flu remedy [is] really any better than a basic box of painkillers” and quotes Prof Jayne Lawrence: “in reality, there's very little difference. Personally, I'd always go for the cheaper ones - and they’ve also been tested.” The summary also acknowledges the limited medical coverage: “the articles do not provide new developments in other areas of health and medicine beyond this discussion on cold and flu medications.” The remaining articles concern a proposed sickness/disability-benefits overhaul, shopping deals, venture-capital fundraising, and a technology executive’s scandal, rather than additional medical developments. The summary answers the broad query with the directly relevant reporting and does not present unrelated stories as health or medical news.",
+    "passed": true,
+    "case_id": "E2E-009",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The BBC article supports the summary's general comparison of expensive and cheaper remedies: Prof Jayne Lawrence says, \"But in reality, there's very little difference. Personally, I'd always go for the cheaper ones - and they’ve also been tested.\" It also supports brand reassurance: \"The trade association representing over-the-counter medicine makers says familiar brands can reassure shoppers.\"\n\nHowever, the summary states, \"Professor Jayne Lawrence ... emphasizes that basic painkillers are often just as effective\" and that cheaper options \"have also been tested for safety and effectiveness.\" The provided excerpt asks whether a pricey remedy is \"really any better than a basic box of painkillers,\" but does not explicitly give Lawrence's claimed conclusion about basic painkillers or specify that the testing covered safety and effectiveness.\n\nThe summary adds that flu-season demand is \"prompting a reevaluation of spending on health products\" and concludes that consumers should be \"more discerning,\" potentially achieving \"cost savings without sacrificing health outcomes.\" The article does not state that such a reevaluation is happening or establish unchanged health outcomes; these are the summary's own conclusions.\n\nThe closing claim that the articles provide no other health-and-medicine developments also overlooks the supplied BBC report that a government-commissioned review \"will recommend moving under-25s off the main sickness and disability benefits.\"",
+    "passed": false,
+    "case_id": "E2E-009",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with “Recent discussions surrounding climate change policy highlight the urgent need for action” and then Earth's condition being “serious and getting worse.” The corresponding article reports a scientific assessment: “seven of the 16 planetary vital signs tracked by the researchers have never been in a more extreme state.” This is climate-science context, not reported policy news. The retrieved articles do contain directly relevant policy reporting that should lead: the Europe article says, “the German government laid out an ambitious plan: By 2030, it would double the scale of the country’s data center fleet,” and that “Germany has found that its AI ambitions are butting up against its climate commitments.” The summary addresses this only in its second paragraph. Its final caveat—“the articles do not provide specific details on new policy initiatives or legislative actions”—acknowledges limitations, but does not fix the opening's presentation of general climate urgency as the answer, and is too broad given the reported German government plan. Thus, the summary does not fully meet the requirement to lead with what the articles report that answers the policy query.",
+    "passed": false,
+    "case_id": "E2E-010",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary adds policy conclusions not stated in the provided articles: “This alarming assessment underscores the necessity for robust climate policies to mitigate further environmental degradation” and “Overall, these developments reflect a broader recognition of the urgent need for effective climate change policies.” The climate-assessment article reports that Earth's condition is “serious and getting worse,” that “seven of the 16 planetary vital signs” are at unprecedented extremes, and that atmospheric carbon dioxide is “50 percent higher than preindustrial levels”; it does not state the summary's policy conclusions.\n\nThe summary says emissions must be cut “by 55% within the same timeframe,” referring to 2030. The supplied Europe article states Germany's data-center goal is “By 2030,” but its emissions sentence ends at “cutting greenhouse gas emissions by 55 percent by the end of t”. Thus the emissions deadline cannot be verified from the provided text. Likewise, “prompting a reevaluation of how to balance these competing priorities” goes beyond the article's statement that policymakers “are weighing AI ambitions against climate objectives.”\n\nThe concluding assertion that “the articles do not provide specific details on new policy initiatives” is not supported: the Europe article describes a government plan to double Germany's data-center fleet and quadruple AI compute by 2030, and says a plan to funnel data-center heat into nearby homes “has run aground in Germany.”\n\nThe Prince William paragraph is supported by the BBC article's statements that preparation will be “crucial,” that the community response was “an example for others to follow,” and that “We need to start taking wildfires as seriously as the continent has done.” These supported claims do not remedy the unsupported additions elsewhere.",
+    "passed": false,
+    "case_id": "E2E-010",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with: “The latest updates on Anthropic indicate that the company is actively engaging in discussions about the philosophical implications of artificial intelligence.” However, the only Anthropic-related passage reports a past event: “A recent conference last April was held by Anthropic with religious scholars and philosophical thinkers to discuss the nature of the soul when it came to their latest Claude models.” This supports the conference description, but not ongoing activity or its presentation as a current company update. The summary further says this “indicates a commitment to addressing the societal impacts of AI” and “may reflect a strategic positioning within the competitive landscape”; the provided articles say nothing about either interpretation. Although the summary correctly acknowledges that recent product, business, financial, and partnership details are absent, it does not plainly lead with the limited nature of the available information, instead framing an April event and unsupported interpretations as the latest developments.",
+    "passed": false,
+    "case_id": "E2E-011",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary's conference claim is supported by “Tools for exploring the souls of large language models”: “A recent conference last April was held by Anthropic with religious scholars and philosophical thinkers to discuss the nature of the soul when it came to their latest Claude models.” However, the summary adds that this “suggest[s] that Anthropic is not only focused on technical advancements but also on the broader implications of its work,” that it “indicates a commitment to addressing the societal impacts of AI,” and that it “may reflect a strategic positioning within the competitive landscape of AI development, where ethical considerations are becoming increasingly important to stakeholders and the public alike.” The provided articles do not state these conclusions about Anthropic’s commitment or strategy, or the claimed trend among stakeholders and the public. Additionally, the summary cites “[Article 1]” for its philosophical discussion, whereas the first provided article concerns Fractile’s $720 million funding round and says nothing about Anthropic; the relevant conference passage appears in the second article.",
+    "passed": false,
+    "case_id": "E2E-011",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The opening directly answers the query: “New York City Mayor Zohran Mamdani has publicly criticized the owner of Madison Square Garden, James Dolan, regarding the use of surveillance technology at the venue.” TechCrunch supports this: Mamdani “has criticized the owner of Madison Square Garden” and argued “the company’s surveillance technology should not be allowed.” The legislative coverage is also relevant and supported: Hanif introduced legislation “aimed at banning the collection of biometric data, such as using facial recognition, in public places across the city.” However, the summary then presents general AI news as related coverage and concludes: “Mamdani's comments come at a time when there is a perceived lack of federal regulation on AI and surveillance technologies, prompting local leaders to take action.” The AI article says only that “the federal government is doing little to regulate AI, leaving cities to act on their own”; it does not connect that regulatory gap or the school AI ban to surveillance. The supplied Wired text likewise says nothing about surveillance regulation or the claimed “growing concern among city officials” over privacy and civil liberties. Thus, although the opening answers the query, the summary subsequently folds articles without an established surveillance connection into its answer and supplies an unsupported surveillance-related synthesis.",
+    "passed": false,
+    "case_id": "E2E-012",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary’s core surveillance claims are supported by the first TechCrunch article: it says Mamdani criticized Madison Square Garden’s owner, called surveillance technologies “indicative of much that is wrong in our country today,” and described Hanif’s proposed biometric-data ban as “an important response to this kind of an issue.” However, the summary adds that the legislation is “a necessary response to the growing concerns over surveillance practices”; the article does not establish necessity or growing concern. The AI paragraph says he advocated accountability and banned AI in elementary and middle schools, citing “[TechCrunch][Wired].” The October TechCrunch article supports these claims (“public officials should hold AI companies accountable” and “ordered a ban on AI use in elementary and middle schools”), but the provided Wired excerpt does not state them. Most importantly, the final paragraph claims “a perceived lack of federal regulation on AI and surveillance technologies” and “a growing concern among city officials regarding the implications of these technologies on privacy and civil liberties [Wired].” The October TechCrunch article says only that “the federal government is doing little to regulate AI, leaving cities to act on their own”; it does not extend that statement to surveillance regulation. Neither the cited Wired excerpt nor the other provided articles establishes growing concern among city officials about privacy and civil liberties.",
+    "passed": false,
+    "case_id": "E2E-012",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with: \"This week, there have been no announcements from Apple reported in the retrieved articles,\" and concludes: \"none of these articles provide any information about recent announcements or developments from Apple.\" None of the supplied article texts mentions Apple. Instead, they report unrelated matters, such as \"Poundland looks set to avoid immediate collapse,\" \"Lego has taken its online marketplace BrickLink offline,\" and \"the prime minister's push for closer relations with Europe.\" The summary explicitly labels these as \"other topics,\" rather than presenting them as Apple announcements. It therefore plainly identifies that the retrieved articles do not answer the query, without claiming Apple made no announcements beyond this source set.",
+    "passed": true,
+    "case_id": "E2E-013",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states, “there have been no announcements from Apple reported in the retrieved articles” and “none of these articles provide any information about recent announcements or developments from Apple.” None of the provided articles mentions Apple. The Poundland claims cited to Articles 0 and 3 are supported by their title, “Poundland set for more time to secure a rescue deal as emergency talks continue,” and text stating that it “looks set to avoid immediate collapse after its US owners told MPs ... they were in favour of extending a deadline to find a rescue deal.” Financial difficulties and parliamentary scrutiny are supported by “edging towards administration after being blocked ... from accessing cash in its bank accounts” and “A committee of MPs questioned Gordon Brothers following accusations that the investment firm hopes to profit from selling off Poundland's 600 stores and stock piecemeal.” The summary’s BrickLink account, cited to Article 1, is supported by “Lego has taken its online marketplace BrickLink offline after detecting what it described as unusual activity,” its reference to “before restoring BrickLink,” and “It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected.” The Burnham account, cited to Article 2, is supported by “the prime minister's push for closer relations with Europe ... is causing ripples in his own party and others” and the statement that at “a gathering of European leaders in Dublin, Burnham will for the first time meet those who could prove pivotal as he sells his vision.” These passages support the summary’s factual claims without adding substantive facts or predictions.",
+    "passed": true,
+    "case_id": "E2E-013",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with: \"The retrieved articles do not contain any information regarding the Federal Reserve's decisions from its last meeting.\" None of the provided article texts mentions the Federal Reserve or its meeting decisions. Instead, the articles report that \"Mauricio Pochettino is ready to accept an offer from Manchester United to become their next head coach,\" discuss \"the modern landscape of sexual offences in England and Wales,\" state that \"David Walliams' unprecedented legal battle not to be named in relation to allegations against him went downhill,\" and report that a jury found Matthew Farwell \"guilty of killing Sandra Birchmore and her unborn child.\" The summary plainly acknowledges the lack of relevant information and identifies these topics as unrelated rather than presenting them as an answer.",
+    "passed": true,
+    "case_id": "E2E-014",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states: \"The retrieved articles do not contain any information regarding the Federal Reserve's decisions from its last meeting\" and describes their topics as \"football management changes, legal issues surrounding grooming laws, and a murder trial verdict.\" This accurately reflects the provided texts: the football articles say \"Mauricio Pochettino is ready to accept an offer from Manchester United to become their next head coach\"; the grooming-laws article discusses \"whether we in the UK have an adequate list of crimes in place\"; the murder-trial article says a jury found Matthew Farwell \"guilty of killing Sandra Birchmore and her unborn child\"; and the remaining article discusses \"David Walliams' unprecedented legal battle not to be named in relation to allegations against him.\" None mentions the Federal Reserve or its meetings. In context, \"there is no available information to summarize\" refers to these retrieved articles, not to all possible sources. The closing recommendation adds no factual claim about the Federal Reserve.",
+    "passed": true,
+    "case_id": "E2E-014",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with: \"The retrieved articles do not provide any information regarding the current polling leaders for the next UK general election,\" and concludes that \"the query remains unanswered based on the provided content.\" This accurately reflects the supplied articles, none of which reports UK election polling or identifies a polling leader. The UK article instead reports \"renewed attention on the prime minister's push for closer relations with Europe\" and says \"Andy Burnham told his Cabinet earlier this week\" that the Brexit deal is not working. The other articles concern Spain: \"Transport and other public services across Spain have faced serious disruption in the first general strike for 14 years\" and \"Spaniards are due to vote in parliamentary elections on 29 November.\" The summary explicitly distinguishes these unrelated subjects from an answer to the UK polling query.",
+    "passed": true,
+    "case_id": "E2E-016",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states: \"The retrieved articles do not provide any information regarding the current polling leaders for the next UK general election.\" None of the provided articles contains UK election polling figures or identifies a polling leader. Its description of the articles' topics is supported by the UK article's statement that there is \"renewed attention on the prime minister's push for closer relations with Europe\" and its reference to \"Andy Burnham,\" and by the Spain articles' reporting of \"Spain's first general strike for 14 years\" and disruption to \"Transport and other public services across Spain.\" The summary's conclusion that \"the query remains unanswered based on the provided content\" accurately reflects this absence. In context, \"there is no available information\" refers to the supplied articles, not to polling information generally.",
+    "passed": true,
+    "case_id": "E2E-016",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary leads with: \"The retrieved articles do not provide any information regarding layoffs in the tech industry for the current month or specify which companies were involved.\" This accurately describes the provided texts, none of which reports layoff counts or affected companies. Instead, the articles discuss unrelated subjects: \"A supercomputer ... is typically owned by a government lab or university and designed for scientific simulation\"; \"Former safeguarding minister Jess Phillips has joined calls ... to back new technology that blocks the live-streaming of child sexual abuse\"; \"The AI industry is still reeling from Nvidia CEO Jensen Huang’s honeypot scandal\"; and Pomerado's service, \"We connect your agents to any website by turning sites into deterministic, self-healing APIs.\" The summary plainly states the evidence gap rather than presenting these unrelated articles as an answer.",
+    "passed": true,
+    "case_id": "E2E-017",
+    "criterion_id": "cr1",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  },
+  {
+    "evidence": "The summary states, “The retrieved articles do not provide any information regarding layoffs in the tech industry for the current month or specify which companies were involved.” None of the provided articles mentions layoffs, layoff counts, or companies conducting layoffs. Its description of the articles’ unrelated topics is supported by “The Power and Legacy of Virginia Tech’s Mac-Based Supercomputers,” “Former minister calls for phone tech to block live-streamed child sex abuse,” and the TechCrunch text discussing “behavior at senior executive levels” in the AI industry. The remaining article describes Pomerado: “We connect your agents to any website by turning sites into deterministic, self-healing APIs.” In context, the summary’s statement that “there is no data available to answer the user's query” refers to these retrieved articles, accurately describing their lack of relevant information. The need for further sources follows from that documented limitation rather than adding a factual claim about layoffs.",
+    "passed": true,
+    "case_id": "E2E-017",
+    "criterion_id": "cr2",
+    "judge_config_version": "b6ccadb31637",
+    "run": 1,
+    "error": null
+  }
+]

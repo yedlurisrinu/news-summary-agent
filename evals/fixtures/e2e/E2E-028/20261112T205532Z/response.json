@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Summarise the latest AI news and also write me a SQL query",
+    "categories": [
+      "ai"
+    ],
+    "summary": "Recent developments in artificial intelligence (AI) highlight significant advancements in both practical applications and the evolving landscape of AI technologies. One notable announcement is from Perplexity, which has launched \"teammates,\" AI agents designed to manage complex, ongoing work across various sectors such as operations and marketing. These agents are built to coordinate projects, adapt to changing priorities, and provide users with the ability to guide their work, enhancing productivity in professional environments [Perplexity launches AI agents for work].\n\nIn another significant move, ClickHouse has acquired Xata, aiming to integrate agentic capabilities into its Managed Postgres platform. This collaboration is set to enhance database provisioning and performance, catering to modern applications and AI agents. The acquisition promises to maintain continuity for existing Xata customers while gradually transitioning them to the ClickHouse platform, which will feature advanced functionalities like instant copy-on-write branching [ClickHouse Acquires Xata].\n\nAdditionally, there is a growing trend of removing restrictions from AI models, as seen with the emergence of companies like Abliteration AI. This company is focused on making powerful AI models more accessible by eliminating built-in safeguards, a move that has sparked discussions about the implications for safety and ethical use in AI applications [Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers]. \n\nOverall, these developments reflect a dynamic and rapidly evolving AI landscape, with innovations aimed at enhancing productivity, performance, and accessibility, while also raising important questions about safety and ethical considerations in AI deployment.",
+    "articles": [
+      {
+        "title": "Perplexity launches AI agents for work",
+        "link": "https://www.perplexity.ai/en-GB/hub/blog/teammates-are-agents-for-complex-ongoing-work",
+        "source": "Hacker News",
+        "published_at": "2026-11-06T17:59:41+00:00"
+      },
+      {
+        "title": "ClickHouse Acquires Xata",
+        "link": "https://xata.io/blog/xata-is-joining-clickhouse",
+        "source": "Hacker News",
+        "published_at": "2026-11-10T06:14:51+00:00"
+      },
+      {
+        "title": "Ask HN: What are you working on? (November 2026)",
+        "link": "https://news.ycombinator.com/item?id=50417407",
+        "source": "Hacker News",
+        "published_at": "2026-11-08T21:20:20+00:00"
+      },
+      {
+        "title": "Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers",
+        "link": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/",
+        "source": "Wired",
+        "published_at": "2026-11-10T11:00:00+00:00"
+      },
+      {
+        "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+        "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+        "source": "Wired",
+        "published_at": "2026-11-11T19:55:54+00:00"
+      }
+    ],
+    "latency": 5.048973560333252,
+    "status": "ok"
+  }
+}

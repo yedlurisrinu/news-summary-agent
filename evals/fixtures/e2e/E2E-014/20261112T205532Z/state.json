@@ -1,0 +1,80 @@
+{
+  "query": "What did the Federal Reserve decide at its last meeting?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "finance"
+  ],
+  "article_refs": [
+    {
+      "article_id": "61e193baf9febe2f1d5552752f9eb4ca",
+      "score": 12.417298
+    },
+    {
+      "article_id": "670e974f1f08ddd1cc5bb020ce28b323",
+      "score": 12.417298
+    },
+    {
+      "article_id": "6e1d68adadc11ba452e4e568b624980b",
+      "score": 11.807863
+    },
+    {
+      "article_id": "cb553231ff7119617ee434ab3be5b974",
+      "score": 11.516099
+    },
+    {
+      "article_id": "364f28de4c8c22f761e4fee2fa555054",
+      "score": 10.012716
+    }
+  ],
+  "summary": "The retrieved articles do not contain any information regarding the Federal Reserve's decisions from its last meeting. The articles focus on various unrelated topics, including football management changes, legal issues surrounding grooming laws, and a murder trial verdict. \n\nAs a result, there is no available information to summarize regarding the Federal Reserve's actions or decisions. If you have access to other sources or articles that specifically address the Federal Reserve's recent meeting, I recommend consulting those for the relevant details.",
+  "article_hits": [
+    {
+      "article_id": "61e193baf9febe2f1d5552752f9eb4ca",
+      "title": "Pochettino ready to accept Man Utd offer to replace Carrick",
+      "source": "BBC",
+      "published_at": "2026-11-11T10:34:01+00:00",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cqvg25pj36mvo?at_medium=RSS&at_campaign=rss",
+      "content": "Pochettino ready to accept Man Utd offer to replace Carrick Image source, Getty Images Image caption, Michael Carrick is set to depart as Manchester United manager, with Mauricio Pochettino in talks to replace him By Sami Mokbel Senior football correspondent Published 11 November 2026, 08:46 GMT Updated 17 minutes ago Mauricio Pochettino is ready to accept an offer from Manchester United to become their next head coach. United have opened talks with the Argentine about him potentially replacing Michael Carrick, who is expected to be relieved of his duties in the next 48 hours. Once Carrick's future is clarified, sources have told BBC Sport that USA manager Pochettino wants to take the job. The former Tottenham and Chelsea boss wants to remain respectful to the US Soccer Federation and will wait for United to make an official approach. The Red Devils would be required to pay $10m (£7.5m) to release Pochettino from his contract, which he only signed in August. The USA have a two-legged C"
+    },
+    {
+      "article_id": "670e974f1f08ddd1cc5bb020ce28b323",
+      "title": "Pochettino ready to accept Man Utd offer to replace Carrick",
+      "source": "BBC",
+      "published_at": "2026-11-11T16:03:02+00:00",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cqvg25pj36mvo?at_medium=RSS&at_campaign=rss",
+      "content": "Pochettino ready to accept Man Utd offer to replace Carrick Image source, Getty Images Image caption, Michael Carrick is set to depart as Manchester United manager, with Mauricio Pochettino in talks to replace him By Sami Mokbel Senior football correspondent Published 11 November 2026, 08:46 GMT Updated 21 minutes ago Mauricio Pochettino is ready to accept an offer from Manchester United to become their next head coach. United have opened talks with the Argentine about him potentially replacing Michael Carrick, who is expected to be relieved of his duties in the next 48 hours. Once Carrick's future is clarified, sources have told BBC Sport that USA manager Pochettino wants to take the job. US Soccer officials are expecting an official approach from United - and sources have told BBC Sport they have a contingency plan for their manager leaving, which includes a succession plan. Former Tottenham and Chelsea boss Pochettino wants to remain respectful to the US Soccer Federation and will w"
+    },
+    {
+      "article_id": "6e1d68adadc11ba452e4e568b624980b",
+      "title": "What are the state of our grooming laws?",
+      "source": "BBC",
+      "published_at": "2026-11-11T17:45:41+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cxp80njvj26yo?at_medium=RSS&at_campaign=rss",
+      "content": "What are the state of our grooming laws? Image source, Getty Images By Dominic Casciani Home and legal correspondent Published 32 minutes ago Time and again since the international explosion of the \"Me Too\" movement in 2017 against sexual violence against women and girls, politicians have been pushed on whether we in the UK have an adequate list of crimes in place to deal with all manner of incidents. Those demands for reviews and rethinks have come back again with the conviction of one comedian Russell Brand for rape and sexual assault - and separate accusations of sexual misconduct against another one, David Walliams. He denies being a sexual predator and is not facing a criminal investigation. The modern landscape of sexual offences in England and Wales is complicated - but it is far more nuanced than it once was because of major changes over the last two decades. There is some confusion in public debate over what counts as grooming - but in general it's understood in the criminal c"
+    },
+    {
+      "article_id": "cb553231ff7119617ee434ab3be5b974",
+      "title": "Matthew Farwell trial jury reaches verdict in Sandra Birchmore case - CBS News",
+      "source": "CBS News",
+      "published_at": "2026-11-10T18:48:00Z",
+      "link": "https://www.cbsnews.com/boston/news/matthew-farwell-trial-jury-verdict-sandra-birchmore/",
+      "content": "Local News Matthew Farwell convicted of killing Sandra Birchmore and unborn child in Massachusetts murder trial By Neal  Riley , Neal  Riley Digital Producer, CBS Boston Neal J. Riley is a digital producer for CBS Boston. He has been with WBZ-TV since 2014. His work has appeared in The Boston Globe and The San Francisco Chronicle. Neal is a graduate of Boston University. Read Full Bio Neal  Riley , Kristina  Rex Kristina  Rex Reporter, CBS Boston Kristina Rex is a reporter for WBZ-TV News. Read Full Bio Kristina  Rex Updated on:  November 10, 2026 / 11:13 PM EST / CBS Boston Add CBS News on Google A jury has found former Stoughton, Massachusetts, police officer Matthew Farwell guilty of killing Sandra Birchmore and her unborn child. The verdict was read in federal court in South Boston Tuesday afternoon. Farwell was charged with killing a witness or victim and causing the death of an unborn child. He pleaded not guilty. The jury had previously said in a note on Monday that it was \"in a"
+    },
+    {
+      "article_id": "364f28de4c8c22f761e4fee2fa555054",
+      "title": "Why Walliams' unprecedented legal battle to stay anonymous failed",
+      "source": "BBC",
+      "published_at": "2026-11-10T22:41:01+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwx2922r4mrjo?at_medium=RSS&at_campaign=rss",
+      "content": "Why Walliams' unprecedented legal battle to stay anonymous failed Image source, Getty Images By Dominic Casciani Home and Legal Correspondent Published 26 minutes ago David Walliams' unprecedented legal battle not to be named in relation to allegations against him went downhill as he tried to secure a permanent injunction. He was named by the Guardian and ITN because he had no sound legal reason to prevent the news organisations' investigation from being published. In response to the allegations included, Walliams said he was \"not a sexual predator\" and had not \"broken the law\". The 55-year-old's bid for an injunction had been an open secret from the start after what would have normally been an anonymised application briefly appeared under his own name on a court cases register. His exceptionally unusual attempt to gag the media - forever - became clear at the full trial last month - but that's when his bid to remain anonymous got worse. In court, his lawyers did not claim that the inv"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.8284592628479004,
+    "mcp_category_search_call": 0.01714324951171875,
+    "mcp_article_search_call": 0.030716896057128906,
+    "mcp_mget_call": 0.010430097579956055,
+    "summary_llm_call": 1.8624789714813232
+  }
+}

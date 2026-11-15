@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Newest gadget deals and discounts",
+    "categories": [
+      "technology",
+      "business"
+    ],
+    "summary": "Currently, there are several notable gadget deals and discounts available as part of early Black Friday promotions. Among the highlights, Dyson is offering a significant discount of 25% off with coupon codes, along with savings of up to $600 on vacuums and $150 off Airwraps, making it an attractive time for consumers looking to purchase household gadgets [Article 1].\n\nAdditionally, WIRED has compiled lists of early Black Friday deals under $100, featuring a variety of WIRED-tested gadgets that are recommended for their quality and value. These deals include items that could serve as low-cost upgrades or gifts, reflecting the current economic climate where prices have generally increased [Article 2]. The selection is updated regularly as new deals are discovered leading up to the main Black Friday and Cyber Monday sales events.\n\nMoreover, WIRED has identified the best early Black Friday deals available right now, emphasizing that these discounts are part of a broader trend where sales begin well before the traditional shopping day. The reviews team at WIRED focuses on genuine deals for gadgets they have tested and would recommend, ensuring that consumers can trust the quality of the products on sale [Article 3][Article 4]. \n\nOverall, shoppers can take advantage of these early discounts on various gadgets, particularly from brands like Dyson, as well as a curated selection of affordable tech options under $100.",
+    "articles": [
+      {
+        "title": "Booking.com Promo Codes: 20% Off | November 2026",
+        "link": "https://www.wired.com/story/booking-com-promo-code/",
+        "source": "Wired",
+        "published_at": "2026-11-05T06:00:00+00:00"
+      },
+      {
+        "title": "Dyson Promo Codes: 25% Off in November 2026",
+        "link": "https://www.wired.com/story/dyson-cordless-vacuum-promo-code/",
+        "source": "Wired",
+        "published_at": "2026-11-10T06:00:00+00:00"
+      },
+      {
+        "title": "Early Black Friday Deals Under $100 (2026)",
+        "link": "https://www.wired.com/story/best-early-black-friday-deals-under-100-11-11-2026/",
+        "source": "Wired",
+        "published_at": "2026-11-11T10:12:00+00:00"
+      },
+      {
+        "title": "The 22 Best Early Black Friday Deals: Our Ultimate Picks (2026)",
+        "link": "https://www.wired.com/story/best-black-friday-deals-11-11-2026/",
+        "source": "Wired",
+        "published_at": "2026-11-11T17:08:14+00:00"
+      },
+      {
+        "title": "The 18 Best Early Black Friday Deals 2026",
+        "link": "https://www.wired.com/story/best-black-friday-deals-11-7-2026/",
+        "source": "Wired",
+        "published_at": "2026-11-07T10:16:00+00:00"
+      }
+    ],
+    "latency": 6.317237138748169,
+    "status": "ok"
+  }
+}

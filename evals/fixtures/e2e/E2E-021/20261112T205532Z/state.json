@@ -1,0 +1,12 @@
+{
+  "query": "Write a Python function to sort a list",
+  "is_news_query": false,
+  "fetch_latest": false,
+  "categories": [],
+  "article_refs": [],
+  "summary": "I'm a news search assistant and can only help with news-related queries. Please ask me about topics such as technology, politics, sports, business, science, health, climate, or world events.",
+  "article_hits": [],
+  "latency": {
+    "classify_llm_call": 0.9034669399261475
+  }
+}
