@@ -10,8 +10,8 @@ import logging
 from collections.abc import Iterable
 from math import sqrt
 
-from evals.model.judge_agreement import JudgeAgreement
-from evals.model.models import Calibration, CaseVerdict
+from evals.e2e.model.judge_agreement import JudgeAgreement
+from evals.e2e.model.models import Calibration, CaseVerdict
 
 log = logging.getLogger(__name__)
 

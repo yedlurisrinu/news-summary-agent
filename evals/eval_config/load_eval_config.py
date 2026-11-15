@@ -5,7 +5,7 @@ from typing import Any
 
 import yaml
 
-from evals.helpers.constants import BASE_PATH
+from evals.e2e.helpers.constants import EVAL_BASE_PATH
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ def load_config() -> None:
     global config
     try:
         with open(
-            BASE_PATH.joinpath("resources/eval_config.yaml"), encoding="utf-8"
+            EVAL_BASE_PATH.joinpath("resources/eval_config.yaml"), encoding="utf-8"
         ) as file_handle:
             config = yaml.safe_load(file_handle)
     except Exception:

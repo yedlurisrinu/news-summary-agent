@@ -33,8 +33,8 @@ from config.vault_secrets import load_secrets
 from data.news_input import NewsInput
 from data.query_failed_response import QueryFailedResponse
 from evals.eval_config.load_eval_config import get_config, load_config
-from evals.fixtures.fixture_capture_runtime import EvalRuntime, open_runtime
-from evals.helpers.constants import BASE_PATH
+from evals.e2e.fixtures.fixture_capture_runtime import EvalRuntime, open_runtime
+from evals.e2e.helpers.constants import EVAL_BASE_PATH, E2E_BASE_PATH
 from graph.build_graph import build
 from graph.run_graph_workflow import run_graph
 
@@ -42,17 +42,17 @@ from graph.run_graph_workflow import run_graph
 # paths come from eval_config.yaml, so they are resolved after load_config() has run
 def _cases_file() -> Path:
     """Absolute path of the e2e seed cases file (SEED_E2E_CASES_PATH)."""
-    return BASE_PATH.joinpath(get_config("SEED_E2E_CASES_PATH"))
+    return EVAL_BASE_PATH.joinpath(get_config("SEED_E2E_CASES_PATH"))
 
 
 def _fixtures() -> Path:
     """Absolute path of the e2e fixtures folder (FIXTURES_E2E_PATH)."""
-    return BASE_PATH.joinpath(get_config("FIXTURES_E2E_PATH"))
+    return E2E_BASE_PATH.joinpath(get_config("FIXTURES_E2E_PATH"))
 
 
 def _runs() -> Path:
     """Absolute path of the capture-run records folder (CAPTURE_RUNS_PATH)."""
-    return BASE_PATH.joinpath(get_config("CAPTURE_RUNS_PATH"))
+    return E2E_BASE_PATH.joinpath(get_config("CAPTURE_RUNS_PATH"))
 
 
 def _sha12(path: Path) -> str:

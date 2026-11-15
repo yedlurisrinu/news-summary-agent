@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
-from evals.model.models import Criterion
+from evals.e2e.model.models import Criterion
 
 
 class JudgeConfig(BaseModel):

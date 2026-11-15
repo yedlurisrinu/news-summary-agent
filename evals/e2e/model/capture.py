@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from evals.model.article_hit import ArticleHit
+from evals.e2e.model.article_hit import ArticleHit
 
 
 @dataclass(frozen=True)

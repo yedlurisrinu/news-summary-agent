@@ -9,11 +9,11 @@ import logging
 from typing import Any
 
 from evals.eval_config.load_eval_config import get_config
-from evals.loader.loader import json_loader, yaml_loader
-from evals.model.article_hit import ArticleHit
-from evals.model.capture import Capture
-from evals.model.judge_input import JudgeInput
-from evals.model.models import Criterion
+from evals.e2e.loader.loader import json_loader, yaml_loader
+from evals.e2e.model.article_hit import ArticleHit
+from evals.e2e.model.capture import Capture
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import Criterion
 
 log = logging.getLogger(__name__)
 

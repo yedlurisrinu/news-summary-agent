@@ -14,11 +14,11 @@ from config.logging_setup import setup_logging
 from config.vault_secrets import load_secrets
 from evals.eval_config.load_eval_config import get_config
 from evals.eval_config.load_eval_config import load_config as eval_load_config
-from evals.judge.judge_agreement_runner import judge_agreement
-from evals.judge.preparer import get_rubric
-from evals.model.judge_config import JudgeConfig
-from evals.model.models import Criterion, CriterionVerdict
-from evals.model.prompts import ARTICLE_SEPARATOR, HUMAN_PROMPT, SYSTEM_INSTRUCTIONS
+from evals.e2e.judge.judge_agreement_runner import judge_agreement
+from evals.e2e.judge.preparer import get_rubric
+from evals.e2e.model.judge_config import JudgeConfig
+from evals.e2e.model.models import Criterion, CriterionVerdict
+from evals.e2e.model.prompts import ARTICLE_SEPARATOR, HUMAN_PROMPT, SYSTEM_INSTRUCTIONS
 
 log = logging.getLogger(__name__)
 

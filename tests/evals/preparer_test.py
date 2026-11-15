@@ -14,7 +14,7 @@ import logging
 import pytest
 
 from evals.eval_config.load_eval_config import load_config
-from evals.judge.preparer import (
+from evals.e2e.judge.preparer import (
     get_rubric,
     judged_cases,
     load_e2e_fixture_captures,

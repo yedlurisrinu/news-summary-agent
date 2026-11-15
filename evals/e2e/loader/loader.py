@@ -10,13 +10,13 @@ from typing import Any
 
 import yaml
 
-from evals.helpers.constants import BASE_PATH
+from evals.e2e.helpers.constants import E2E_BASE_PATH
 
 
 async def _read_text(relative_path: str | Path) -> str:
-    """Read BASE_PATH/relative_path as UTF-8 text in a worker thread."""
+    """Read E2E_BASE_PATH/relative_path as UTF-8 text in a worker thread."""
     return await asyncio.to_thread(
-        BASE_PATH.joinpath(relative_path).read_text, encoding="utf-8"
+        E2E_BASE_PATH.joinpath(relative_path).read_text, encoding="utf-8"
     )
 
 

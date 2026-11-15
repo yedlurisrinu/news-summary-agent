@@ -6,13 +6,13 @@ from typing import cast
 from langchain_openai import ChatOpenAI
 from openai.types.shared import ReasoningEffort
 
-from evals.dumper.dumper import dump_list_of_records
+from evals.e2e.dumper.dumper import dump_list_of_records
 from evals.eval_config.load_eval_config import get_config
-from evals.helpers.paths import judge_run_dir, judges_agreement_dir
-from evals.helpers.utils import get_model
-from evals.judge.calibration import calibrate, calibrate_2judges, wilson
-from evals.judge.news_judge import NewsJudge
-from evals.judge.preparer import (
+from evals.e2e.helpers.paths import judge_run_dir, judges_agreement_dir
+from evals.e2e.helpers.utils import get_model
+from evals.e2e.judge.calibration import calibrate, calibrate_2judges, wilson
+from evals.e2e.judge.news_judge import NewsJudge
+from evals.e2e.judge.preparer import (
     GroundTruth,
     get_ground_truth,
     input_for_judge_agreement,
@@ -20,10 +20,10 @@ from evals.judge.preparer import (
     load_e2e_fixture_captures,
     to_judge_input,
 )
-from evals.loader.loader import json_loader, yaml_loader
-from evals.model.judge_config import JudgeConfig
-from evals.model.judge_input import JudgeInput
-from evals.model.models import CaseVerdict
+from evals.e2e.loader.loader import json_loader, yaml_loader
+from evals.e2e.model.judge_config import JudgeConfig
+from evals.e2e.model.judge_input import JudgeInput
+from evals.e2e.model.models import CaseVerdict
 
 log = logging.getLogger(__name__)
 
