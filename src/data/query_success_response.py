@@ -27,7 +27,11 @@ class QuerySuccessResponse(BaseModel):
     articles: list[ArticleOut] = Field(
         ..., description="Articles used to build the summary."
     )
-    duration_seconds: float = Field(
-        ..., description="Total wall-clock time across all graph stages."
+    latency: float = Field(
+        ...,
+        description=(
+            "Sum, in seconds, of the run's external call latencies (LLM and MCP tool "
+            "calls); not wall-clock time."
+        ),
     )
     status: Literal["ok"] = "ok"

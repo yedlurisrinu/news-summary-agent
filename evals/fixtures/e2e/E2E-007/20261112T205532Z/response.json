@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What are startups raising money for in AI right now?",
+    "categories": [
+      "ai",
+      "business"
+    ],
+    "summary": "Startups in the artificial intelligence (AI) sector are currently raising funds for a variety of innovative projects aimed at enhancing AI capabilities and applications. One notable example is Helix, which has developed voice identification technology that operates directly on users' devices, eliminating the need for sensitive personal information. The startup recently secured $6 million in funding from investors including Chicago Ventures and Siri co-founder Dag Kittlaus, indicating strong interest in privacy-focused AI solutions [Article 2].\n\nAnother startup, Plurai, is focused on improving the reliability of AI agents through simulations using synthetic data. This approach aims to enhance the performance of AI models in complex tasks, similar to techniques used in the development of self-driving cars. By preparing AI systems to handle difficult edge cases, Plurai seeks to increase the effectiveness of AI agents, which have been shown to struggle with unsupervised tasks [Article 1].\n\nAdditionally, CoreWeave, a company that provides cloud computing power for AI applications, is adapting its funding strategies to support its growth. The company reported significant revenue growth but also substantial losses, prompting it to seek upfront payments from customers and pursue shorter contracts. This shift aims to improve cash flow and financial stability amid the ongoing demand for AI infrastructure [Article 4].\n\nOverall, the current fundraising landscape for AI startups reflects a focus on enhancing AI functionality, improving user privacy, and adapting business models to sustain growth in a competitive environment. However, specific details about other startups and their funding initiatives remain unclear, as the articles primarily highlight these three companies.",
+    "articles": [
+      {
+        "title": "Databricks’ new AI agent tells CEO Ali Ghodsi the unvarnished truth",
+        "link": "https://techcrunch.com/2026/11/11/databricks-new-ai-agent-tells-ceo-ali-ghodsi-the-unvarnished-truth/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T15:00:00+00:00"
+      },
+      {
+        "title": "Plurai wants to help AI agents work better using the same approach that helped get self-driving cars to roads",
+        "link": "https://techcrunch.com/2026/11/11/plurai-wants-to-help-ai-agents-work-better-using-the-same-approach-that-helped-get-self-driving-cars-to-roads/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T14:00:00+00:00"
+      },
+      {
+        "title": "Siri co-founder backs Helix for its voice ID tech",
+        "link": "https://techcrunch.com/2026/11/11/siri-co-founder-backs-helix-for-its-voice-id-tech/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T15:02:47+00:00"
+      },
+      {
+        "title": "Olaf Sakkers is betting he can beat the emerging-manager squeeze",
+        "link": "https://techcrunch.com/2026/11/11/olaf-sakkers-is-betting-he-can-beat-the-emerging-manager-squeeze/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T20:04:28+00:00"
+      },
+      {
+        "title": "CoreWeave turns to customer prepayments, shorter contracts to fund AI growth",
+        "link": "https://techcrunch.com/2026/11/11/coreweave-turns-to-customer-prepayments-shorter-contracts-to-fund-ai-growth/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T19:54:00+00:00"
+      }
+    ],
+    "latency": 7.169679880142212,
+    "status": "ok"
+  }
+}

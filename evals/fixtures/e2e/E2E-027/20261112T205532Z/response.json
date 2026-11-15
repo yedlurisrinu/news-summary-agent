@@ -1,0 +1,14 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "¿Cuáles son las últimas noticias de tecnología?",
+    "categories": [
+      "technology",
+      "tech"
+    ],
+    "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+    "articles": [],
+    "latency": 0.9730236530303955,
+    "status": "ok"
+  }
+}

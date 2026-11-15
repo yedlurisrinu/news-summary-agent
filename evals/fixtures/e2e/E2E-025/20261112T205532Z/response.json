@@ -1,0 +1,11 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Latest news about the zorblax quantum turnip festival in Vrellnia",
+    "categories": [],
+    "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+    "articles": [],
+    "latency": 0.7630393505096436,
+    "status": "ok"
+  }
+}

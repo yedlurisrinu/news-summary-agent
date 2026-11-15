@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What is happening in US politics?",
+    "categories": [
+      "politics"
+    ],
+    "summary": "Recent developments in U.S. politics indicate a significant focus on potential impeachment proceedings against Defense Secretary Pete Hegseth. Following the recent elections, House Democrats are reportedly preparing to build a strong case for an impeachment inquiry against Hegseth, who is seen as a primary target for investigations in the upcoming Congress. Sources close to the Trump administration suggest that Hegseth is now in a precarious position, with various outcomes from these inquiries potentially damaging to him and the administration [Pete Hegseth Is About to Get His Ass Kicked].\n\nThis political maneuvering comes in the wake of the elections, where Democrats are strategizing to leverage their newfound power in Congress. The implications of these actions could lead to significant political ramifications, as Democrats aim to present a compelling case that appeals to both their base and moderate Republicans [Pete Hegseth Is About to Get His Ass Kicked].\n\nWhile the articles provide insight into the impeachment plans, they do not elaborate on the specific reasons for the potential impeachment or the broader context of Hegseth's actions that may have prompted this response. Additionally, there is no information regarding other political developments or issues currently affecting U.S. politics beyond the impeachment inquiry [Pete Hegseth Is About to Get His Ass Kicked].",
+    "articles": [
+      {
+        "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+        "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T22:26:18+00:00"
+      },
+      {
+        "title": "Some under-25s should get less benefits, Milburn review to say",
+        "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T23:22:04+00:00"
+      },
+      {
+        "title": "Why are we still working this hard?",
+        "link": "https://wilsoniumite.com/2026/11/11/why-are-we-still-working-this-hard/",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T20:05:29+00:00"
+      },
+      {
+        "title": "Pete Hegseth Is About to Get His Ass Kicked",
+        "link": "https://www.wired.com/story/pete-hegseth-is-about-to-get-his-ass-kicked/",
+        "source": "Wired",
+        "published_at": "2026-11-11T22:00:00+00:00"
+      },
+      {
+        "title": "Andreeva wins 11 games in a row to thrash Sabalenka at WTA Finals",
+        "link": "https://www.bbc.co.uk/sport/tennis/articles/cq1md03gz0zvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:48:23+00:00"
+      }
+    ],
+    "latency": 5.710273265838623,
+    "status": "ok"
+  }
+}

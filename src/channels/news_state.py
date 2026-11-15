@@ -3,6 +3,7 @@ from typing import Annotated, NotRequired, TypedDict
 
 from channels.article_hit import ArticleHit
 from channels.article_reference import ArticleReference
+from channels.latencies import Latency
 
 
 def merge_article_hits(
@@ -49,10 +50,9 @@ def merge_article_ref(
     )
 
 
-def append(current: dict[str, int], additional: dict[str, int]) -> dict[str, int]:
-    """Reducer: merge two timing dicts (right-hand value wins on key collision)."""
-    appended = current | additional
-    return appended
+def merge_latencies(current: Latency, updated: Latency) -> Latency:
+    """Reducer: merge per-call latency dicts (right-hand value wins on key collision)."""
+    return {**current, **updated}
 
 
 class NewsState(TypedDict):
@@ -67,7 +67,7 @@ class NewsState(TypedDict):
       article_refs     — (article_id, score) refs; merged + deduped by merge_article_ref
       summary          — final LLM summary text
       article_hits     — displayable article metadata; appended by merge_article_hits
-      duration_seconds — per-stage timing; merged by append
+      latency          — seconds per external call (LLM / MCP tool), keys in Latency; merged by merge_latencies
     """
 
     query: str
@@ -77,4 +77,4 @@ class NewsState(TypedDict):
     article_refs: Annotated[list[ArticleReference], merge_article_ref]
     summary: NotRequired[str]
     article_hits: Annotated[list[ArticleHit], merge_article_hits]
-    duration_seconds: Annotated[NotRequired[dict[str, float]], append]
+    latency: Annotated[NotRequired[Latency], merge_latencies]

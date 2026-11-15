@@ -1,0 +1,81 @@
+{
+  "query": "What are startups raising money for in AI right now?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "ai",
+    "business"
+  ],
+  "article_refs": [
+    {
+      "article_id": "26ee9acefe031fa9c7aa041b65b8285b",
+      "score": 17.039074
+    },
+    {
+      "article_id": "6f1c677b13aa40d20db3fa0c451866d2",
+      "score": 15.3843565
+    },
+    {
+      "article_id": "a70f05c87979583db761fc17fd26c5da",
+      "score": 14.683159
+    },
+    {
+      "article_id": "ceb54e39d8f485f34150ac2d230bd340",
+      "score": 13.836032
+    },
+    {
+      "article_id": "c2856f3257ebd0f832d825c4c40b9095",
+      "score": 13.614294
+    }
+  ],
+  "summary": "Startups in the artificial intelligence (AI) sector are currently raising funds for a variety of innovative projects aimed at enhancing AI capabilities and applications. One notable example is Helix, which has developed voice identification technology that operates directly on users' devices, eliminating the need for sensitive personal information. The startup recently secured $6 million in funding from investors including Chicago Ventures and Siri co-founder Dag Kittlaus, indicating strong interest in privacy-focused AI solutions [Article 2].\n\nAnother startup, Plurai, is focused on improving the reliability of AI agents through simulations using synthetic data. This approach aims to enhance the performance of AI models in complex tasks, similar to techniques used in the development of self-driving cars. By preparing AI systems to handle difficult edge cases, Plurai seeks to increase the effectiveness of AI agents, which have been shown to struggle with unsupervised tasks [Article 1].\n\nAdditionally, CoreWeave, a company that provides cloud computing power for AI applications, is adapting its funding strategies to support its growth. The company reported significant revenue growth but also substantial losses, prompting it to seek upfront payments from customers and pursue shorter contracts. This shift aims to improve cash flow and financial stability amid the ongoing demand for AI infrastructure [Article 4].\n\nOverall, the current fundraising landscape for AI startups reflects a focus on enhancing AI functionality, improving user privacy, and adapting business models to sustain growth in a competitive environment. However, specific details about other startups and their funding initiatives remain unclear, as the articles primarily highlight these three companies.",
+  "article_hits": [
+    {
+      "article_id": "26ee9acefe031fa9c7aa041b65b8285b",
+      "title": "Databricks’ new AI agent tells CEO Ali Ghodsi the unvarnished truth",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T15:00:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/databricks-new-ai-agent-tells-ceo-ali-ghodsi-the-unvarnished-truth/",
+      "content": "Databricks on Wednesday unveiled an updated version of its AI agent Genie, which can now perform multi-step jobs that take extended work to finish.  It does this through an ontology that Databricks built to give Genie the context it needs from the information that customers store on the Databricks platform. Corporate leaders can now assign the agent a wide range of tasks, and it will complete them unsupervised, the company says. To prove the point, Databricks CEO Ali Ghodsi showed me how he uses it internally. Instead of a product demo, he fired up his actual agent and walked me through his most recent chats and charts. He showed me how it analyzed the parts of an employee satisfaction survey where the company didn’t score well, and how it helped him rate (and discard) fixes for those low scores that some executives suggested. He showed me how it summarized a big sales pitch to a prospect that went poorly — including the features the prospect said it needed before buying. It also prepp"
+    },
+    {
+      "article_id": "6f1c677b13aa40d20db3fa0c451866d2",
+      "title": "Plurai wants to help AI agents work better using the same approach that helped get self-driving cars to roads",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T14:00:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/plurai-wants-to-help-ai-agents-work-better-using-the-same-approach-that-helped-get-self-driving-cars-to-roads/",
+      "content": "AI agents are all the rage, but they’re not quite as capable as their purveyors would have you believe. Efforts to benchmark agents tasked with complex work show that they aren’t typically reliable enough to function without close supervision. LiveBench 2.0 shows Claude Fable 5.2 and ChatGPT-6 Astra succeeding on 82.9 and 75.6 out of 100 tasks, respectively, and an effort by the AI infrastructure company EON to test agents in a simulated corporate environment found the most successful model tested, Claude Opus 4.8, performed tasks at 76.8% accuracy. Now, a startup known as Plurai wants to boost those numbers with the same techniques that put self-driving cars on the street: Simulations using synthetic data based on a company’s own digital systems, meant to prepare models to tackle difficult edge cases. Co-founders Ilan Kadar and Elad Levi previously worked for Nexar, which develops autonomous driving technology. Kadar worked with Waymo to simulate and evaluate its end-to-end deep learn"
+    },
+    {
+      "article_id": "a70f05c87979583db761fc17fd26c5da",
+      "title": "Siri co-founder backs Helix for its voice ID tech",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T15:02:47+00:00",
+      "link": "https://techcrunch.com/2026/11/11/siri-co-founder-backs-helix-for-its-voice-id-tech/",
+      "content": "For years, websites have relied on technology like CAPTCHA to prove that the user on the other end is human. More recently, social media platforms have turned to photos or videos to verify users’ identities. Now, a startup called Helix is betting that voice technology can do the same job, without requiring users to hand over sensitive personal information. The voice technology, which can run directly on a user’s device, has attracted backing from Siri co-founder Dag Kittlaus, who will also act as an advisor. The company raised $6 million in funding in a round led by Chicago Ventures, with participation from BAM Ventures, Aglaé Ventures, Corazon Capital, Tusk Ventures, Yonder Ventures, Rule30, and Brown Alumni Group. The startup was founded by Alex Oberg, Anna Dorofiyenko, and Mike Hall in 2025. Oberg previously worked at Ticketmaster, which acquired his startup; Dorofiyenko led data science teams at Live Nation and Zillow; and Hall has worked at Nike and Tinder, where he helped develop"
+    },
+    {
+      "article_id": "ceb54e39d8f485f34150ac2d230bd340",
+      "title": "Olaf Sakkers is betting he can beat the emerging-manager squeeze",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T20:04:28+00:00",
+      "link": "https://techcrunch.com/2026/11/11/olaf-sakkers-is-betting-he-can-beat-the-emerging-manager-squeeze/",
+      "content": "Entering into the world of venture capital has never been easy, especially as a first-time fund manager. But it’s especially daunting right now. According to PitchBook data, firms raising their fourth fund “or later” captured a whopping 88.2% of U.S. VC fundraising dollars through the first three quarters of this year, while first-time funds captured a measly 4.5% . Just 81 first-time funds closed in the first nine months of 2026. That puts the year on track to be the worst for first-time managers in at least a decade, according to PitchBook’s estimate. Olaf Sakkers has spent the past five years proving that difficult doesn’t mean impossible. He founded his firm RedBlue Capital in 2021 and closed its first fund with roughly $5 million in capital commitments in 2023. He has now held a first close on a second fund that he says will total at least $50 million. Raised in South Africa, he studied anthropology at Princeton, focusing on global health and health policy, and wrote his thesis on"
+    },
+    {
+      "article_id": "c2856f3257ebd0f832d825c4c40b9095",
+      "title": "CoreWeave turns to customer prepayments, shorter contracts to fund AI growth",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:54:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/coreweave-turns-to-customer-prepayments-shorter-contracts-to-fund-ai-growth/",
+      "content": "CoreWeave is rewriting how it pays for the AI boom, according to the company’s third-quarter earnings , reported on Tuesday. CoreWeave, a neocloud that rents out the computing power behind AI, said it’s increasingly asking customers to pay up front, borrowing against specific contracts, and even pursuing short-term deals that could lead to higher prices. The new strategies could help CoreWeave finance its growth more efficiently while squeezing more cash from existing infrastructure. But these bets only hold if today’s demand and pricing power continue. CoreWeave reported $3.66 billion in revenue, up 168% from the year prior, but it also posted a $709 million net loss and $846 million in quarterly interest expense. “We will not use the unsecured debt market to fund our business at current yields, nor do we need to,” CoreWeave CEO Michael Intrator said during Tuesday’s earnings call. Instead, CoreWeave’s plan is to rely on loans backed by specific customer contracts, drawing on funds as"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.847012996673584,
+    "mcp_category_search_call": 0.011953592300415039,
+    "mcp_article_search_call": 0.07259964942932129,
+    "mcp_mget_call": 0.007264852523803711,
+    "summary_llm_call": 5.230848789215088
+  }
+}

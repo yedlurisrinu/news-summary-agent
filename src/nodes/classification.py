@@ -12,6 +12,7 @@ from mcp_types import TextContent
 
 from adapters.mcp_session import McpToolClient
 from channels.category_search_results import CategorySearchResult
+from channels.latencies import Latency
 from channels.news_state import NewsState
 
 logger = logging.getLogger(__name__)
@@ -68,22 +69,23 @@ class ClassifyIntent:
         # make intend call to model and get the response
         logger.debug(f"classify intent incoming state : {state}")
 
-        duration_seconds: dict[str, float] = {}
-        llm_start = time.time()
+        latency: Latency = {}
+        llm_start = time.perf_counter()
         chain = _CATEGORY_PROMPT | self._llm | JsonOutputParser()
         result = await chain.ainvoke({"query": state["query"]})
-        duration_seconds.setdefault("LLM_LATENCY", time.time() - llm_start)
-        # check if query for latest news
+        latency["classify_llm_call"] = time.perf_counter() - llm_start
+
         if result.get("is_news_query") and result.get("categories"):
             # count matching articles through the category_search tool
-            es_call_start = time.time()
+            mcp_start = time.perf_counter()
             found = await self._resolve_categories(result.get("categories"))
-            duration_seconds.setdefault("ES_CALL", time.time() - es_call_start)
-            result["duration_seconds"] = duration_seconds
+            latency["mcp_category_search_call"] = time.perf_counter() - mcp_start
             logger.info(
                 f"ClassifyIntent: Categories={result.get('categories')}, Total Found={found}, fetch_latest={result.get('fetch_latest')}, is_news_query={result.get('is_news_query')}"
             )
 
+        # assign, never setdefault: a "latency" key in the LLM's JSON must not replace the measurements
+        result["latency"] = latency
         return cast(CategorySearchResult, result)
 
     async def _resolve_categories(self, categories: list[str]) -> int:
@@ -99,6 +101,7 @@ class ClassifyIntent:
                     "category_search", {"categories": categories}, raise_on_error=False
                 )
                 sc = tool_result.structured_content
+                logger.debug(f"category_search structured content: {sc}")
                 if tool_result.is_error or sc is None:
                     block = tool_result.content[0] if tool_result.content else None
                     logger.error(

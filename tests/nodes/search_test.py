@@ -37,7 +37,7 @@ class TestSearchCall:
         ]
         out = await Search(fake_mcp.client())(_state())
         assert out["article_refs"] == fake_mcp.refs
-        assert set(out["duration_seconds"]) == {"SEARCH"}
+        assert set(out["latency"]) == {"mcp_article_search_call"}
 
     async def test_sends_query_categories_and_recency(
         self, fake_mcp: FakeNewsMcp

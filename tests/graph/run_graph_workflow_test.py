@@ -38,7 +38,7 @@ FINAL_STATE = {
             "published_at": "2026-11-01",
         }
     ],
-    "duration_seconds": {"LLM_LATENCY": 0.5, "SEARCH": 0.25},
+    "latency": {"classify_llm_call": 0.5, "mcp_article_search_call": 0.25},
 }
 
 
@@ -59,7 +59,7 @@ class TestRunGraph:
         out = await run_graph(NewsInput(query="tech news"), _graph(FINAL_STATE))
         assert isinstance(out, QuerySuccessResponse)
         assert out.summary == "S" and out.categories == ["technology"]
-        assert out.articles[0].title == "T" and out.duration_seconds == 0.75
+        assert out.articles[0].title == "T" and out.latency == 0.75
 
     async def test_search_unavailable_maps_to_fixed_text(self) -> None:
         out = await run_graph(NewsInput(query="q"), _graph(exc=SearchUnavailable()))

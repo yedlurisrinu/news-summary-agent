@@ -1,0 +1,11 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Write a Python function to sort a list",
+    "categories": [],
+    "summary": "I'm a news search assistant and can only help with news-related queries. Please ask me about topics such as technology, politics, sports, business, science, health, climate, or world events.",
+    "articles": [],
+    "latency": 0.9034669399261475,
+    "status": "ok"
+  }
+}

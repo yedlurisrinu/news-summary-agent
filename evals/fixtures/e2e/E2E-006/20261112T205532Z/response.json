@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Any news on crypto exchanges and hacks?",
+    "categories": [
+      "crypto"
+    ],
+    "summary": "Currently, there are no specific news articles addressing recent hacks or security breaches related to cryptocurrency exchanges. The retrieved articles primarily focus on unrelated topics, such as the BrickLink marketplace going offline due to \"unusual activity\" detected, which does not confirm a hack but indicates a potential security concern [Lego marketplace BrickLink offline after 'unusual activity' detected]. However, the article does not provide details on whether customer data was compromised or if it relates to cryptocurrency.\n\nThe other articles retrieved discuss geopolitical issues, such as the ongoing Russia-Ukraine talks, and do not mention cryptocurrency or exchanges at all [Russia-Ukraine talks turn to post-war security but end without breakthrough]. Additionally, there are articles on technology and political issues that do not pertain to the query about crypto exchanges and hacks.\n\nIn summary, while there is a mention of unusual activity on the BrickLink platform, there is no confirmed information regarding hacks or security breaches specifically related to cryptocurrency exchanges in the provided articles. Further information on this topic remains unanswered.",
+    "articles": [
+      {
+        "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+        "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T22:26:18+00:00"
+      },
+      {
+        "title": "Russia-Ukraine talks turn to post-war security but end without breakthrough",
+        "link": "https://www.bbc.co.uk/news/articles/ck792we7zrz4o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T15:05:11+00:00"
+      },
+      {
+        "title": "Russia-Ukraine talks turn to post-war security but end without breakthrough",
+        "link": "https://www.bbc.co.uk/news/articles/ck792we7zrz4o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T18:04:58+00:00"
+      },
+      {
+        "title": "Faster Retrieval for Better, More Efficient RAG",
+        "link": "https://machinelearning.apple.com/research/faster-retrieval",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T16:57:45+00:00"
+      },
+      {
+        "title": "Michigan Residents Voted to Get Corporate Money Out of Politics. Now Utilities Are Suing",
+        "link": "https://www.wired.com/story/michigan-voters-want-utility-money-out-of-politics-lawsuit/",
+        "source": "Wired",
+        "published_at": "2026-11-11T11:15:00+00:00"
+      }
+    ],
+    "latency": 5.175269365310669,
+    "status": "ok"
+  }
+}

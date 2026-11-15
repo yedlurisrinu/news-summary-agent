@@ -1,0 +1,80 @@
+{
+  "query": "Climate change policy news",
+  "is_news_query": true,
+  "fetch_latest": false,
+  "categories": [
+    "climate"
+  ],
+  "article_refs": [
+    {
+      "article_id": "2f69fee7aa03bf58a38ddf1e0f471372",
+      "score": 22.51295
+    },
+    {
+      "article_id": "d0a8add1b27c8d61e973bb7697d6b5dd",
+      "score": 22.057077
+    },
+    {
+      "article_id": "4a1e0e0fbbb2fe95ad613efb7ade1695",
+      "score": 21.90858
+    },
+    {
+      "article_id": "b314fcccf1535bc43ee512a2b265dc48",
+      "score": 20.293518
+    },
+    {
+      "article_id": "7ed868d5bc56400d91491c9bcaa28044",
+      "score": 17.124126
+    }
+  ],
+  "summary": "Recent discussions surrounding climate change policy highlight the urgent need for action as the impacts of climate change become increasingly severe. A report indicates that Earth's condition is \"serious and getting worse,\" with seven out of sixteen planetary vital signs reaching unprecedented extremes, including atmospheric carbon dioxide levels that are 50% higher than preindustrial times. This alarming assessment underscores the necessity for robust climate policies to mitigate further environmental degradation [Earth’s Condition Is ‘Serious and Getting Worse’ as Climate Change Intensifies].\n\nIn Europe, the ambition to expand data centers to support artificial intelligence initiatives is clashing with climate commitments. Germany's plan to double its data center fleet by 2030 faces challenges as policymakers grapple with the need to cut greenhouse gas emissions by 55% within the same timeframe. This situation illustrates the tension between technological advancement and environmental sustainability, prompting a reevaluation of how to balance these competing priorities [Europe Wants Data Centers. Its Climate Goals Are Getting in the Way].\n\nAdditionally, Prince William has raised concerns about the increasing risk of wildfires in the UK due to climate change. He emphasized the importance of preparation and community response in addressing this growing threat, particularly following a significant wildfire incident in Treherbert. His remarks highlight the need for serious consideration of wildfire risks, akin to the approaches taken in other parts of Europe [Prince William says UK faces terrifying risk of more wildfires due to climate change].\n\nOverall, these developments reflect a broader recognition of the urgent need for effective climate change policies that address both immediate environmental challenges and long-term sustainability goals. However, the articles do not provide specific details on new policy initiatives or legislative actions currently being undertaken in response to these challenges.",
+  "article_hits": [
+    {
+      "article_id": "2f69fee7aa03bf58a38ddf1e0f471372",
+      "title": "The American Dream Wasn’t Built for Climate Change",
+      "source": "Wired",
+      "published_at": "2026-11-07T10:00:00+00:00",
+      "link": "https://www.wired.com/story/the-american-dream-wasnt-built-for-climate-change/",
+      "content": "Kate Yoder Science Nov 7, 2026 5:00 AM The American Dream Wasn’t Built for Climate Change Owning a home is billed as a way to build wealth, but amid climate-related disasters, for many it's beginning to feel like a trap. PHOTO-ILLUSTRATION: WIRED STAFF; GETTY IMAGES Comment Loader Save Story Save this story Comment Loader Save Story Save this story This story originally appeared on Grist and is part of the Climate Desk collaboration. To Sierra Isley, the American Dream brings to mind a home ringed by a white picket fence. “The house in the suburbs is just what you’re taught growing up,” the 26-year-old said. “You know, that’s what you see on TV.” What she wanted for her life was a bit different from that picket-fence ideal, but she still saw the prospect of buying her first house two years ago as a chance to live out what she called “that big dream that everybody has as a kid.” Isley and her girlfriend, Jamie, were moving from Philadelphia to Asheville, North Carolina, and found a home"
+    },
+    {
+      "article_id": "d0a8add1b27c8d61e973bb7697d6b5dd",
+      "title": "Everyone Hates ‘Digger.’ It’s the Perfect Climate Movie",
+      "source": "Wired",
+      "published_at": "2026-10-13T22:08:44+00:00",
+      "link": "https://www.wired.com/story/everyone-hates-digger-its-perfect-climate-movie/",
+      "content": "Molly Taft Science Oct 13, 2026 6:08 PM Everyone Hates Digger. It’s the Perfect Climate Movie The deeply uncomfortable film forces audiences to confront what types of stories we tell ourselves about who has economic and political power. Photograph: Everett Collection Comment Loader Save Story Save this story Comment Loader Save Story Save this story Should you see a Looney Tunes–esque satire that stars Tom Cruise in prosthetics portraying a loud caricature of an American oilman, that’s currently on track to be one of the biggest box-office failures of all time? Absolutely yes—and it’s a movie that rewired my expectations of what a movie about climate change should be. Digger , the critically panned, exorbitantly expensive new film from Alejandro González Iñárritu, calls into question the purpose of art and even the basic purpose of telling the truth in the face of a capitalist machine churning the world toward climate disaster . The deeply uncomfortable film forces audiences to confron"
+    },
+    {
+      "article_id": "4a1e0e0fbbb2fe95ad613efb7ade1695",
+      "title": "Earth’s Condition Is ‘Serious and Getting Worse’ as Climate Change Intensifies",
+      "source": "Wired",
+      "published_at": "2026-10-14T14:00:00+00:00",
+      "link": "https://www.wired.com/story/climate-change-is-getting-worse-el-nino-looms/",
+      "content": "Brian Kahn Science Oct 14, 2026 10:00 AM Earth’s Condition Is ‘Serious and Getting Worse’ as Climate Change Intensifies Seven of 16 planetary vital signs are in their most extreme state ever recorded, and El Niño is here to make matters even worse. Photograph: Kayla Bartkowski/Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story The climate just got its annual checkup, and the results aren’t looking so hot. “If Earth were a patient coming in for an annual physical, I would say its condition is serious and getting worse,” Oregon State University researcher Bill Ripple says. Ripple is the lead author of a new paper chronicling the state of the climate , published on Wednesday in BioScience. The findings show that seven of the 16 planetary vital signs tracked by the researchers have never been in a more extreme state. That includes the amount of carbon dioxide in the atmosphere, which is 50 percent higher than preindustrial levels due to burning"
+    },
+    {
+      "article_id": "b314fcccf1535bc43ee512a2b265dc48",
+      "title": "Europe Wants Data Centers. Its Climate Goals Are Getting in the Way",
+      "source": "Wired",
+      "published_at": "2026-10-21T08:30:00+00:00",
+      "link": "https://www.wired.com/story/europe-data-centers-climate-change/",
+      "content": "Joel Khalili Business Oct 21, 2026 4:30 AM Can Europe Build Data Centers Without Giving Up Its Climate Goals? A plan to funnel the heat given off by data centers into nearby homes has run aground in Germany. Across Europe, policymakers are weighing AI ambitions against climate objectives. Photo-Illustration: Jobanny Cabrera; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Earlier this year, the German government laid out an ambitious plan : By 2030, it would double the scale of the country’s data center fleet, and quadruple the amount of compute available for running artificial intelligence models. The idea was to minimize Germany’s dependence on the United States for access to AI—a point of concern across Europe —and boost its faltering economy. However, Germany has found that its AI ambitions are butting up against its climate commitments. EU member states have committed to cutting greenhouse gas emissions by 55 percent by the end of t"
+    },
+    {
+      "article_id": "7ed868d5bc56400d91491c9bcaa28044",
+      "title": "Prince William says UK faces terrifying risk of more wildfires due to climate change",
+      "source": "BBC",
+      "published_at": "2026-11-03T23:00:14+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cr62yv02zwxwo?at_medium=RSS&at_campaign=rss",
+      "content": "Prince William says UK faces terrifying risk of more wildfires due to climate change Image source, Kensington Palace Image caption, Prince William thanked the firefighters, military and volunteers who were instrumental in controlling the fire in Treherbert By Steffan Messenger , Wales environment correspondent and Gareth Bryer , BBC Wales news Published 1 hour ago There is a \"terrifying prospect\" of more UK wildfires in future due to climate change and preparation will be \"crucial\", the Prince of Wales has said. Visiting Treherbert in Rhondda Cynon Taf, which was threatened by a huge mountain fire in August, Prince William praised a \"gargantuan\" effort to save homes, land and lives. \"We need to start taking wildfires as seriously as the continent has done,\" he said, raising issues such as a lack of firefighting aircraft. He also suggested the community's response to the incident was an example for others to follow, after locals rallied around to support those fighting the flames. The h"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.7532958984375,
+    "mcp_category_search_call": 0.010641813278198242,
+    "mcp_article_search_call": 0.012129545211791992,
+    "mcp_mget_call": 0.009267807006835938,
+    "summary_llm_call": 4.9689812660217285
+  }
+}

@@ -4,7 +4,7 @@ tests/channels/news_state_test.py
 Unit tests for the state reducers in channels/news_state.py:
   - merge_article_ref   — dedupe by id, keep higher score, stable sort, purity
   - merge_article_hits  — append semantics, input immutability
-  - append              — timing-dict merge
+  - merge_latencies     — per-call latency merge, right wins, purity
 """
 
 from __future__ import annotations
@@ -67,13 +67,31 @@ class TestMergeArticleHits:
         assert len(current) == 1
 
 
-class TestAppend:
+class TestMergeLatencies:
     def test_merges_dicts(self):
-        from channels.news_state import append
+        from channels.news_state import merge_latencies
 
-        assert append({"A": 1}, {"B": 2}) == {"A": 1, "B": 2}
+        assert merge_latencies(
+            {"classify_llm_call": 1.0}, {"mcp_article_search_call": 2.0}
+        ) == {"classify_llm_call": 1.0, "mcp_article_search_call": 2.0}
 
     def test_right_wins_on_collision(self):
-        from channels.news_state import append
+        from channels.news_state import merge_latencies
 
-        assert append({"A": 1}, {"A": 9}) == {"A": 9}
+        assert merge_latencies({"mcp_mget_call": 1.0}, {"mcp_mget_call": 9.0}) == {
+            "mcp_mget_call": 9.0
+        }
+
+    def test_empty_update_keeps_current(self):
+        from channels.news_state import merge_latencies
+
+        assert merge_latencies({"classify_llm_call": 1.0}, {}) == {
+            "classify_llm_call": 1.0
+        }
+
+    def test_does_not_mutate_inputs(self):
+        from channels.news_state import merge_latencies
+
+        current = {"classify_llm_call": 1.0}
+        merge_latencies(current, {"mcp_mget_call": 2.0})  # type: ignore[arg-type]
+        assert current == {"classify_llm_call": 1.0}

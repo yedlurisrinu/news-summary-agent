@@ -11,6 +11,7 @@ from mcp_types import TextContent
 
 from adapters.mcp_session import McpToolClient
 from channels.article_hit import ArticleHit
+from channels.latencies import Latency
 from channels.news_state import NewsState
 from channels.summary_result import SummaryResult
 from config.application_config import get_config
@@ -70,8 +71,8 @@ class Summary:
         call replies with ``SUMMARY_FAILED_MESSAGE``. Details are only logged.
         """
         logger.debug(f"summary intent incoming state : {state}")
-        duration_seconds: dict[str, float] = {}
-        MGET_START = time.time()
+        latency: Latency = {}
+        mget_start = time.perf_counter()
         try:
             async with self._mcp_client:
                 tool_result: CallToolResult = await self._mcp_client.call_tool(
@@ -85,23 +86,20 @@ class Summary:
                 )
         except Exception:
             logger.exception("mget call failed")
-            return Summary._reply(
-                SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START
-            )
+            latency["mcp_mget_call"] = time.perf_counter() - mget_start
+            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, latency)
 
+        latency["mcp_mget_call"] = time.perf_counter() - mget_start
         sc = tool_result.structured_content
+        logger.debug(f"mget structured content: {sc}")
         if tool_result.is_error or sc is None:
             block = tool_result.content[0] if tool_result.content else None
             logger.error(
                 "mget returned an error: %r",
                 block.text if isinstance(block, TextContent) else "no text content",
             )
-            return Summary._reply(
-                SEARCH_UNAVAILABLE_MESSAGE, duration_seconds, "MGET_CAL", MGET_START
-            )
-
-        duration_seconds.setdefault("MGET_CAL", time.time() - MGET_START)
-        SUMMARY_CALL = time.time()
+            return Summary._reply(SEARCH_UNAVAILABLE_MESSAGE, latency)
+        summary_start = time.perf_counter()
         article_hits: list[ArticleHit] = sc["article_hits"]
         context = await Summary._build_context(article_hits)
         chain = _SUMMARY_PROMPT | self._llm | StrOutputParser()
@@ -111,29 +109,22 @@ class Summary:
             )
         except Exception:
             logger.exception("summary LLM call failed")
-            return Summary._reply(
-                SUMMARY_FAILED_MESSAGE,
-                duration_seconds,
-                "SUMMARY_LLM_CALL",
-                SUMMARY_CALL,
-            )
-        duration_seconds.setdefault("SUMMARY_LLM_CALL", time.time() - SUMMARY_CALL)
+            latency["summary_llm_call"] = time.perf_counter() - summary_start
+            return Summary._reply(SUMMARY_FAILED_MESSAGE, latency)
+        latency["summary_llm_call"] = time.perf_counter() - summary_start
         return {
             "summary": summary,
             "article_hits": article_hits,
-            "duration_seconds": duration_seconds,
+            "latency": latency,
         }
 
     @staticmethod
-    def _reply(
-        text: str, duration_seconds: dict[str, float], step: str, started: float
-    ) -> SummaryResult:
-        """A fixed-text reply with no articles, recording how long the failed step took."""
-        duration_seconds.setdefault(step, time.time() - started)
+    def _reply(text: str, latency: Latency) -> SummaryResult:
+        """A fixed-text reply with no articles, carrying the latencies measured so far."""
         return {
             "summary": text,
             "article_hits": [],
-            "duration_seconds": duration_seconds,
+            "latency": latency,
         }
 
     @staticmethod

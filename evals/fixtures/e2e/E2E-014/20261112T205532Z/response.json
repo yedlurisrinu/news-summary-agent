@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What did the Federal Reserve decide at its last meeting?",
+    "categories": [
+      "finance"
+    ],
+    "summary": "The retrieved articles do not contain any information regarding the Federal Reserve's decisions from its last meeting. The articles focus on various unrelated topics, including football management changes, legal issues surrounding grooming laws, and a murder trial verdict. \n\nAs a result, there is no available information to summarize regarding the Federal Reserve's actions or decisions. If you have access to other sources or articles that specifically address the Federal Reserve's recent meeting, I recommend consulting those for the relevant details.",
+    "articles": [
+      {
+        "title": "Pochettino ready to accept Man Utd offer to replace Carrick",
+        "link": "https://www.bbc.co.uk/sport/football/articles/cqvg25pj36mvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T10:34:01+00:00"
+      },
+      {
+        "title": "Pochettino ready to accept Man Utd offer to replace Carrick",
+        "link": "https://www.bbc.co.uk/sport/football/articles/cqvg25pj36mvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T16:03:02+00:00"
+      },
+      {
+        "title": "What are the state of our grooming laws?",
+        "link": "https://www.bbc.co.uk/news/articles/cxp80njvj26yo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-11T17:45:41+00:00"
+      },
+      {
+        "title": "Matthew Farwell trial jury reaches verdict in Sandra Birchmore case - CBS News",
+        "link": "https://www.cbsnews.com/boston/news/matthew-farwell-trial-jury-verdict-sandra-birchmore/",
+        "source": "CBS News",
+        "published_at": "2026-11-10T18:48:00Z"
+      },
+      {
+        "title": "Why Walliams' unprecedented legal battle to stay anonymous failed",
+        "link": "https://www.bbc.co.uk/news/articles/cwx2922r4mrjo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-10T22:41:01+00:00"
+      }
+    ],
+    "latency": 2.7492284774780273,
+    "status": "ok"
+  }
+}

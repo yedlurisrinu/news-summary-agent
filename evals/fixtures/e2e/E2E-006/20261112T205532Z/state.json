@@ -1,0 +1,80 @@
+{
+  "query": "Any news on crypto exchanges and hacks?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "crypto"
+  ],
+  "article_refs": [
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "score": 7.6306844
+    },
+    {
+      "article_id": "ed884851d90c7542fc66e7d3c8aafc0b",
+      "score": 6.9183974
+    },
+    {
+      "article_id": "a532c55ee4a1f146ab327346956232be",
+      "score": 6.786819
+    },
+    {
+      "article_id": "93fafccfe8687c1b2431d743f4c503d6",
+      "score": 5.637887
+    },
+    {
+      "article_id": "f0a5799dff6e0a3b70067e771c305805",
+      "score": 5.5396385
+    }
+  ],
+  "summary": "Currently, there are no specific news articles addressing recent hacks or security breaches related to cryptocurrency exchanges. The retrieved articles primarily focus on unrelated topics, such as the BrickLink marketplace going offline due to \"unusual activity\" detected, which does not confirm a hack but indicates a potential security concern [Lego marketplace BrickLink offline after 'unusual activity' detected]. However, the article does not provide details on whether customer data was compromised or if it relates to cryptocurrency.\n\nThe other articles retrieved discuss geopolitical issues, such as the ongoing Russia-Ukraine talks, and do not mention cryptocurrency or exchanges at all [Russia-Ukraine talks turn to post-war security but end without breakthrough]. Additionally, there are articles on technology and political issues that do not pertain to the query about crypto exchanges and hacks.\n\nIn summary, while there is a mention of unusual activity on the BrickLink platform, there is no confirmed information regarding hacks or security breaches specifically related to cryptocurrency exchanges in the provided articles. Further information on this topic remains unanswered.",
+  "article_hits": [
+    {
+      "article_id": "94910671aae8a591017a467890896663",
+      "title": "Lego marketplace BrickLink offline after 'unusual activity' detected",
+      "source": "BBC",
+      "published_at": "2026-11-11T22:26:18+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/c6rmgw8zynr4o?at_medium=RSS&at_campaign=rss",
+      "content": "Lego marketplace BrickLink offline after 'unusual activity' detected Image source, Reuters Image caption, The marketplace is sometimes called the 'eBay' of Lego By Zoe Kleinman Technology editor Published 28 minutes ago Lego has taken its online marketplace BrickLink offline after detecting what it described as unusual activity on the platform. BrickLink is used by Lego collectors worldwide to buy and sell secondhand Lego sets, source new bricks and purchase limited edition releases. It was originally set up by a fan, but Lego acquired it in 2019. In a homepage message, the firm said that before restoring BrickLink, it wanted to \"fully understand\" what had happened. \"That means containing the issue, investigating how it happened and checking for related issues,\" Lego said. It did not provide any further detail about whether the site has been breached or hacked, and whether any customer data was affected. After being contacted by the BBC, Lego published the update. BrickLink has been of"
+    },
+    {
+      "article_id": "ed884851d90c7542fc66e7d3c8aafc0b",
+      "title": "Russia-Ukraine talks turn to post-war security but end without breakthrough",
+      "source": "BBC",
+      "published_at": "2026-11-11T15:05:11+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/ck792we7zrz4o?at_medium=RSS&at_campaign=rss",
+      "content": "Russia-Ukraine talks turn to post-war security but end without breakthrough Image source, Reuters Image caption, On Thursday Steve Witkoff and Jared Kushner will travel to Moscow and Dublin to hold talks with the Russian and Ukrainian presidents By Laura Gozzi Published 1 hour ago Trilateral talks in Abu Dhabi between Russia, Ukraine and the US aimed at ending the war in Ukraine have concluded after a second day. Although the American side said they saw \"some openings\", there was no hint of any breakthroughs to end the nearly five year-long war sparked by Russia's invasion. Davyd Arakhamia from Ukraine's negotiating team said that this round of talks - the first since February - \"was one of the hardest.\" \"I believe the Russians came with very strict directives, so it was extremely difficult to soften the discussion,\" he said. But he added that he felt \"good momentum\" and urged for a second round of talks to be organised as soon as possible. Both Moscow and Kyiv confirmed that a large-s"
+    },
+    {
+      "article_id": "a532c55ee4a1f146ab327346956232be",
+      "title": "Russia-Ukraine talks turn to post-war security but end without breakthrough",
+      "source": "BBC",
+      "published_at": "2026-11-11T18:04:58+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/ck792we7zrz4o?at_medium=RSS&at_campaign=rss",
+      "content": "Russia-Ukraine talks turn to post-war security but end without breakthrough Image source, Reuters Image caption, On Thursday Steve Witkoff and Jared Kushner will travel to Moscow and Dublin to hold talks with the Russian and Ukrainian presidents By Laura Gozzi Published 11 November 2026, 15:05 GMT Updated 18 minutes ago Trilateral talks in Abu Dhabi between Russia, Ukraine and the US aimed at ending the war in Ukraine have concluded after a second day. Although the American side said they saw \"some openings\", there was no hint of any breakthroughs to end the nearly five year-long war sparked by Russia's invasion. However, both Moscow and Kyiv confirmed that a large-scale prisoner of war exchange was in the works and could be carried out soon. Davyd Arakhamia from Ukraine's negotiating team said that this round of talks - the first since February - \"was one of the hardest.\" \"I believe the Russians came with very strict directives, so it was extremely difficult to soften the discussion,\""
+    },
+    {
+      "article_id": "93fafccfe8687c1b2431d743f4c503d6",
+      "title": "Faster Retrieval for Better, More Efficient RAG",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T16:57:45+00:00",
+      "link": "https://machinelearning.apple.com/research/faster-retrieval",
+      "content": "content type highlight published November 5, 2026 Faster Retrieval for Better, More Efficient RAG Maximum inner product search (MIPS) sits at the core of recommendation systems, search, and retrieval-augmented generation (RAG). Given a query vector, MIPS systems search within a database of millions of candidate key vectors for the one that best matches the query. The original data point associated with that best-matching key is then used to handle the query: in RAG, the document that is best suited to answer the question is typically prefixed to the query. As the number of keys grows to millions and vector dimensions reach thousands, the computational cost of running an exhaustive comparison of the query to all keys grows dramatically. Numerous approximate methods have been proposed to trade off accuracy for speed using clustering and quantization. While these baseline methods focus on the properties of the set of keys to build up clever indexing structures, their geometric arguments l"
+    },
+    {
+      "article_id": "f0a5799dff6e0a3b70067e771c305805",
+      "title": "Michigan Residents Voted to Get Corporate Money Out of Politics. Now Utilities Are Suing",
+      "source": "Wired",
+      "published_at": "2026-11-11T11:15:00+00:00",
+      "link": "https://www.wired.com/story/michigan-voters-want-utility-money-out-of-politics-lawsuit/",
+      "content": "Molly Taft Science Nov 11, 2026 6:15 AM Michigan Residents Voted to Get Corporate Money Out of Politics. Now Utilities Are Suing Amid rising electricity costs, Michiganders decisively voted for a ballot proposition to curtail the ability of utilities to spend on elections—a move utilities say limits their freedom of speech. Photo-illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Michigan residents overwhelmingly passed a ballot measure last week intended to restrict the ability of utilities and state contractors to influence politics. Now, the utilities are fighting back. In a lawsuit filed last Thursday, the two major utilities in Michigan, Consumers Energy and DTE, argue that the measure—dubbed Proposal 2—threatens their First and 14th Amendment rights. The ballot measure, which passed with 81 percent of the vote, amends the state’s campaign finance laws to put restrictions on donations for both utilities and c"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 0.8032975196838379,
+    "mcp_category_search_call": 0.012850284576416016,
+    "mcp_article_search_call": 0.05848526954650879,
+    "mcp_mget_call": 0.008661746978759766,
+    "summary_llm_call": 4.2919745445251465
+  }
+}

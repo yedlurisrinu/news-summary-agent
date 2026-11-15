@@ -1,0 +1,81 @@
+{
+  "query": "Give me the latest business news about big tech earnings",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "business",
+    "tech"
+  ],
+  "article_refs": [
+    {
+      "article_id": "c2712e4a748e69659749b23cf95928f8",
+      "score": 20.438864
+    },
+    {
+      "article_id": "a70f05c87979583db761fc17fd26c5da",
+      "score": 16.045055
+    },
+    {
+      "article_id": "26ee9acefe031fa9c7aa041b65b8285b",
+      "score": 13.472879
+    },
+    {
+      "article_id": "c2856f3257ebd0f832d825c4c40b9095",
+      "score": 13.344268
+    },
+    {
+      "article_id": "d17ac0c3ca9f507c226191b29e08f021",
+      "score": 8.691109
+    }
+  ],
+  "summary": "Recent earnings reports from major tech companies reveal significant developments in the industry, particularly focusing on CoreWeave, which has adopted new financial strategies to support its growth amid the AI boom. In its third-quarter earnings report, CoreWeave announced a remarkable revenue increase of 168% year-over-year, totaling $3.66 billion. However, the company also reported a substantial net loss of $709 million and $846 million in quarterly interest expenses. To navigate these financial challenges, CoreWeave is shifting towards customer prepayments and shorter contracts, which could enhance cash flow while leveraging existing infrastructure more effectively [CoreWeave turns to customer prepayments, shorter contracts to fund AI growth].\n\nIn addition to CoreWeave, Databricks has introduced an updated AI agent named Genie, which can now handle multi-step tasks autonomously. This advancement allows corporate leaders to assign a variety of tasks to Genie, which can analyze data and provide insights without supervision. CEO Ali Ghodsi demonstrated the agent's capabilities by showcasing its analysis of employee satisfaction surveys and sales pitches, highlighting its potential to improve decision-making processes within organizations [Databricks’ new AI agent tells CEO Ali Ghodsi the unvarnished truth].\n\nWhile these developments indicate a focus on AI and operational efficiency, there is no recent information regarding earnings from other major tech companies such as Apple, Microsoft, or Google. The articles retrieved do not provide insights into their latest earnings reports or financial performance, leaving a gap in the overall picture of big tech earnings.",
+  "article_hits": [
+    {
+      "article_id": "c2712e4a748e69659749b23cf95928f8",
+      "title": "OpenAI rolls out new business profiles, making ChatGPT just a little bit more like Google",
+      "source": "TechCrunch",
+      "published_at": "2026-11-10T18:49:52+00:00",
+      "link": "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/",
+      "content": "In an effort to make ChatGPT an even better consumer discovery engine, OpenAI is launching a host of new features designed to help companies control how users interact with their businesses. On Tuesday, the company rolled out a Business Hub that will serve as a place where companies can create business profiles that — in a feature that greatly resembles the kind of profiles that Google and other search engines already offer — allow enterprises to verify and update information about their products and services. The feature is currently in beta. Eligible companies will also be able to create and launch a specialized business agent, which gives ChatGPT users the ability to ask questions about the business and its products. “As people turn to AI to discover products, compare options and make decisions, ChatGPT has become the platform for people and businesses to connect through AI,” the company said on Tuesday. “Today’s announcement is an early step in bringing businesses more deeply into "
+    },
+    {
+      "article_id": "a70f05c87979583db761fc17fd26c5da",
+      "title": "Siri co-founder backs Helix for its voice ID tech",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T15:02:47+00:00",
+      "link": "https://techcrunch.com/2026/11/11/siri-co-founder-backs-helix-for-its-voice-id-tech/",
+      "content": "For years, websites have relied on technology like CAPTCHA to prove that the user on the other end is human. More recently, social media platforms have turned to photos or videos to verify users’ identities. Now, a startup called Helix is betting that voice technology can do the same job, without requiring users to hand over sensitive personal information. The voice technology, which can run directly on a user’s device, has attracted backing from Siri co-founder Dag Kittlaus, who will also act as an advisor. The company raised $6 million in funding in a round led by Chicago Ventures, with participation from BAM Ventures, Aglaé Ventures, Corazon Capital, Tusk Ventures, Yonder Ventures, Rule30, and Brown Alumni Group. The startup was founded by Alex Oberg, Anna Dorofiyenko, and Mike Hall in 2025. Oberg previously worked at Ticketmaster, which acquired his startup; Dorofiyenko led data science teams at Live Nation and Zillow; and Hall has worked at Nike and Tinder, where he helped develop"
+    },
+    {
+      "article_id": "26ee9acefe031fa9c7aa041b65b8285b",
+      "title": "Databricks’ new AI agent tells CEO Ali Ghodsi the unvarnished truth",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T15:00:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/databricks-new-ai-agent-tells-ceo-ali-ghodsi-the-unvarnished-truth/",
+      "content": "Databricks on Wednesday unveiled an updated version of its AI agent Genie, which can now perform multi-step jobs that take extended work to finish.  It does this through an ontology that Databricks built to give Genie the context it needs from the information that customers store on the Databricks platform. Corporate leaders can now assign the agent a wide range of tasks, and it will complete them unsupervised, the company says. To prove the point, Databricks CEO Ali Ghodsi showed me how he uses it internally. Instead of a product demo, he fired up his actual agent and walked me through his most recent chats and charts. He showed me how it analyzed the parts of an employee satisfaction survey where the company didn’t score well, and how it helped him rate (and discard) fixes for those low scores that some executives suggested. He showed me how it summarized a big sales pitch to a prospect that went poorly — including the features the prospect said it needed before buying. It also prepp"
+    },
+    {
+      "article_id": "c2856f3257ebd0f832d825c4c40b9095",
+      "title": "CoreWeave turns to customer prepayments, shorter contracts to fund AI growth",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:54:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/coreweave-turns-to-customer-prepayments-shorter-contracts-to-fund-ai-growth/",
+      "content": "CoreWeave is rewriting how it pays for the AI boom, according to the company’s third-quarter earnings , reported on Tuesday. CoreWeave, a neocloud that rents out the computing power behind AI, said it’s increasingly asking customers to pay up front, borrowing against specific contracts, and even pursuing short-term deals that could lead to higher prices. The new strategies could help CoreWeave finance its growth more efficiently while squeezing more cash from existing infrastructure. But these bets only hold if today’s demand and pricing power continue. CoreWeave reported $3.66 billion in revenue, up 168% from the year prior, but it also posted a $709 million net loss and $846 million in quarterly interest expense. “We will not use the unsecured debt market to fund our business at current yields, nor do we need to,” CoreWeave CEO Michael Intrator said during Tuesday’s earnings call. Instead, CoreWeave’s plan is to rely on loans backed by specific customer contracts, drawing on funds as"
+    },
+    {
+      "article_id": "d17ac0c3ca9f507c226191b29e08f021",
+      "title": "Johnny Depp’s ‘Ebenezer’ Comeback: A Smaller $5 Million Salary, Optimistic Theater Owners and More - Variety",
+      "source": "Variety",
+      "published_at": "2026-11-10T17:01:00Z",
+      "link": "https://variety.com/2026/film/box-office/ebenezer-johnny-depp-salary-comeback-plans-1236943173/",
+      "content": "Nov 10, 2026 9:01am PT Johnny Depp’s ‘Ebenezer’ Comeback: A Smaller $5 Million Salary, Optimistic Theater Owners and More By Rebecca Rubin Plus Icon Rebecca Rubin Senior Film and Media Reporter rebeccaarubin Latest DC Studios Exit: James Gunn and Peter Safran Spent Big, Lost Money and Didn’t Hook Audiences 20 hours ago Legendary Entertainment Hires Apollo Partner Aaron Sobel (EXCLUSIVE) 23 hours ago Johnny Depp’s ‘Ebenezer’ Comeback: A Smaller $5 Million Salary, Optimistic Theater Owners and More 1 day ago See All Add us as a Google Preferred Source ©Paramount/Courtesy Everett Collection Comments Four years ago, Johnny Depp ‘s fans and detractors descended on the sleepy town of Fairfax, Virginia, to cheer or jeer the actor in his ugly defamation case against ex-wife Amber Heard. Now, when local cinema operator Mark O’Meara probes his patrons about “ Ebenezer ,” a new take on “A Christmas Carol” featuring Depp as the coldhearted miser Scrooge, he’s met with decidedly less intensity abou"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.1327753067016602,
+    "mcp_category_search_call": 0.014394760131835938,
+    "mcp_article_search_call": 0.07380366325378418,
+    "mcp_mget_call": 0.008943796157836914,
+    "summary_llm_call": 5.068318843841553
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "query": "Summarize recent cybersecurity incidents",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "technology",
+    "cybersecurity"
+  ],
+  "article_refs": [
+    {
+      "article_id": "16495dc6cc9c48844fde6ea690ca837f",
+      "score": 12.743273
+    },
+    {
+      "article_id": "cd52f2f0ed4319ba697d0c4d33ff1ca2",
+      "score": 11.805405
+    },
+    {
+      "article_id": "6b0c848ff7aabc072594e66125b5d44f",
+      "score": 9.468657
+    },
+    {
+      "article_id": "ab9b716f8955e293a9c7926fff1993a7",
+      "score": 7.47226
+    },
+    {
+      "article_id": "4f417cea65ebff3c9547e335266bd9e9",
+      "score": 7.230622
+    }
+  ],
+  "summary": "Recent cybersecurity incidents have highlighted significant vulnerabilities across various sectors, including hospitality, critical infrastructure, and open-source AI platforms.\n\nOne notable incident involved Wyndham Hotels, which experienced a data breach due to a security flaw in its Android app. A security researcher discovered that a password embedded in the app's source code allowed unauthorized access to an internal database hosted by Salesforce. This breach potentially exposed personal information of millions of customers, including names, email addresses, and login tokens, although the exact number of affected records remains unclear. Wyndham has a large customer base, with approximately 129 million enrolled rewards members [Hotel giant Wyndham exposed customer data after app security lapse].\n\nIn another incident, a series of cyberattacks targeted refrigeration systems in French supermarkets, attributed to Iranian hackers. These attacks compromised digital thermostats, causing food spoilage by raising temperatures excessively. The French government has condemned these actions as unprecedented aggression and plans to impose sanctions against Iran in response to the attacks [Iran was behind cyber-attack on French supermarket freezers, Paris says].\n\nAdditionally, the cybersecurity landscape for open-source AI platforms is under threat. Recent attacks have targeted companies like Hugging Face and Fireworks, leading to unauthorized access to sensitive data, including API keys and customer information. These incidents underscore the risks associated with open AI platforms, which, while valuable for collaboration, may also expose vulnerabilities that can be exploited by malicious actors [Cyberattacks threaten to make open-source AI a little less open, Hugging Face exec warns]. \n\nOverall, these incidents reflect ongoing challenges in cybersecurity, emphasizing the need for robust security measures across various industries to protect sensitive information and critical infrastructure.",
+  "article_hits": [
+    {
+      "article_id": "16495dc6cc9c48844fde6ea690ca837f",
+      "title": "Hotel giant Wyndham exposed customer data after app security lapse",
+      "source": "TechCrunch",
+      "published_at": "2026-11-09T23:03:46+00:00",
+      "link": "https://techcrunch.com/2026/11/09/hotel-giant-wyndham-exposed-customer-data-after-app-security-lapse/",
+      "content": "Hotel and resort giant Wyndham has acknowledged a cybersecurity incident after a good-faith security researcher discovered a bug that allowed anyone to access customers’ personal information. Security researcher Robert Wiggins at What Security exclusively told TechCrunch that he found a password inside the source code of Wyndham’s Android app, which granted access to an internal company database, hosted by tech company Salesforce. Wiggins told TechCrunch that the credential exposed personal information including customer names, email addresses, and Wyndham member number. The database also stores customer login tokens ( called JWTs ) that keep customers logged-in to their apps without having to repeatedly enter their own passwords. The database also contained Wyndham files and documents. According to Wiggins, the database had millions of entries, but he was unable to determine an accurate number of exposed customer records. Wyndham touts some 129 million enrolled rewards members. The re"
+    },
+    {
+      "article_id": "cd52f2f0ed4319ba697d0c4d33ff1ca2",
+      "title": "The Fridge-Hacking Spree Is an Internet-of-Things Wake-Up Call",
+      "source": "Wired",
+      "published_at": "2026-11-07T13:00:00+00:00",
+      "link": "https://www.wired.com/story/kernel-panic-refrigeration-hacks-internet-of-things/",
+      "content": "Lily Hay Newman Matt Burgess Security Nov 7, 2026 8:00 AM The Fridge-Hacking Spree Is an Internet-of-Things Wake-Up Call Escalating hacks affecting blood labs and grocery stores show the very real risks to critical infrastructure that come from basic security lapses involving internet-connected devices. Photo-Illustration: WIRED STAFF; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Welcome to Kernel Panic , a weekly newsletter by Lily Hay Newman and Matt Burgess from inside the new world of privacy and digital security. To receive this newsletter in your inbox each week, sign up here . Amid an onslaught of AI vulnerability discovery and AI-assisted hacking , some of the most consequential critical infrastructure attacks this year may have little to do with the technology at all—instead providing a stark reminder that cybersecurity fundamentals are still key to digital defense. Three sites in France that handle blood and plasma bags were"
+    },
+    {
+      "article_id": "6b0c848ff7aabc072594e66125b5d44f",
+      "title": "Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers",
+      "source": "Wired",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "link": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/",
+      "content": "Will Knight The Big Story Nov 10, 2026 6:00 AM Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers The “abliterators” are flooding the internet with AI models that never say no, making it easier for people to improve their cyberdefenses—or build a bomb. Play/Pause Button Pause Animation: Irene Suosalo Comment Loader Save Story Save this story Comment Loader Save Story Save this story Devon Thomas hardly seems like a renegade. Members of his bible study group, he tells me, would probably describe him as unfailingly kind and polite. And yet Thomas is doing something that many in the AI world consider borderline blasphemous. His new company, Abliteration AI, removes safeguards from the world’s most powerful open-weight models. It also makes these models available to anyone. As someone who covers AI and constantly hears about the need for increased safety , I was fascinated to learn about this subversive business venture. I reached out to Thomas, and we"
+    },
+    {
+      "article_id": "ab9b716f8955e293a9c7926fff1993a7",
+      "title": "Cyberattacks threaten to make open-source AI a little less open, Hugging Face exec warns",
+      "source": "TechCrunch",
+      "published_at": "2026-11-10T13:00:00+00:00",
+      "link": "https://techcrunch.com/2026/11/10/cyberattacks-threaten-to-make-open-source-ai-a-little-less-open-hugging-face-exec-warns/",
+      "content": "Loading the player… The very qualities that make open AI platforms valuable, like open doors and rich data, might also make them vulnerable to more hacks, Irene Solaiman, chief policy officer and SVP of strategy at Hugging Face said on a recent episode of the Equity podcast. The October attack on OpenCode , which targeted users’ third-party API keys and caused financial damage, is the latest example. It follows an incident this summer in which an OpenAI agent swarm breached Hugging Face in an apparent attempt to cover its tracks after accessing answers to cybersecurity evaluations. The risks aren’t limited to platforms that invite open community contributions. On Monday, AI infrastructure startup Fireworks, which helps developers run and train open AI models, disclosed that attackers had accessed some customers’ model weights, datasets, and billing information. The company temporarily disabled certain self-service dataset functions as it investigates. While the attack isn’t necessarily"
+    },
+    {
+      "article_id": "4f417cea65ebff3c9547e335266bd9e9",
+      "title": "Iran was behind cyber-attack on French supermarket freezers, Paris says",
+      "source": "Hacker News",
+      "published_at": "2026-11-09T19:33:09+00:00",
+      "link": "https://www.theguardian.com/world/2026/nov/09/france-blames-irans-revolutionary-guards-for-cyber-attacks-on-supermarket-fridges",
+      "content": "Perished food outside supermarkets hit by cyber-attacks targeting refrigeration systems in France. Photograph: Lucien Libert/Reuters View image in fullscreen Perished food outside supermarkets hit by cyber-attacks targeting refrigeration systems in France. Photograph: Lucien Libert/Reuters Iran was behind cyber-attack on French supermarket freezers, Paris says French foreign minister vows European sanctions against Tehran over ‘unprecedented’ hacks last month France has said Iran was responsible for a massive cyber-attack on supermarket freezers and chiller cabinets that was described by its foreign minister as being an act of “unprecedented scale and unprecedented aggression”. Jean-Noël Barrot said “Europe-wide sanctions” would be imposed against those responsible, adding that the attacks – which took control of digital thermostats to push temperatures up to above 50C – constituted “a major violation of the nation’s interests”. At a press briefing during the G7 summit in Paris, he sai"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.3936400413513184,
+    "mcp_category_search_call": 0.016948461532592773,
+    "mcp_article_search_call": 0.02166152000427246,
+    "mcp_mget_call": 0.009760618209838867,
+    "summary_llm_call": 6.402116298675537
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "query": "What are the latest developments in AI regulation?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "ai"
+  ],
+  "article_refs": [
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "score": 10.933407
+    },
+    {
+      "article_id": "f691d12760bfbde86a6d7c10969bc6e7",
+      "score": 9.5259285
+    },
+    {
+      "article_id": "8ee5ea787f2f18b4a86096aa51a99474",
+      "score": 7.4764566
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "score": 7.4678307
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "score": 5.4943085
+    }
+  ],
+  "summary": "The latest developments in AI regulation are not explicitly detailed in the retrieved articles. However, there are indications of ongoing discussions and concerns surrounding AI technologies, particularly in relation to their implications for national security and ethical considerations. For instance, the controversy surrounding Nvidia CEO Jensen Huang highlights potential risks associated with AI infrastructure and international relations, as U.S. officials are investigating connections between Huang's personal life and national security concerns involving a Chinese company, Megaspeed, which has been scrutinized for its dealings with Nvidia chips [Article 4].\n\nAdditionally, while the articles do not provide specific regulatory updates, they suggest a growing awareness of the need for oversight in the AI sector. The mention of Fractile, a British startup focused on AI chips, implies that the U.K. government is investing in AI technology to ensure economic competitiveness, which may lead to future regulatory frameworks aimed at managing the development and deployment of AI systems [Article 0]. \n\nOverall, while there are significant discussions around AI's impact on society and security, the articles do not provide concrete information on new regulations or legislative measures currently being implemented. The landscape of AI regulation remains dynamic, but specific updates or changes in policy are not covered in the provided snippets.",
+  "article_hits": [
+    {
+      "article_id": "b673793e5f043f9ea4c8d4b524668b78",
+      "title": "With $720M round, Britain’s Fractile gets a leg up in the race for AI chips",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T19:34:55+00:00",
+      "link": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+      "content": "Fractile , a British startup developing AI chips, has raised a $720 million Series C backed by Britain’s Sovereign AI Fund with hopes of “ensuring the U.K. has a greater stake in the hardware that will underpin its future economy,” its government stated . Alongside the likes of Axelera , Etched , and OLIX , this makes Fractile one of the top-funded startup players in the race for purpose-built AI chips. Such chips are one of several avenues being explored to reduce the cost of inference — aka using increasingly demanding AI models in production. However, Fractile seeks to go beyond hardware with a full-stack approach that also includes a machine learning compiler to maximize the speed at which LLMs will get executed on its chips. As a result, the company frames itself as a frontier AI company, and its latest round led by Thrive Capital, Founders Fund, Lightspeed Venture Partners and Redpoint was priced accordingly. According to the British government, the valuation was “over £5 billion"
+    },
+    {
+      "article_id": "f691d12760bfbde86a6d7c10969bc6e7",
+      "title": "Significant drop in levels of toxic 'forever' chemicals in England's rivers",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:12:59+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cmze75r55g3jo?at_medium=RSS&at_campaign=rss",
+      "content": "Significant drop in levels of toxic 'forever' chemicals in England's rivers Image source, Getty/Peter Chadwick LRPS Image caption, Old landfill and industrial sites have been major sources of the chemicals in rivers like the Mersey By Esme Stallard Senior climate and science reporter Published 43 minutes ago Levels of the two most toxic \"forever\" chemicals in England's rivers have dropped by nearly a third over the last decade, according to new figures from the Environment Agency (EA). The decline in the chemicals, PFOS and PFOA, has been put down to stricter restrictions on their use in products after increasing evidence emerged of their damaging impact on human health and the environment. One expert studying the impact of the chemicals said it was \"brilliant\" to see how far the UK has come on this issue. Thousands of other forever chemicals, known officially as PFAS, remain in use but the regulator said its report showed the need for them all to be better monitored and regulated. PFA"
+    },
+    {
+      "article_id": "8ee5ea787f2f18b4a86096aa51a99474",
+      "title": "Tools for exploring the souls of large language models",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T20:45:50+00:00",
+      "link": "https://oshea00.github.io/posts/tinygpt-visualizer/",
+      "content": "TinyGPT Visualizer: Tools for Exploring the Souls of Large Language Models On metaphysics, large language models, and souls. Using TinyGPT Visualizer to decode how large language models think and act. October 29, 2026 · 3 min · Michael OShea There is that old joke told by Woody Allen describing his experience as a university student: “I was thrown out of college for cheating on the metaphysics exam; I looked into the soul of the boy sitting next to me.” If he’d managed to pass his course, Woody Allen might have been ahead of his time. Metaphysics is becoming a popular topic today, and it seems now everyone desperately wants to look for souls in large language models (LLMs). A recent conference last April was held by Anthropic with religious scholars and philosophical thinkers to discuss the nature of the soul when it came to their latest Claude models. It seems they needed guidance that Dario Amodei was unable to provide. The time seems ripe to dig into how we might actually peer into "
+    },
+    {
+      "article_id": "943e39a4eaaa73f2edcee9bf806d4ae3",
+      "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+      "source": "Wired",
+      "published_at": "2026-11-11T19:55:54+00:00",
+      "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+      "content": "Will Knight Business Nov 11, 2026 2:55 PM I Saw the Future of Robotics in a Virtual Duck That Chases My Cat An OpenAI model helped me teach the Microduck to waddle and moonlight as a tiny cat butler. Photo-Illustration: WIRED Staff; Getty Images Comment Loader Save Story Save this story Comment Loader Save Story Save this story Allow me to introduce you to the robot cat butler I’m developing with help from AI. Using OpenAI’s GPT-6 Sol , I taught a virtual version of Microduck —a cute robot from Pollen Robotics and Hugging Face—to walk around a room and identify any bengal cats in its vicinity. (The clip above shows the robot waddling toward a target feline; its eye view is shown top right.) I’m still waiting patiently for a physical Microduck— please hurry up and ship it, guys —but simulated behavior is relatively simple, so it should transfer over to the real thing. I plan to have the robot automatically dispense a treat for my pet bengal, Leona, perhaps by bowing its head to release "
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "title": "The unfolding Jensen Huang scandal: a timeline",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T23:50:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "content": "Nvidia co-founder CEO Jensen Huang has never been as flashy or controversy-prone as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk. Now, the 63-year-old industry kingpin has admitted that he cheated on his wife of 40 years in an affair that could have ramifications beyond Huang’s personal life and potentially impact national security. United States officials believe that Huang’s likely romantic interest, Megaspeed executive Alice Huang, is a Chinese spy who has been feeding information back to Beijing. (Alice Huang, a Chinese citizen, is of no relation to Jensen Huang.) Megaspeed, a Singapore-based AI infrastructure company, had reportedly purchased $4.8 billion in Nvidia chips over the last two years. The U.S. and Singapore have both previously investigated Megaspeed over suspicions that the firm was illegally sharing chips with China. The Justice Department has since taken over the federal investigation into the company, the Times has reported. The story took a sudden ne"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.4924852848052979,
+    "mcp_category_search_call": 0.12717676162719727,
+    "mcp_article_search_call": 0.24475884437561035,
+    "mcp_mget_call": 0.00894927978515625,
+    "summary_llm_call": 5.398505926132202
+  }
+}

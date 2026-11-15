@@ -1,0 +1,19 @@
+# evals/cases/rubric.yaml — judged criteria (rubric v2, approved 10-Nov, T05-S246; ADR 0012.6)
+# Part of the judge config: any change here changes judge_config_version and needs re-calibration.
+version: 2
+judge_criteria:
+  cr1:
+    kind: judged
+    name: answers_the_query
+    rule_text: >
+      The summary addresses the user's query. It leads with what the articles report
+      that answers the query. When the articles answer none or only part of the query,
+      the summary says so plainly, and it does not present unrelated articles as the
+      answer.
+  cr2:
+    kind: judged
+    name: grounded
+    rule_text: >
+      Every factual claim in the summary (names, roles, numbers, dates, events) is
+      stated in the provided articles; a claim followed by a citation is stated in the
+      cited article. The summary adds no facts, predictions or conclusions of its own.

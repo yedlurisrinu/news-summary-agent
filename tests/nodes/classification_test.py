@@ -35,6 +35,7 @@ class TestClassifyIntentCall:
         )
         assert out["is_news_query"] is False
         assert fake_mcp.calls == []
+        assert set(out["latency"]) == {"classify_llm_call"}
 
     async def test_news_query_resolves_categories_and_times(
         self, make_llm, fake_mcp: FakeNewsMcp
@@ -45,7 +46,26 @@ class TestClassifyIntentCall:
         assert out["is_news_query"] is True and out["fetch_latest"] is True
         assert out["categories"] == ["technology"]
         assert fake_mcp.calls == [("category_search", {"categories": ["technology"]})]
-        assert set(out["duration_seconds"]) == {"LLM_LATENCY", "ES_CALL"}
+        assert set(out["latency"]) == {"classify_llm_call", "mcp_category_search_call"}
+        assert all(v >= 0 for v in out["latency"].values())
+
+    async def test_llm_supplied_latency_is_overwritten(
+        self, make_llm, fake_mcp: FakeNewsMcp
+    ) -> None:
+        """A "latency" key in the model's JSON must never replace the measured values."""
+        poisoned = json.dumps(
+            {
+                "is_news_query": True,
+                "categories": ["technology"],
+                "fetch_latest": False,
+                "latency": {"classify_llm_call": 999.0, "bogus": 1.0},
+            }
+        )
+        out = await ClassifyIntent(make_llm([poisoned]), fake_mcp.client())(
+            {"query": "tech news"}
+        )
+        assert set(out["latency"]) == {"classify_llm_call", "mcp_category_search_call"}
+        assert out["latency"]["classify_llm_call"] != 999.0
 
     async def test_category_tool_error_is_swallowed(
         self, make_llm, fake_mcp: FakeNewsMcp

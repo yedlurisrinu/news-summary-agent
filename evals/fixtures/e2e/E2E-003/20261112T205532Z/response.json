@@ -1,0 +1,45 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Summarize recent cybersecurity incidents",
+    "categories": [
+      "technology",
+      "cybersecurity"
+    ],
+    "summary": "Recent cybersecurity incidents have highlighted significant vulnerabilities across various sectors, including hospitality, critical infrastructure, and open-source AI platforms.\n\nOne notable incident involved Wyndham Hotels, which experienced a data breach due to a security flaw in its Android app. A security researcher discovered that a password embedded in the app's source code allowed unauthorized access to an internal database hosted by Salesforce. This breach potentially exposed personal information of millions of customers, including names, email addresses, and login tokens, although the exact number of affected records remains unclear. Wyndham has a large customer base, with approximately 129 million enrolled rewards members [Hotel giant Wyndham exposed customer data after app security lapse].\n\nIn another incident, a series of cyberattacks targeted refrigeration systems in French supermarkets, attributed to Iranian hackers. These attacks compromised digital thermostats, causing food spoilage by raising temperatures excessively. The French government has condemned these actions as unprecedented aggression and plans to impose sanctions against Iran in response to the attacks [Iran was behind cyber-attack on French supermarket freezers, Paris says].\n\nAdditionally, the cybersecurity landscape for open-source AI platforms is under threat. Recent attacks have targeted companies like Hugging Face and Fireworks, leading to unauthorized access to sensitive data, including API keys and customer information. These incidents underscore the risks associated with open AI platforms, which, while valuable for collaboration, may also expose vulnerabilities that can be exploited by malicious actors [Cyberattacks threaten to make open-source AI a little less open, Hugging Face exec warns]. \n\nOverall, these incidents reflect ongoing challenges in cybersecurity, emphasizing the need for robust security measures across various industries to protect sensitive information and critical infrastructure.",
+    "articles": [
+      {
+        "title": "Hotel giant Wyndham exposed customer data after app security lapse",
+        "link": "https://techcrunch.com/2026/11/09/hotel-giant-wyndham-exposed-customer-data-after-app-security-lapse/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-09T23:03:46+00:00"
+      },
+      {
+        "title": "The Fridge-Hacking Spree Is an Internet-of-Things Wake-Up Call",
+        "link": "https://www.wired.com/story/kernel-panic-refrigeration-hacks-internet-of-things/",
+        "source": "Wired",
+        "published_at": "2026-11-07T13:00:00+00:00"
+      },
+      {
+        "title": "Tear Down Those Guardrails! Meet the Renegades Freeing Chatbots From Corporate Enslavers",
+        "link": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/",
+        "source": "Wired",
+        "published_at": "2026-11-10T11:00:00+00:00"
+      },
+      {
+        "title": "Cyberattacks threaten to make open-source AI a little less open, Hugging Face exec warns",
+        "link": "https://techcrunch.com/2026/11/10/cyberattacks-threaten-to-make-open-source-ai-a-little-less-open-hugging-face-exec-warns/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-10T13:00:00+00:00"
+      },
+      {
+        "title": "Iran was behind cyber-attack on French supermarket freezers, Paris says",
+        "link": "https://www.theguardian.com/world/2026/nov/09/france-blames-irans-revolutionary-guards-for-cyber-attacks-on-supermarket-fridges",
+        "source": "Hacker News",
+        "published_at": "2026-11-09T19:33:09+00:00"
+      }
+    ],
+    "latency": 7.84412693977356,
+    "status": "ok"
+  }
+}

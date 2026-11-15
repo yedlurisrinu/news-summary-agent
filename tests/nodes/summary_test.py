@@ -58,7 +58,7 @@ class TestSummaryCall:
         out = await Summary(make_llm(["The summary."]), fake_mcp.client())(_state("a1"))
         assert out["summary"] == "The summary."
         assert [h["article_id"] for h in out["article_hits"]] == ["a1"]
-        assert set(out["duration_seconds"]) == {"MGET_CAL", "SUMMARY_LLM_CALL"}
+        assert set(out["latency"]) == {"mcp_mget_call", "summary_llm_call"}
         assert fake_mcp.calls == [("mget", {"ids": ["a1"]})]
 
     async def test_missing_ids_reply_search_unavailable(
@@ -70,7 +70,7 @@ class TestSummaryCall:
         assert (
             out["summary"] == SEARCH_UNAVAILABLE_MESSAGE and out["article_hits"] == []
         )
-        assert "MGET_CAL" in out["duration_seconds"]
+        assert "mcp_mget_call" in out["latency"]
 
     async def test_unexpected_server_crash_reply_has_no_internals(
         self, make_llm, fake_mcp: FakeNewsMcp
@@ -114,7 +114,7 @@ class TestSummaryCall:
         assert out == {
             "summary": SEARCH_UNAVAILABLE_MESSAGE,
             "article_hits": [],
-            "duration_seconds": {"MGET_CAL": out["duration_seconds"]["MGET_CAL"]},
+            "latency": {"mcp_mget_call": out["latency"]["mcp_mget_call"]},
         }
 
     async def test_llm_failure_replies_summary_failed(
@@ -125,4 +125,4 @@ class TestSummaryCall:
 
         out = await Summary(RunnableLambda(_boom), fake_mcp.client())(_state("a1"))  # type: ignore[arg-type]
         assert out["summary"] == SUMMARY_FAILED_MESSAGE and out["article_hits"] == []
-        assert "SUMMARY_LLM_CALL" in out["duration_seconds"]
+        assert "summary_llm_call" in out["latency"]

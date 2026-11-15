@@ -1,0 +1,55 @@
+LLM_MODEL: "openai:gpt-4o-mini"
+LLM_TEMPERATURE: 0.0
+LLM_TIMEOUT_SEC: 10
+
+# per-article content cap for the summary prompt (es-mcp-server also truncates)
+SUMMARY_CONTENT_MAX_CHARS: 1000
+EVAL_ES_URL: "http://elasticsearch:9200/"
+EVAL_MCP_URL: "http://es-mcp-eval-server:9553/mcp"
+# MCP protocol version es-mcp-server speaks (mcp 2.3.0); pinning skips the per-connection probe
+MCP_PROTOCOL_VERSION: "2026-07-28"
+
+APP_VAULT_SESSIONS_PATH: NEWS-SUMMARY-APP/SESSIONS
+
+SERVICE_CLIENT_ID: news-summary-app-svc
+SERVICE_TOKEN_LEEWAY_SEC: 60
+ES_FROZEN_EVAL_INDEX: news_articles_frozen_v1
+# TODO make sure all the paths are relative so joinpath can join with BASE PATH
+SEED_E2E_CASES_PATH: cases/e2e_cases.yaml
+SEED_COMPONENT_CASES_PATH: cases/component_cases.yaml
+SEED_TRAJECTORY_CASES_PATH: cases/trajectory_cases.yaml
+SEED_RUBRIC_PATH: cases/rubric.yaml
+
+LABELED_E2E_CASES_PATH: labels/e2e_labels.yaml
+CAPTURED_E2E_FIXTURE_RESPONSE_PATH: fixtures/e2e/case_id/run_id/response.json
+CAPTURED_E2E_FIXTURE_STATE_PATH: fixtures/e2e/case_id/run_id/state.json
+CAPTURED_RUN_ID: "20261112T205532Z"
+JUDGE_VERDICTS_PATH: agreement_result/captured-run-id/model-name/judge-hash
+JUDGES_CALIBRATION_AGREEMENT_PATH: agreement_result/captured-run-id
+
+FIXTURES_E2E_PATH: "fixtures/e2e"
+CAPTURE_RUNS_PATH: "capture_runs"
+JUDGE_1: &JUDGE_1 gpt-6.1-terra
+JUDGE_2: &JUDGE_2 gpt-6.1-sol
+# TODO(C6): revisit this entry's shape. Each row is positional:
+#   [judge_1, judge_2, agreement_run, judge_vs_label, per_judge_agreement_runs, label]
+# Note: YAML reads `None` as the string "None", not null (null is `null` or `~`).
+# Today it is harmless (judge_2 is read only when agreement_run and judge_vs_label are both False).
+JUDGE_AGREEMENT_RUNS_PARAMS: [ [ *JUDGE_1, None, False, True, 1, "Calibration Run" ], [ *JUDGE_2, None, False, True, 1, "Calibration Run" ], [ *JUDGE_1, *JUDGE_2, False, False, 1, "Judges Calibration Run" ] ]
+# [ *JUDGE_1, None, True, False, 1, "Agreement Run" ], [ *JUDGE_2, None, True, False, 1, "Agreement Run" ], 
+
+LLM_TIMEOUT: 600
+LLM_MAX_RETRIES: 1
+
+# May below config are not needed for eval path, verify latter
+
+BFF_BASE_URL: "http://news-summary-app:8007"
+CIMD_CLIENT_ID: "https://news-cimd-host/clients/news-summary-app-cimd.json"
+ALLOWED_ISSUER_URL: "http://keycloak:8180/realms/es-mcp"
+MCP_WELL_KNOWN_URI: "/.well-known/oauth-protected-resource"
+SESSION_MAX_AGE_SEC: 36000
+AS_WELL_KNOWN_URL: "/.well-known/openid-configuration"
+# Stored sessions not updated for this long are deleted (must exceed Keycloak's SSO session max,
+# 36000 s, so a refreshable session is never removed); swept at start-up, then every 24 h.
+SESSION_STORE_MAX_AGE_SEC: 39600
+SESSION_SWEEP_INTERVAL_SEC: 86400

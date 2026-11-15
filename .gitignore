@@ -11,3 +11,5 @@ htmlcov/
 src/learning/thread*
 src/news_summary_agent.egg-info
 .vscode/
+evals/debug
+evals/z_temp

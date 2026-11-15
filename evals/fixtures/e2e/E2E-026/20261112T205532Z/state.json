@@ -1,0 +1,17 @@
+{
+  "query": "wats the newest on tesla stonks",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "business",
+    "finance"
+  ],
+  "article_refs": [],
+  "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+  "article_hits": [],
+  "latency": {
+    "classify_llm_call": 0.8827331066131592,
+    "mcp_category_search_call": 0.009853363037109375,
+    "mcp_article_search_call": 0.008130073547363281
+  }
+}

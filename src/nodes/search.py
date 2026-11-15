@@ -12,6 +12,7 @@ from fastmcp.client.client import CallToolResult
 from mcp_types import TextContent
 
 from adapters.mcp_session import McpToolClient
+from channels.latencies import Latency
 from channels.news_state import NewsState
 from channels.search_results import SearchResult
 from data.news_query import NewsQuery
@@ -32,7 +33,8 @@ class Search:
 
         Any tool error or transport failure becomes ``SearchUnavailable`` with fixed text.
         """
-        start = time.time()
+        start = time.perf_counter()
+        latency: Latency = {}
         logger.debug(f"search intent incoming state : {state}")
 
         try:
@@ -53,7 +55,7 @@ class Search:
         except Exception as exc:
             logger.exception("article_search call failed for query: %s", state["query"])
             raise SearchUnavailable() from exc
-
+        latency["mcp_article_search_call"] = time.perf_counter() - start
         sc = tool_result.structured_content
         if tool_result.is_error or sc is None:
             block = tool_result.content[0] if tool_result.content else None
@@ -66,5 +68,5 @@ class Search:
         logger.info("article_search: %d refs", len(sc["article_refs"]))
         return {
             "article_refs": sc["article_refs"],
-            "duration_seconds": {"SEARCH": time.time() - start},
+            "latency": latency,
         }

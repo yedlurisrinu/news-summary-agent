@@ -1,0 +1,14 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "wats the newest on tesla stonks",
+    "categories": [
+      "business",
+      "finance"
+    ],
+    "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+    "articles": [],
+    "latency": 0.9007165431976318,
+    "status": "ok"
+  }
+}

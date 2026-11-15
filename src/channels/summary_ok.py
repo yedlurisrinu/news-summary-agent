@@ -2,6 +2,7 @@ from typing import Required, TypedDict
 
 from channels.article_hit import ArticleHit
 from channels.article_reference import ArticleReference
+from channels.latencies import Latency
 
 
 class SummaryOk(TypedDict):
@@ -14,4 +15,4 @@ class SummaryOk(TypedDict):
     article_refs: Required[list[ArticleReference]]
     article_hits: Required[list[ArticleHit]]
     summary: Required[str]
-    duration_seconds: Required[dict[str, float]]
+    latency: Required[Latency]

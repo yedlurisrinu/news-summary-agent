@@ -1,0 +1,44 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "What are the latest developments in AI regulation?",
+    "categories": [
+      "ai"
+    ],
+    "summary": "The latest developments in AI regulation are not explicitly detailed in the retrieved articles. However, there are indications of ongoing discussions and concerns surrounding AI technologies, particularly in relation to their implications for national security and ethical considerations. For instance, the controversy surrounding Nvidia CEO Jensen Huang highlights potential risks associated with AI infrastructure and international relations, as U.S. officials are investigating connections between Huang's personal life and national security concerns involving a Chinese company, Megaspeed, which has been scrutinized for its dealings with Nvidia chips [Article 4].\n\nAdditionally, while the articles do not provide specific regulatory updates, they suggest a growing awareness of the need for oversight in the AI sector. The mention of Fractile, a British startup focused on AI chips, implies that the U.K. government is investing in AI technology to ensure economic competitiveness, which may lead to future regulatory frameworks aimed at managing the development and deployment of AI systems [Article 0]. \n\nOverall, while there are significant discussions around AI's impact on society and security, the articles do not provide concrete information on new regulations or legislative measures currently being implemented. The landscape of AI regulation remains dynamic, but specific updates or changes in policy are not covered in the provided snippets.",
+    "articles": [
+      {
+        "title": "With $720M round, Britain’s Fractile gets a leg up in the race for AI chips",
+        "link": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T19:34:55+00:00"
+      },
+      {
+        "title": "Significant drop in levels of toxic 'forever' chemicals in England's rivers",
+        "link": "https://www.bbc.co.uk/news/articles/cmze75r55g3jo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC",
+        "published_at": "2026-11-12T00:12:59+00:00"
+      },
+      {
+        "title": "Tools for exploring the souls of large language models",
+        "link": "https://oshea00.github.io/posts/tinygpt-visualizer/",
+        "source": "Hacker News",
+        "published_at": "2026-11-11T20:45:50+00:00"
+      },
+      {
+        "title": "I Saw the Future of Robotics in a Virtual Duck That Chases My Cat",
+        "link": "https://www.wired.com/story/i-trained-a-microduck-to-be-my-cats-butler/",
+        "source": "Wired",
+        "published_at": "2026-11-11T19:55:54+00:00"
+      },
+      {
+        "title": "The unfolding Jensen Huang scandal: a timeline",
+        "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+        "source": "TechCrunch",
+        "published_at": "2026-11-11T23:50:00+00:00"
+      }
+    ],
+    "latency": 7.271876096725464,
+    "status": "ok"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "http_status": 200,
+  "body": {
+    "query": "Latest cricket scores from the India vs Australia series",
+    "categories": [
+      "sports"
+    ],
+    "summary": "I searched for news articles matching your query but couldn't find any relevant results. Try broadening your search terms or asking about a different topic.",
+    "articles": [],
+    "latency": 1.4060642719268799,
+    "status": "ok"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "query": "What's new in health and medicine?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "health"
+  ],
+  "article_refs": [
+    {
+      "article_id": "d0045ede2d898eb394b973cd21739516",
+      "score": 10.740746
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "score": 5.698243
+    },
+    {
+      "article_id": "f0b6f24e34593cb043f17b3a0324885d",
+      "score": 4.474454
+    },
+    {
+      "article_id": "ceb54e39d8f485f34150ac2d230bd340",
+      "score": 4.2612424
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "score": 3.8681526
+    }
+  ],
+  "summary": "Recent discussions in health and medicine have focused on the effectiveness and value of over-the-counter cold and flu medications. A report from BBC highlights that many consumers may be overpaying for \"max strength\" cold and flu pills, as experts suggest that there is little difference in efficacy between these premium products and cheaper alternatives. Professor Jayne Lawrence from the University of Manchester emphasizes that basic painkillers are often just as effective, and consumers might benefit from opting for less expensive options that have also been tested for safety and effectiveness [Are max strength cold and flu pills worth the money?].\n\nThe article points out that while well-known brands may provide reassurance to shoppers, the actual performance of these medications does not significantly differ from their lower-cost counterparts. This insight comes at a time when many individuals are seeking relief during the flu season, prompting a reevaluation of spending on health products [Are max strength cold and flu pills worth the money?].\n\nOverall, the findings suggest a need for consumers to be more discerning about their choices in cold and flu remedies, potentially leading to cost savings without sacrificing health outcomes. However, the articles do not provide new developments in other areas of health and medicine beyond this discussion on cold and flu medications.",
+  "article_hits": [
+    {
+      "article_id": "d0045ede2d898eb394b973cd21739516",
+      "title": "Are max strength cold and flu pills worth the money?",
+      "source": "BBC",
+      "published_at": "2026-11-12T00:12:28+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cjkgep4rgngro?at_medium=RSS&at_campaign=rss",
+      "content": "Are max strength cold and flu pills worth the money? Image source, Getty Images By Jim Reed Health reporter Published 43 minutes ago Your throat's painful, your head throbs and your blocked nose has kept you awake all night. It's that time of year again - flu season - and you'll try anything to feel normal. But is that pricey max strength flu remedy really any better than a basic box of painkillers? \"The big brands have been around for a while, they've been tested, and there are adverts on the TV saying they're really good,\" says Prof Jayne Lawrence, head of the pharmacy division at the University of Manchester. \"But in reality, there's very little difference. Personally, I'd always go for the cheaper ones - and they’ve also been tested.\" The trade association representing over-the-counter medicine makers says familiar brands can reassure shoppers and help them find the right product on crowded supermarket shelves. Cold and flu drugs fall into three broad camps: household names such as"
+    },
+    {
+      "article_id": "f0e18163be5528edc223a673decbd6de",
+      "title": "Some under-25s should get less benefits, Milburn review to say",
+      "source": "BBC",
+      "published_at": "2026-11-11T23:22:04+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/cwn70l1628l0o?at_medium=RSS&at_campaign=rss",
+      "content": "Some under-25s should get less benefits, Milburn review to say Image caption, Alan Milburn will publish his review next week By Ewan Somerville , Political reporter , Nick Eardley , Political correspondent and Chris Mason , Political editor Published 3 minutes ago Some young people could see reductions to the benefits they are entitled to, under a radical overhaul of the system to be recommended by a government-commissioned review. Alan Milburn's year-long report, which will be published on Tuesday, will recommend moving under-25s off the main sickness and disability benefits, the Times reported , external . Milburn, a former Labour health secretary, has been tasked by the government with helping reduce the one in eight 18- to 24-year-olds in the UK who are not in education, employment or training - or \"Neet\". He said on Wednesday night that his plans would not be \"pain-free\" and would affect both existing and new claimants. His report is expected to recommend that under-25s are no lon"
+    },
+    {
+      "article_id": "f0b6f24e34593cb043f17b3a0324885d",
+      "title": "The 22 Best Early Black Friday Deals: Our Ultimate Picks (2026)",
+      "source": "Wired",
+      "published_at": "2026-11-11T17:08:14+00:00",
+      "link": "https://www.wired.com/story/best-black-friday-deals-11-11-2026/",
+      "content": "Simon Hill Gear Nov 11, 2026 12:08 PM The 22 Best Early Black Friday Deals The early bird gets the worm. Here are the best Black Friday deals for 2026 you can get right now. Illustration: HORRIBLPARTY Save Story Save this story Save Story Save this story While the Friday after Thanksgiving has traditionally been the busiest shopping day of the year, Black Friday deals have gradually spread well beyond the day. First came Cyber Monday, then Cyber Week. Now, early Black Friday deals kick off before November has even started. The tricky part for early birds is knowing what’s a genuine deal and what’s likely to go even lower when Black Friday arrives. The Reviews team at WIRED tracks prices on our favorite gadgets year-round, and we only highlight deals on devices we've tested and would recommend to our own friends and family. Some of these picks may be cheaper for Black Friday, but these are the discounts that have caught our eye so far. Updated November 11: We've added new deals on headp"
+    },
+    {
+      "article_id": "ceb54e39d8f485f34150ac2d230bd340",
+      "title": "Olaf Sakkers is betting he can beat the emerging-manager squeeze",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T20:04:28+00:00",
+      "link": "https://techcrunch.com/2026/11/11/olaf-sakkers-is-betting-he-can-beat-the-emerging-manager-squeeze/",
+      "content": "Entering into the world of venture capital has never been easy, especially as a first-time fund manager. But it’s especially daunting right now. According to PitchBook data, firms raising their fourth fund “or later” captured a whopping 88.2% of U.S. VC fundraising dollars through the first three quarters of this year, while first-time funds captured a measly 4.5% . Just 81 first-time funds closed in the first nine months of 2026. That puts the year on track to be the worst for first-time managers in at least a decade, according to PitchBook’s estimate. Olaf Sakkers has spent the past five years proving that difficult doesn’t mean impossible. He founded his firm RedBlue Capital in 2021 and closed its first fund with roughly $5 million in capital commitments in 2023. He has now held a first close on a second fund that he says will total at least $50 million. Raised in South Africa, he studied anthropology at Princeton, focusing on global health and health policy, and wrote his thesis on"
+    },
+    {
+      "article_id": "f5aa1585b4ebb9b3420115c47e81cd47",
+      "title": "The unfolding Jensen Huang scandal: a timeline",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T23:50:00+00:00",
+      "link": "https://techcrunch.com/2026/11/11/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "content": "Nvidia co-founder CEO Jensen Huang has never been as flashy or controversy-prone as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk. Now, the 63-year-old industry kingpin has admitted that he cheated on his wife of 40 years in an affair that could have ramifications beyond Huang’s personal life and potentially impact national security. United States officials believe that Huang’s likely romantic interest, Megaspeed executive Alice Huang, is a Chinese spy who has been feeding information back to Beijing. (Alice Huang, a Chinese citizen, is of no relation to Jensen Huang.) Megaspeed, a Singapore-based AI infrastructure company, had reportedly purchased $4.8 billion in Nvidia chips over the last two years. The U.S. and Singapore have both previously investigated Megaspeed over suspicions that the firm was illegally sharing chips with China. The Justice Department has since taken over the federal investigation into the company, the Times has reported. The story took a sudden ne"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.0201075077056885,
+    "mcp_category_search_call": 0.013065576553344727,
+    "mcp_article_search_call": 0.09802985191345215,
+    "mcp_mget_call": 0.009781599044799805,
+    "summary_llm_call": 4.020895004272461
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "query": "How many people were laid off in tech this month and at which companies?",
+  "is_news_query": true,
+  "fetch_latest": true,
+  "categories": [
+    "technology",
+    "tech"
+  ],
+  "article_refs": [
+    {
+      "article_id": "49e3e364dcd4ed764860047afd057613",
+      "score": 22.342995
+    },
+    {
+      "article_id": "0cd89a9d60185bf59fea91c74f964cab",
+      "score": 19.288351
+    },
+    {
+      "article_id": "0d203132627cdbb368ad13f48044b2a0",
+      "score": 19.288351
+    },
+    {
+      "article_id": "84039550e213c5bd9a42b63c2386ea3f",
+      "score": 12.114953
+    },
+    {
+      "article_id": "1c28e54487468ba9cc89b5abfa3b3084",
+      "score": 10.185112
+    }
+  ],
+  "summary": "The retrieved articles do not provide any information regarding layoffs in the tech industry for the current month or specify which companies were involved. The articles focus on unrelated topics, such as supercomputers at Virginia Tech, child protection technology, and issues surrounding corporate behavior in the AI industry. \n\nAs a result, there is no data available to answer the user's query about the number of people laid off in tech this month or the companies affected. Further information from other sources would be necessary to address this inquiry.",
+  "article_hits": [
+    {
+      "article_id": "49e3e364dcd4ed764860047afd057613",
+      "title": "The Power and Legacy of Virginia Tech's Mac-Based Supercomputers",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T17:30:47+00:00",
+      "link": "https://512pixels.net/2026/11/va-tech-system-x-system-g/",
+      "content": "The Power and Legacy of Virginia Tech’s Mac-Based Supercomputers November 10, 2026 ⌘ Permalink When we think about data centers today, we often picture rows of GPU-packed racks run by companies like Microsoft, Google, Amazon, and Meta, and used by AI labs such as OpenAI and Anthropic. Much of that hardware does one of two jobs: training new models or running finished ones to answer requests from millions of people around the world. A supercomputer is built from many of the same parts but for a different purpose. It is typically owned by a government lab or university and designed for scientific simulation, such as modeling climate, nuclear physics, or new materials. That work demands high-precision math and very fast communication between processors. Rather than serving the masses, a supercomputer is shared among researchers, whose large jobs wait in a queue and run according to a schedule. Early examples like UNIVAC and the IBM 7030 were used by scientists working on atomic research. "
+    },
+    {
+      "article_id": "0cd89a9d60185bf59fea91c74f964cab",
+      "title": "Former minister calls for phone tech to block live-streamed child sex abuse",
+      "source": "BBC",
+      "published_at": "2026-11-11T16:38:49+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/ck9q8g0x14geo?at_medium=RSS&at_campaign=rss",
+      "content": "Former minister calls for phone tech to block live-streamed child sex abuse Image source, Getty Images Image caption, The UK is one of the three biggest markets for live streamed child sexual abuse in the world By Jennifer McKiernan Political reporter Published 44 minutes ago Former safeguarding minister Jess Phillips has joined calls from campaigners for the government to back new technology that blocks the live-streaming of child sexual abuse. The UK National Crime Agency has flagged the UK as the third biggest market in the world , external for live-streamed abuse, where children are sexually abused live on camera to order. Device-level blockers can prevent this material being filmed and viewed on smartphones, laptops and tablets in the first place, Phillips said, at the launch of a policy report in Parliament. Anti-abuse campaigners claim keeping the technology at device level maintains privacy and encryption. Civil liberties campaigners Big Brother Watch dispute this. The governme"
+    },
+    {
+      "article_id": "0d203132627cdbb368ad13f48044b2a0",
+      "title": "Former minister calls for phone tech to block live-streamed child sex abuse",
+      "source": "BBC",
+      "published_at": "2026-11-11T17:56:49+00:00",
+      "link": "https://www.bbc.co.uk/news/articles/ck9q8g0x14geo?at_medium=RSS&at_campaign=rss",
+      "content": "Former minister calls for phone tech to block live-streamed child sex abuse Image source, Getty Images Image caption, The UK is one of the three biggest markets for live streamed child sexual abuse in the world By Jennifer McKiernan Political reporter Published 11 November 2026, 16:38 GMT Updated 27 minutes ago Former safeguarding minister Jess Phillips has joined calls from campaigners for the government to back new technology that blocks the live-streaming of child sexual abuse. The UK National Crime Agency has flagged the UK as the third biggest market in the world , external for live-streamed abuse, where children are sexually abused live on camera to order. Device-level blockers can prevent this material being filmed and viewed on smartphones, laptops and tablets in the first place, Phillips said, at the launch of a policy report in Parliament. Anti-abuse campaigners claim keeping the technology at device level maintains privacy and encryption. Civil liberties campaigners Big Brot"
+    },
+    {
+      "article_id": "84039550e213c5bd9a42b63c2386ea3f",
+      "title": "Is Jensen Huang’s bad behavior more commonplace than it seems?",
+      "source": "TechCrunch",
+      "published_at": "2026-11-11T16:16:07+00:00",
+      "link": "https://techcrunch.com/2026/11/11/is-jensen-huangs-bad-behavior-more-commonplace-than-it-seems/",
+      "content": "The AI industry is still reeling from Nvidia CEO Jensen Huang’s honeypot scandal, but some in the industry see it as an issue that’s much larger than one man. The Chinese government has been active in economic espionage for decades, and with semiconductors at the center of the AI boom, there’s intense pressure to infiltrate any company involved. At the same time, many of the executives getting rich off that boom have made themselves easy targets. As CEO of investment intel firm Heron Intelligence, Nate Singer has a unique view into the problem. His firm works on corporate due diligence: Essentially, making sure companies know the relevant dirt before making a major acquisition or executive hire. And while the Nvidia case is particularly severe, Singer says it’s just the tip of the iceberg. “We’ve got former employees talking about behavior at senior executive levels,” Singer told TechCrunch, saying executives are “really crossing lines that should not be crossed.” In a widely circulate"
+    },
+    {
+      "article_id": "1c28e54487468ba9cc89b5abfa3b3084",
+      "title": "Launch HN: Pomerado (YC F26) – Turn any website into an MCP for agents",
+      "source": "Hacker News",
+      "published_at": "2026-11-11T17:11:56+00:00",
+      "link": "https://news.ycombinator.com/item?id=50455811",
+      "content": "Hacker News new | past | comments | ask | show | jobs | submit login Launch HN: Pomerado (YC F26) – Turn any website into an MCP for agents 7 points by alanjm23 30 minutes ago | hide | past | favorite | 2 comments Hi HN, we’re Alan and Akshay from Pomerado ( https://pomerado.ai/ ). We connect your agents to any website by turning sites into deterministic, self-healing APIs in minutes, fully self-serve. Agents are no longer limited by their intelligence, but rather by their ability to interact with systems. Airlines, banks, e-commerce, insurance portals, government sites, and legacy portals all lack APIs or MCPs and are common parts of personal assistant or business workflows. Agents instead rely on browser automation or computer use, which can be slow, expensive, and unreliable. And even if computer use were perfect, most companies have banned it out of security and compliance concerns. We discovered this problem while tinkering with our own personal assistants. When OpenClaw came out,"
+    }
+  ],
+  "latency": {
+    "classify_llm_call": 1.0357999801635742,
+    "mcp_category_search_call": 0.017317533493041992,
+    "mcp_article_search_call": 0.08057975769042969,
+    "mcp_mget_call": 0.008684158325195312,
+    "summary_llm_call": 3.314074993133545
+  }
+}
